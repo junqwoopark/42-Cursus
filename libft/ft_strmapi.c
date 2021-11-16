@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 23:14:39 by junkpark          #+#    #+#             */
-/*   Updated: 2021/11/16 17:53:47 by junkpark         ###   ########.fr       */
+/*   Updated: 2021/11/17 00:12:34 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	char	*ret;
 	size_t	idx;
 
+	if (!s)
+		return (0);
 	ret = (char *) malloc(ft_strlen(s) + 1);
 	if (ret == 0)
 		return (ret);

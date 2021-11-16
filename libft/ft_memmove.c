@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 23:22:34 by junkpark          #+#    #+#             */
-/*   Updated: 2021/11/16 23:04:44 by junkpark         ###   ########.fr       */
+/*   Updated: 2021/11/17 00:30:48 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	unsigned char	*dest;
-	unsigned char	*source;
-	size_t			idx;
+	char	*dest;
+	char	*source;
+	size_t	idx;
 
-	dest = (unsigned char *)dst;
-	source = (unsigned char *)src;
-	idx = 0;
+	dest = (char *)dst;
+	source = (char *)src;
 	if (src < dst)
 	{
 		while (len)
@@ -31,6 +30,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	}
 	else if (src > dst)
 	{
+		idx = 0;
 		while (idx < len)
 		{
 			dest[idx] = source[idx];

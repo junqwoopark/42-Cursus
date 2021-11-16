@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 23:14:39 by junkpark          #+#    #+#             */
-/*   Updated: 2021/11/16 22:13:03 by junkpark         ###   ########.fr       */
+/*   Updated: 2021/11/17 00:11:58 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ char	**ft_split(char const *s, char c)
 	size_t	count;
 	char	**strs;
 
+	if (!s)
+		return (0);
 	count = ft_get_count(s, c);
 	strs = (char **) malloc(sizeof(char *) * (count + 1));
 	if (strs == 0)

@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 08:34:18 by junkpark          #+#    #+#             */
-/*   Updated: 2021/11/16 17:56:40 by junkpark         ###   ########.fr       */
+/*   Updated: 2021/11/17 00:15:39 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
 	size_t	idx;
 
+	if (!s)
+		return ;
 	idx = 0;
 	while (s[idx])
 	{
