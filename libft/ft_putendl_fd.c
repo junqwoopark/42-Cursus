@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:57:56 by junkpark          #+#    #+#             */
-/*   Updated: 2021/11/17 00:15:04 by junkpark         ###   ########.fr       */
+/*   Updated: 2021/11/17 16:33:45 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 
 void	ft_putendl_fd(char *s, int fd)
 {
-	while (*s)
-	{
-		write(fd, s, 1);
-		s++;
-	}
+	ft_putstr_fd(s, fd);
 	write(fd, "\n", 1);
 }

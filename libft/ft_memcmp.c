@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 23:22:34 by junkpark          #+#    #+#             */
-/*   Updated: 2021/11/16 19:57:40 by junkpark         ###   ########.fr       */
+/*   Updated: 2021/11/17 16:32:13 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	idx = 0;
 	while (idx < n)
 	{
-		if (str1[idx] > str2[idx])
-			return (1);
-		else if (str1[idx] < str2[idx])
-			return (-1);
+		if (str1[idx] != str2[idx])
+			return ((int) str1[idx] - str2[idx]);
 		idx++;
 	}
 	return (0);
