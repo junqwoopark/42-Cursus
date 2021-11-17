@@ -6,13 +6,13 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 23:14:39 by junkpark          #+#    #+#             */
-/*   Updated: 2021/11/16 15:15:21 by junkpark         ###   ########.fr       */
+/*   Updated: 2021/11/17 17:01:43 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_strdup(const char *s1)
+char	*ft_strdup(const char *s1)
 {
 	char	*ret;
 	size_t	len;

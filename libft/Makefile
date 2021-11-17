@@ -6,7 +6,7 @@
 #    By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/25 18:23:09 by jiyoo             #+#    #+#              #
-#    Updated: 2021/11/17 16:49:49 by junkpark         ###   ########.fr        #
+#    Updated: 2021/11/17 17:34:32 by junkpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ ft_strrchr.c \
 ft_strtrim.c \
 ft_substr.c \
 ft_tolower.c \
+ft_striteri.c \
 ft_toupper.c
 
 BONUSES = \

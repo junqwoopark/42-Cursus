@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 22:24:43 by junkpark          #+#    #+#             */
-/*   Updated: 2021/11/17 14:12:11 by junkpark         ###   ########.fr       */
+/*   Updated: 2021/11/17 17:01:51 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ int		ft_isprint(int c);
 size_t	ft_strlen(const char *s);
 void	*ft_memset(void *b, int c, size_t len);
 void	*ft_bzero(void *s, size_t n);
-void	*ft_memcpy(void *restrict dst, const void *restrict src, size_t n);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memmove(void *dst, const void *src, size_t len);
 size_t	ft_strlcpy(void *dst, const void *src, size_t len);
-size_t	ft_strlcat(char *restrict dst, const char *restrict src, size_t size);
+size_t	ft_strlcat(char *dst, const char *src, size_t size);
 
 // ctype.h
 int		ft_toupper(int c);
@@ -51,7 +51,7 @@ int		ft_atoi(const char *str);
 
 //
 void	*ft_calloc(size_t count, size_t size);
-void	*ft_strdup(const char *s1);
+char	*ft_strdup(const char *s1);
 
 //Part 2
 char	*ft_substr(char const *s, unsigned int start, size_t len);
