@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 23:14:39 by junkpark          #+#    #+#             */
-/*   Updated: 2021/11/17 14:12:38 by junkpark         ###   ########.fr       */
+/*   Updated: 2021/11/18 13:57:42 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,7 @@ void	*ft_calloc(size_t count, size_t size)
 	if (ret == 0)
 		return (ret);
 	ft_bzero(ret, len);
+	if (len == 0)
+		((unsigned char *)ret)[0] = 0;
 	return (ret);
 }
