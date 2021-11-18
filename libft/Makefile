@@ -6,7 +6,7 @@
 #    By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/18 12:26:56 by junkpark          #+#    #+#              #
-#    Updated: 2021/11/18 12:27:00 by junkpark         ###   ########.fr        #
+#    Updated: 2021/11/18 15:50:07 by junkpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,19 +65,13 @@ ft_lstmap.c
 OBJS = $(SRCS:.c=.o)
 BONUS_OBJS = $(BONUSES:.c=.o)
 
-ifdef WITH_BONUS
-	OBJ_FILES = $(OBJS) $(BONUS_OBJS)
-else
-	OBJ_FILES = $(OBJS)
-endif
-
 all: $(NAME)
 
-$(NAME): $(OBJ_FILES)
-	ar crs $@ $(OBJ_FILES)
+$(NAME): $(OBJS)
+	ar crs $@ $(OBJS)
 
-bonus:
-	make WITH_BONUS=1 all
+bonus: $(OBJS) $(BONUS_OBJS)
+	ar crs $(NAME) $(OBJS) $(BONUS_OBJS)
 
 %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) $< -o $@
@@ -88,6 +82,6 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-re: clean all
+re: fclean all
 
 .PHONY: all bonus clean fclean re
