@@ -1,6 +1,10 @@
 {
 	"files.associations": {
 		"libft.h": "c",
-		"cstdlib": "cpp"
+		"cstdlib": "cpp",
+		"limits.h": "c",
+		"get_next_line.h": "c",
+		"utility": "c",
+		"version": "c"
 	}
 }
