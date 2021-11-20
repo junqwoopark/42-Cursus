@@ -6,11 +6,12 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 13:48:02 by junkpark          #+#    #+#             */
-/*   Updated: 2021/11/20 18:47:06 by junkpark         ###   ########.fr       */
+/*   Updated: 2021/11/20 19:27:06 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 int	update_buff(char *s_buff, size_t idx)
 {
@@ -26,7 +27,7 @@ int	update_buff(char *s_buff, size_t idx)
 void	ft_cpycat(char	*dst, char *src1, char *src2, size_t idx)
 {
 	ft_strlcpy(dst, src1, ft_strlen(src1) + 1);
-	ft_strlcat(dst, src2, ft_strlen(src1) + idx + 1);
+	ft_strlcat(dst, src2, ft_strlen(src1) + idx + 2);
 	free(src1);
 }
 
@@ -50,9 +51,9 @@ char	*get_next_line(int fd)
 	while (ft_strlen(s_buff) >= 1 || read(fd, s_buff, BUFFER_SIZE) > 0)
 	{
 		idx = 0;
-		while (s_buff[idx] != '\n' && s_buff[idx] != 0)
+		while (s_buff[idx] != '\n' && s_buff[idx] != 0 && s_buff[idx] != EOF)
 			idx++;
-		ret = (char *)malloc(ft_strlen(tmp) + idx + 1);
+		ret = (char *)malloc(ft_strlen(tmp) + idx + 2);
 		if (ret == NULL)
 			return (free_tmp(tmp));
 		ft_cpycat(ret, tmp, s_buff, idx);
@@ -60,5 +61,7 @@ char	*get_next_line(int fd)
 		if (update_buff(s_buff, idx))
 			return (ret);
 	}
+	if (!ret)
+		free(tmp);
 	return (ret);
 }
