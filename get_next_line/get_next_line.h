@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 13:48:02 by junkpark          #+#    #+#             */
-/*   Updated: 2021/11/20 17:58:54 by junkpark         ###   ########.fr       */
+/*   Updated: 2021/11/20 18:47:04 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlcpy(void *dst, const void *src, size_t len);
 void	*ft_calloc(size_t count, size_t size);
 size_t	ft_strlen(const char *s);
+char	*free_tmp(char *tmp);
+void	ft_cpycat(char *dst, char *src1, char *src2, size_t idx);
 
 #endif
