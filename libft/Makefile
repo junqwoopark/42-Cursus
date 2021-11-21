@@ -6,7 +6,7 @@
 #    By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/18 12:26:56 by junkpark          #+#    #+#              #
-#    Updated: 2021/11/19 17:48:37 by junkpark         ###   ########.fr        #
+#    Updated: 2021/11/21 19:22:00 by junkpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,13 +68,12 @@ BONUS_OBJS = $(BONUSES:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	ar crus $@ $(OBJS)
 
 bonus: $(OBJS) $(BONUS_OBJS)
-	ar crus $(NAME) $(OBJS) $(BONUS_OBJS)
 
-%.o: %.c $(HEADER)
-	$(CC) $(CFLAGS) $< -o $@
+%.o: %.c
+	$(CC) $(CFLAGS) -c -o $@ $^
+	ar crsu $(NAME) $@
 
 clean:
 	rm -f $(OBJS) $(BONUS_OBJS)
