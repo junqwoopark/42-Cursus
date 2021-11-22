@@ -6,12 +6,12 @@
 #    By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/18 12:26:56 by junkpark          #+#    #+#              #
-#    Updated: 2021/11/21 19:22:00 by junkpark         ###   ########.fr        #
+#    Updated: 2021/11/22 17:05:18 by junkpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -c
+CFLAGS = -Wall -Wextra -Werror
 NAME = libft.a
 HEADER = libft.h
 
