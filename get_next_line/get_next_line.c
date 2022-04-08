@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/20 13:48:02 by junkpark          #+#    #+#             */
-/*   Updated: 2021/11/20 19:27:06 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/04/08 19:51:09 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*free_tmp(char *tmp)
 
 char	*get_next_line(int fd)
 {
-	static char	s_buff[BUFFER_SIZE + 1];
+	static char	s_buff[BUFFER_SIZE];
 	char		*ret;
 	char		*tmp;
 	size_t		idx;
