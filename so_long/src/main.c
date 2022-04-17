@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 00:58:02 by junkpark          #+#    #+#             */
-/*   Updated: 2022/04/16 21:54:13 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/04/17 13:33:53 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,42 @@ void	init_game(t_game *game, char *map_file)
 	init_img(game);
 }
 
+void	put_img(t_game *game, int r, int c)
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+
+	mlx_ptr = game->mlx.mlx_ptr;
+	win_ptr = game->mlx.win_ptr;
+	mlx_put_image_to_window(mlx_ptr, win_ptr, game->img.road, c * 64, r * 64);
+	if (game->map.lines[r][c] == '1')
+		mlx_put_image_to_window(mlx_ptr, win_ptr, game->img.wall, c * 64, r * 64);
+	else if (game->map.lines[r][c] == 'C')
+		mlx_put_image_to_window(mlx_ptr, win_ptr, game->img.collect, c * 64, r * 64);
+	else if (game->map.lines[r][c] == 'P')
+		mlx_put_image_to_window(mlx_ptr, win_ptr, game->img.player, c * 64, r * 64);
+	else if (game->map.lines[r][c] == 'E')
+		mlx_put_image_to_window(mlx_ptr, win_ptr, game->img.exit, c * 64, r * 64);
+}
+
+void	draw_game(t_game *game)
+{
+	int	r;
+	int	c;
+
+	r = 0;
+	while (r < game->map.height)
+	{
+		c = 0;
+		while (c < game->map.width)
+		{
+			put_img(game, r, c);
+			c++;
+		}
+		r++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	game;
@@ -229,5 +265,6 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		exit_with_error("argc is not 2");
 	init_game(&game, argv[1]);
+	draw_game(&game);
 	mlx_loop(game.mlx.mlx_ptr);
 }
