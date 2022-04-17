@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 00:58:02 by junkpark          #+#    #+#             */
-/*   Updated: 2022/04/17 13:33:53 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/04/17 15:15:45 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,8 +174,8 @@ void	init_player(t_game *game)
 		{
 			if (game->map.lines[r][c] == 'P')
 			{
-				game->player.x = r;
-				game->player.y = c;
+				game->player.pos.x = r;
+				game->player.pos.y = c;
 			}
 			c++;
 		}
@@ -258,6 +258,72 @@ void	draw_game(t_game *game)
 	}
 }
 
+int	is_movable(t_game *game, t_pos pos)
+{
+	if (0 <= pos.x && pos.x < game->map.height && 0 <= pos.y && pos.y < game->map.width)
+	{
+		if (game->map.lines[pos.x][pos.y] == '1')
+			return (0);
+		else if (game->map.lines[pos.x][pos.y] == 'E' && game->map.elements[COLLECT] != 0)
+			return (0);
+		return (1);
+	}
+	return (0);
+}
+
+void	change_board(t_game *game, t_pos n_pos)
+{
+	game->map.lines[game->player.pos.x][game->player.pos.y] = '0';
+	game->player.move += 1;
+	printf("player move : %d\n", game->player.move);
+	if (game->map.lines[n_pos.x][n_pos.y] == 'C')
+		game->map.elements[COLLECT] -= 1;
+	else if (game->map.lines[n_pos.x][n_pos.y] == 'E')
+	{
+		printf("You succeeded in escaping!!!\n");
+		mlx_destroy_window(game->mlx.mlx_ptr, game->mlx.win_ptr);
+		exit(0);
+	}
+	put_img(game, game->player.pos.x, game->player.pos.y);
+	game->map.lines[n_pos.x][n_pos.y] = 'P';
+	game->player.pos.x = n_pos.x;
+	game->player.pos.y = n_pos.y;
+	put_img(game, game->player.pos.x, game->player.pos.y);
+}
+
+void	player_move(int key, t_game *game)
+{
+	t_pos	n_pos;
+
+	n_pos.x = game->player.pos.x;
+	n_pos.y = game->player.pos.y;
+	if (key == KEY_W)
+		n_pos.x = n_pos.x - 1;
+	else if (key == KEY_A)
+		n_pos.y = n_pos.y - 1;
+	else if (key == KEY_S)
+		n_pos.x = n_pos.x + 1;
+	else if (key == KEY_D)
+		n_pos.y = n_pos.y + 1;
+	if (is_movable(game, n_pos))
+		change_board(game, n_pos);
+}
+
+int	exit_game(t_game *game)
+{
+	mlx_destroy_window(game->mlx.mlx_ptr, game->mlx.win_ptr);
+	exit(0);
+}
+
+int	key_input(int key, t_game *game)
+{
+	if (key == KEY_ESC)
+		exit_game(game);
+	else if (key == KEY_A || key == KEY_S || key == KEY_D || key == KEY_W)
+		player_move(key, game);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	game;
@@ -266,5 +332,7 @@ int	main(int argc, char **argv)
 		exit_with_error("argc is not 2");
 	init_game(&game, argv[1]);
 	draw_game(&game);
+	mlx_hook(game.mlx.win_ptr, X_EVENT_KEY_PRESS, 0, key_input, &game);
+	mlx_hook(game.mlx.win_ptr, X_EVENT_KEY_EXIT, 0, exit_game, &game);
 	mlx_loop(game.mlx.mlx_ptr);
 }
