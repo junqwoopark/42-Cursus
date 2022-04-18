@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 00:58:02 by junkpark          #+#    #+#             */
-/*   Updated: 2022/04/17 15:15:45 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/04/18 13:10:01 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ void	check_file_extension(char *file, char *file_extension)
 	if (file_len < file_extension_len)
 		exit_with_error("check file extension");
 	extension = ft_strrchr(file, '.');
-	if (ft_strncmp(extension, file_extension, ft_strlen(extension)))
+	if (extension == NULL)
+		exit_with_error("check file extension");
+	if (ft_strncmp(extension, file_extension, ft_strlen(file_extension)))
 		exit_with_error("check file extension");
 }
 
