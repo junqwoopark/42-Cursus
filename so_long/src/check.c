@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 00:48:32 by junkpark          #+#    #+#             */
-/*   Updated: 2022/04/20 01:01:02 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/04/22 17:56:40 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	check_map(t_map *map)
 	map->width = ft_strlen(map->lines[0]);
 	if (map->height == 0 || map->width == 0)
 		exit_with_error("map error");
+	check_map_rectangle(map);
 	check_surrounded_by_walls(map);
 	check_element(map);
-	check_map_rectangle(map);
 }
