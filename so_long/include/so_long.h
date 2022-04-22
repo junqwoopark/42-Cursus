@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 15:28:14 by junkpark          #+#    #+#             */
-/*   Updated: 2022/04/17 15:09:28 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/04/20 01:01:47 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,38 @@ typedef struct s_game
 	t_mlx		mlx;
 	t_img		img;
 }	t_game;
+
+// check.c
+void		check_file_extension(char *file, char *file_extension);
+// static void	check_surrounded_by_walls(t_map *map);
+// static void	check_element(t_map *map);
+// static void	check_map_rectangle(t_map *map);
+void		check_map(t_map *map);
+
+// init.c
+// static void	init_map(t_map *map, char *map_file);
+// static void	init_player(t_game *game);
+// static void	init_mlx(t_game *game);
+// static void	init_img(t_game *game);
+void		init_game(t_game *game, char *map_file);
+
+// map.c
+// static void	set_map_lines(t_map *map, int fd);
+void		read_map(t_map *map, char *map_file);
+
+// player.c
+// static int	is_movable(t_game *game, t_pos pos);
+// static void	change_board(t_game *game, t_pos n_pos);
+void		player_move(int key, t_game *game);
+
+// utils.c
+void		exit_with_error(char *error_message);
+void		put_img(t_game *game, int r, int c);
+void		draw_game(t_game *game);
+int			exit_game(t_game *game);
+int			key_input(int key, t_game *game);
+
+// main.c
+int			main(int argc, char **argv);
 
 #endif

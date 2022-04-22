@@ -6,7 +6,7 @@
 #    By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
-#    Updated: 2022/04/17 14:31:26 by junkpark         ###   ########.fr        #
+#    Updated: 2022/04/20 01:00:13 by junkpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,12 @@ INCLUDE = -I ./include
 
 SRC_DIR = ./src
 SRC = \
-	$(SRC_DIR)/main.c
+	$(SRC_DIR)/main.c \
+	$(SRC_DIR)/check.c \
+	$(SRC_DIR)/init.c \
+	$(SRC_DIR)/map.c \
+	$(SRC_DIR)/player.c \
+	$(SRC_DIR)/utils.c
 
 OBJ = $(SRC:.c=.o)
 
