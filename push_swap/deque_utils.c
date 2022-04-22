@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 11:35:25 by junkpark          #+#    #+#             */
-/*   Updated: 2022/04/22 12:13:27 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/04/22 12:39:59 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,19 @@
 
 void	deque_init(t_deque *p_deque)
 {
+	p_deque->size = 0;
 	p_deque->left = NULL;
 	p_deque->right = NULL;
 }
 
+int	deque_get_size(t_deque *p_deque)
+{
+	return (p_deque->size);
+}
+
 int	is_deque_empty(t_deque *p_deque)
 {
-	if (p_deque->left)
+	if (deque_get_size(p_deque) == 0)
 		return (TRUE);
 	return (FALSE);
 }

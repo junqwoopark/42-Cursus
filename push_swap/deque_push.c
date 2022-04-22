@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:02:01 by junkpark          #+#    #+#             */
-/*   Updated: 2022/04/22 12:02:08 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/04/22 12:38:52 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	deque_push_left(t_deque *p_deque, int data)
 		exit(1);
 	new_node->data = data;
 	new_node->next = p_deque->left;
+	p_deque->size += 1;
 	if (is_deque_empty(p_deque))
 		p_deque->right = new_node;
 	else
@@ -38,6 +39,7 @@ void	deque_push_right(t_deque *p_deque, int data)
 		exit(1);
 	new_node->data = data;
 	new_node->next = p_deque->right;
+	p_deque->size += 1;
 	if (is_deque_empty(p_deque))
 		p_deque->right = new_node;
 	else
