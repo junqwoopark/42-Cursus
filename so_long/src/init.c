@@ -48,7 +48,7 @@ static void	init_mlx(t_game *game)
 	if (game->mlx.mlx_ptr == NULL)
 		exit_with_error("mlx_init() error");
 	game->mlx.win_ptr = mlx_new_window(game->mlx.mlx_ptr,
-			game->map.width * 64, game->map.height * 64, "so_long");
+			game->map.width * 32, game->map.height * 32, "so_long");
 	if (game->mlx.win_ptr == NULL)
 		exit_with_error("mlx_new_window() error");
 }

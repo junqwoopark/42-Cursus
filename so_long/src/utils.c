@@ -25,19 +25,19 @@ void	put_img(t_game *game, int r, int c)
 
 	mlx_ptr = game->mlx.mlx_ptr;
 	win_ptr = game->mlx.win_ptr;
-	mlx_put_image_to_window(mlx_ptr, win_ptr, game->img.road, c * 64, r * 64);
+	mlx_put_image_to_window(mlx_ptr, win_ptr, game->img.road, c * 32, r * 32);
 	if (game->map.lines[r][c] == '1')
 		mlx_put_image_to_window(mlx_ptr, win_ptr,
-			game->img.wall, c * 64, r * 64);
+			game->img.wall, c * 32, r * 32);
 	else if (game->map.lines[r][c] == 'C')
 		mlx_put_image_to_window(mlx_ptr, win_ptr,
-			game->img.collect, c * 64, r * 64);
+			game->img.collect, c * 32, r * 32);
 	else if (game->map.lines[r][c] == 'P')
 		mlx_put_image_to_window(mlx_ptr, win_ptr,
-			game->img.player, c * 64, r * 64);
+			game->img.player, c * 32, r * 32);
 	else if (game->map.lines[r][c] == 'E')
 		mlx_put_image_to_window(mlx_ptr, win_ptr,
-			game->img.exit, c * 64, r * 64);
+			game->img.exit, c * 32, r * 32);
 }
 
 void	draw_game(t_game *game)
