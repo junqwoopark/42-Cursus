@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_r.c                                      :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/22 12:27:31 by junkpark          #+#    #+#             */
-/*   Updated: 2022/04/22 12:48:00 by junkpark         ###   ########.fr       */
+/*   Created: 2022/05/01 19:10:40 by junkpark          #+#    #+#             */
+/*   Updated: 2022/05/02 17:41:21 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ra(t_deque *stack_a)
+// void	parse_input(char **argv)
+// {
+
+// }
+
+int	main(int argc, char **argv)
 {
-	int	data;
+	t_deque	*a;
+	t_deque	*b;
 
-	data = deque_pop_right(stack_a);
-	deque_push_left(stack_a, data);
-}
-
-void	rb(t_deque *stack_b)
-{
-	int	data;
-
-	data = deque_pop_right(stack_b);
-	deque_push_left(stack_b, data);
-}
-
-void	rr(t_deque *stack_a, t_deque *stack_b)
-{
-	ra(stack_a);
-	rb(stack_b);
+	deque_init(&a);
+	deque_init(&b);
+	deque_push_right(a, 3);
+	printf("%d\n", deque_get_left(a));
 }

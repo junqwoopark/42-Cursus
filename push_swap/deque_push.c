@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:02:01 by junkpark          #+#    #+#             */
-/*   Updated: 2022/04/22 12:38:52 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/02 17:43:27 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	deque_push_left(t_deque *p_deque, int data)
 		exit(1);
 	new_node->data = data;
 	new_node->next = p_deque->left;
-	p_deque->size += 1;
 	if (is_deque_empty(p_deque))
 		p_deque->right = new_node;
 	else
 		p_deque->left->prev = new_node;
 	new_node->prev = NULL;
 	p_deque->left = new_node;
+	p_deque->size += 1;
 }
 
 void	deque_push_right(t_deque *p_deque, int data)
@@ -38,12 +38,12 @@ void	deque_push_right(t_deque *p_deque, int data)
 	if (new_node == NULL)
 		exit(1);
 	new_node->data = data;
-	new_node->next = p_deque->right;
-	p_deque->size += 1;
+	new_node->prev = p_deque->right;
 	if (is_deque_empty(p_deque))
-		p_deque->right = new_node;
+		p_deque->left = new_node;
 	else
 		p_deque->right->next = new_node;
 	new_node->next = NULL;
 	p_deque->right = new_node;
+	p_deque->size += 1;
 }
