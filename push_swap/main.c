@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 19:10:40 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/07 20:28:22 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/07 20:38:40 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,20 @@ int	*get_nums(int size, char **argv)
 	return (ret);
 }
 
+void	set_idx(t_deque *a, int *nums)
+{
+	int		idx;
+	t_node	*node;
+
+	idx = 0;
+	while (idx < a->size)
+	{
+		node = deque_find_data(a, nums[idx]);
+		node->data = idx;
+		idx++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_deque	a;
@@ -114,4 +128,8 @@ int	main(int argc, char **argv)
 	init_deque(argc, argv, &a, &b);
 	nums = get_nums(a.size, argv);
 	quick_sort(nums, 0, a.size - 1);
+	set_idx(&a, nums);
+	free(nums);
+	nums = NULL;
+	deque_print_data(&a);
 }
