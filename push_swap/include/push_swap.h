@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 11:33:07 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/02 17:26:41 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/07 17:23:10 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <stdio.h>
+# include "../lib/libft/libft.h"
 
 # define TRUE 1
 # define FALSE 0
