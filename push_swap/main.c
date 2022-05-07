@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 19:10:40 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/07 18:19:53 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/07 19:39:46 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ int	is_ft_atoi_overflow(const char *str)
 
 	ret = 0;
 	sign = 1;
-	while (ft_isspace(*str))
-		str++;
 	if (*str == '+' || *str == '-')
 	{
 		if (*str == '-')
@@ -47,11 +45,13 @@ int	is_ft_atoi_overflow(const char *str)
 	while (ft_isdigit(*str))
 	{
 		ret = ret * 10 + *str - '0';
-		if (ret < 0)
-			exit_with_error("Error\n");
+		if (ret >= 2147483648 && sign == 1)
+			return (1);
+		else if (ret >= 2147483649)
+			return (1);
 		str++;
 	}
-	return (ret * sign);
+	return (0);
 }
 
 void	check_argv(int argc, char **argv)
@@ -63,7 +63,7 @@ void	check_argv(int argc, char **argv)
 	idx = 1;
 	while (idx < argc)
 	{
-		if (!is_digit_only(argv[idx]))
+		if (!is_digit_only(argv[idx]) || is_ft_atoi_overflow(argv[idx]))
 			exit_with_error("Error\n");
 		idx++;
 	}
@@ -71,15 +71,27 @@ void	check_argv(int argc, char **argv)
 
 void	init_deque(int argc, char **argv, t_deque **p_a, t_deque **p_b)
 {
+	int	idx;
+	int	data;
+
 	deque_init(p_a);
 	deque_init(p_b);
+	idx = 1;
+	while (idx < argc)
+	{
+		data = ft_atoi(argv[idx]);
+		if (deque_find_data(*p_a, data))
+			exit_with_error("Error\n");
+		deque_push_right(*p_a, data);
+		idx++;
+	}
 }
 
 int	main(int argc, char **argv)
 {
 	t_deque	*a;
 	t_deque	*b;
-	
+
 	check_argv(argc, argv);
 	init_deque(argc, argv, &a, &b);
 }
