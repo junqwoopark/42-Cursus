@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 11:33:07 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/07 20:04:40 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/07 20:20:09 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ void	deque_push_left(t_deque *p_deque, int data);
 void	deque_push_right(t_deque *p_deque, int data);
 t_node	*deque_find_data(t_deque *p_deque, int data);
 void	deque_print_data(t_deque *p_deque);
+void	quick_sort(int *input, int first, int last);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 19:10:40 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/07 20:12:41 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/07 20:28:22 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,18 +87,18 @@ void	init_deque(int argc, char **argv, t_deque *p_a, t_deque *p_b)
 	}
 }
 
-int	*get_nums(int argc, char **argv)
+int	*get_nums(int size, char **argv)
 {
 	int	*ret;
 	int	idx;
 
-	ret = malloc(sizeof(int) * argc - 1);
+	ret = malloc(sizeof(int) * size);
 	if (ret == NULL)
 		exit_with_error("Error\n");
-	idx = 1;
-	while (idx < argc)
+	idx = 0;
+	while (idx < size)
 	{
-		ret[idx - 1] = ft_atoi(argv[idx]);
+		ret[idx] = ft_atoi(argv[idx + 1]);
 		idx++;
 	}
 	return (ret);
@@ -112,4 +112,6 @@ int	main(int argc, char **argv)
 
 	check_argv(argc, argv);
 	init_deque(argc, argv, &a, &b);
+	nums = get_nums(a.size, argv);
+	quick_sort(nums, 0, a.size - 1);
 }
