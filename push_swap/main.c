@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 19:10:40 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/07 19:45:27 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/07 20:12:41 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	check_argv(int argc, char **argv)
 	}
 }
 
-void	init_deque(int argc, char **argv, t_deque **p_a, t_deque **p_b)
+void	init_deque(int argc, char **argv, t_deque *p_a, t_deque *p_b)
 {
 	int	idx;
 	int	data;
@@ -80,17 +80,35 @@ void	init_deque(int argc, char **argv, t_deque **p_a, t_deque **p_b)
 	while (idx < argc)
 	{
 		data = ft_atoi(argv[idx]);
-		if (deque_find_data(*p_a, data))
+		if (deque_find_data(p_a, data))
 			exit_with_error("Error\n");
-		deque_push_right(*p_a, data);
+		deque_push_right(p_a, data);
 		idx++;
 	}
 }
 
+int	*get_nums(int argc, char **argv)
+{
+	int	*ret;
+	int	idx;
+
+	ret = malloc(sizeof(int) * argc - 1);
+	if (ret == NULL)
+		exit_with_error("Error\n");
+	idx = 1;
+	while (idx < argc)
+	{
+		ret[idx - 1] = ft_atoi(argv[idx]);
+		idx++;
+	}
+	return (ret);
+}
+
 int	main(int argc, char **argv)
 {
-	t_deque	*a;
-	t_deque	*b;
+	t_deque	a;
+	t_deque	b;
+	int		*nums;
 
 	check_argv(argc, argv);
 	init_deque(argc, argv, &a, &b);

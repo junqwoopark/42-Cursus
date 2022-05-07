@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 11:33:07 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/07 19:35:33 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/07 20:04:40 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_deque
 	t_node	*right;
 }	t_deque;
 
-void	deque_init(t_deque **p_deque);
+void	deque_init(t_deque *p_deque);
 int		is_deque_empty(t_deque *p_deque);
 int		deque_get_left(t_deque *p_deque);
 int		deque_get_right(t_deque *p_deque);

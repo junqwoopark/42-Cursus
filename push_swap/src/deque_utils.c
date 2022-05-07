@@ -6,20 +6,17 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 11:35:25 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/02 17:26:01 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/07 20:09:50 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	deque_init(t_deque **p_deque)
+void	deque_init(t_deque *p_deque)
 {
-	*p_deque = (t_deque *)malloc(sizeof(t_deque));
-	if (p_deque == NULL)
-		exit(1);
-	(*p_deque)->size = 0;
-	(*p_deque)->left = NULL;
-	(*p_deque)->right = NULL;
+	p_deque->size = 0;
+	p_deque->left = NULL;
+	p_deque->right = NULL;
 }
 
 int	deque_get_size(t_deque *p_deque)
