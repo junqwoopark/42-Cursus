@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 19:10:40 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/07 20:38:40 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/09 15:53:05 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	init_deque(int argc, char **argv, t_deque *p_a, t_deque *p_b)
 	}
 }
 
-int	*get_nums(int size, char **argv)
+int	*get_num_list(int size, char **argv)
 {
 	int	*ret;
 	int	idx;
@@ -104,7 +104,7 @@ int	*get_nums(int size, char **argv)
 	return (ret);
 }
 
-void	set_idx(t_deque *a, int *nums)
+int	*set_idx_return_null(t_deque *a, int *num_list)
 {
 	int		idx;
 	t_node	*node;
@@ -112,9 +112,38 @@ void	set_idx(t_deque *a, int *nums)
 	idx = 0;
 	while (idx < a->size)
 	{
-		node = deque_find_data(a, nums[idx]);
+		node = deque_find_data(a, num_list[idx]);
 		node->data = idx;
 		idx++;
+	}
+	free(num_list);
+	return (NULL);
+}
+
+void	a_to_b(t_deque *p_a, t_deque *p_b, t_deque *to_print)
+{
+	int	num;
+	int	top;
+	int	chunk;
+
+	chunk = 0.000000053 * (p_a->size) * (p_a->size) + 0.03 * (p_a->size) + 14.5;
+	num = 0;
+	while (p_a->size != 0)
+	{
+		top = deque_get_right(p_a);
+		if (top <= num)
+		{
+			pb(p_a, p_b, to_print);
+			num++;
+		}
+		else if (num < top && top <= num + chunk)
+		{
+			pb(p_a, p_b, to_print);
+			rb(p_b, to_print);
+			num++;
+		}
+		else if (num + chunk < top)
+			ra(p_a, to_print);
 	}
 }
 
@@ -122,14 +151,12 @@ int	main(int argc, char **argv)
 {
 	t_deque	a;
 	t_deque	b;
-	int		*nums;
+	int		*num_list;
+	t_deque	to_print;
 
 	check_argv(argc, argv);
 	init_deque(argc, argv, &a, &b);
-	nums = get_nums(a.size, argv);
-	quick_sort(nums, 0, a.size - 1);
-	set_idx(&a, nums);
-	free(nums);
-	nums = NULL;
-	deque_print_data(&a);
+	num_list = get_num_list(a.size, argv);
+	quick_sort(num_list, 0, a.size - 1);
+	num_list = set_idx_return_null(&a, num_list);
 }

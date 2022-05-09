@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 11:33:07 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/07 20:20:09 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/09 15:49:07 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,21 @@
 
 # define TRUE 1
 # define FALSE 0
+
+enum e_cmd
+{
+	SA,
+	SB,
+	SS,
+	PA,
+	PB,
+	RA,
+	Rb,
+	RR,
+	RRA,
+	RRB,
+	RRR
+};
 
 typedef struct s_node
 {
@@ -46,4 +61,15 @@ t_node	*deque_find_data(t_deque *p_deque, int data);
 void	deque_print_data(t_deque *p_deque);
 void	quick_sort(int *input, int first, int last);
 
+void	pa(t_deque *stack_a, t_deque *stack_b, t_deque *to_print);
+void	pb(t_deque *stack_a, t_deque *stack_b, t_deque *to_print);
+void	ra(t_deque *stack_a, t_deque *to_print);
+void	rb(t_deque *stack_b, t_deque *to_print);
+void	rr(t_deque *stack_a, t_deque *stack_b, t_deque *to_print);
+void	rra(t_deque *stack_a, t_deque *to_print);
+void	rrb(t_deque *stack_b, t_deque *to_print);
+void	rrr(t_deque *stack_a, t_deque *stack_b, t_deque *to_print);
+void	sa(t_deque *stack_a, t_deque *to_print);
+void	sb(t_deque *stack_b, t_deque *to_print);
+void	ss(t_deque *stack_a, t_deque *stack_b, t_deque *to_print);
 #endif

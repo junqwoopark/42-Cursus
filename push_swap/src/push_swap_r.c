@@ -6,30 +6,32 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:27:31 by junkpark          #+#    #+#             */
-/*   Updated: 2022/04/22 12:48:00 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/09 15:50:20 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ra(t_deque *stack_a)
+void	ra(t_deque *stack_a, t_deque *to_print)
 {
 	int	data;
 
 	data = deque_pop_right(stack_a);
 	deque_push_left(stack_a, data);
+	deque_push_right(to_print, RA);
 }
 
-void	rb(t_deque *stack_b)
+void	rb(t_deque *stack_b, t_deque *to_print)
 {
 	int	data;
 
 	data = deque_pop_right(stack_b);
 	deque_push_left(stack_b, data);
+	deque_push_right(to_print, RB);
 }
 
-void	rr(t_deque *stack_a, t_deque *stack_b)
+void	rr(t_deque *stack_a, t_deque *stack_b, t_deque *to_print)
 {
-	ra(stack_a);
-	rb(stack_b);
+	ra(stack_a, to_print);
+	rb(stack_b, to_print);
 }
