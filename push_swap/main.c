@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 19:10:40 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/09 15:53:05 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/11 09:41:41 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ void	exit_with_error(const char *error_msg)
 
 int	is_digit_only(const char *str)
 {
+	if (*str == '-')
+		str++;
+	if (*str == 0)
+		return (0);
 	while (*str)
 	{
 		if (!ft_isdigit(*str))
@@ -82,7 +86,7 @@ void	init_deque(int argc, char **argv, t_deque *p_a, t_deque *p_b)
 		data = ft_atoi(argv[idx]);
 		if (deque_find_data(p_a, data))
 			exit_with_error("Error\n");
-		deque_push_right(p_a, data);
+		deque_push_left(p_a, data);
 		idx++;
 	}
 }
@@ -147,6 +151,32 @@ void	a_to_b(t_deque *p_a, t_deque *p_b, t_deque *to_print)
 	}
 }
 
+void	b_to_a(t_deque *p_a, t_deque *p_b, t_deque *to_print)
+{
+	int	num;
+	int	idx;
+
+	num = p_b->size - 1;
+	while (p_b->size != 0)
+	{
+		idx = deque_get_idx_to_top(p_b, num);
+		if (idx <= p_b->size)
+		{
+			while (idx--)
+				rb(p_b, to_print);
+			pa(p_a, p_b, to_print);
+		}
+		else
+		{
+			idx = p_b->size - idx;
+			while (idx--)
+				rrb(p_b, to_print);
+			pa(p_a, p_b, to_print);
+		}
+		num--;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_deque	a;
@@ -156,7 +186,14 @@ int	main(int argc, char **argv)
 
 	check_argv(argc, argv);
 	init_deque(argc, argv, &a, &b);
+	if (is_deque_sorted(&a))
+		return (0);
+	deque_init(&to_print);
 	num_list = get_num_list(a.size, argv);
 	quick_sort(num_list, 0, a.size - 1);
 	num_list = set_idx_return_null(&a, num_list);
+	deque_print_data(&a);
+	a_to_b(&a, &b, &to_print);
+	b_to_a(&a, &b, &to_print);
+	deque_print_char(&to_print);
 }

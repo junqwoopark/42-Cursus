@@ -1,41 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   deque_find_print_data.c                            :+:      :+:    :+:   */
+/*   deque_get.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/07 19:07:56 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/07 19:45:06 by junkpark         ###   ########.fr       */
+/*   Created: 2022/05/10 14:24:34 by junkpark          #+#    #+#             */
+/*   Updated: 2022/05/10 14:25:14 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_node	*deque_find_data(t_deque *p_deque, int data)
+int	deque_get_size(t_deque *p_deque)
 {
-	t_node	*ret;
-
-	ret = p_deque->right;
-	while (ret)
-	{
-		if (ret->data == data)
-			return (ret);
-		ret = ret->prev;
-	}
-	return (ret);
+	return (p_deque->size);
 }
 
-void	deque_print_data(t_deque *p_deque)
+int	deque_get_left(t_deque *p_deque)
 {
-	t_node	*node;
+	if (is_deque_empty(p_deque))
+		exit(1);
+	return (p_deque->left->data);
+}
 
-	node = p_deque->left;
-	while (node)
-	{
-		ft_putnbr_fd(node->data, 1);
-		ft_putchar_fd(' ', 1);
-		node = node->next;
-	}
-	ft_putchar_fd('\n', 1);
+int	deque_get_right(t_deque *p_deque)
+{
+	if (is_deque_empty(p_deque))
+		exit(1);
+	return (p_deque->right->data);
 }

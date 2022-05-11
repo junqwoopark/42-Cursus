@@ -6,7 +6,7 @@
 #    By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
-#    Updated: 2022/05/07 20:19:50 by junkpark         ###   ########.fr        #
+#    Updated: 2022/05/10 14:55:49 by junkpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRC = \
 	$(SRC_DIR)/deque_pop.c \
 	$(SRC_DIR)/deque_push.c \
 	$(SRC_DIR)/deque_utils.c \
-	$(SRC_DIR)/deque_find_print_data.c \
+	$(SRC_DIR)/deque_get.c \
+	$(SRC_DIR)/deque_find_print.c \
 	$(SRC_DIR)/push_swap_p.c \
 	$(SRC_DIR)/push_swap_r.c \
 	$(SRC_DIR)/push_swap_rr.c \

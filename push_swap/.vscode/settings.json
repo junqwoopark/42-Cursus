@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"push_swap.h": "c",
-		"stdio.h": "c"
+		"stdio.h": "c",
+		"ios": "c"
 	}
 }
