@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 11:35:25 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/10 14:31:39 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/24 14:57:56 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ int	is_deque_empty(t_deque *p_deque)
 
 int	is_deque_sorted(t_deque *p_a)
 {
-	long long	x;
+	int			x;
 	t_node		*node;
 
-	x = LONG_MIN;
-	node = p_a->right;
+	x = p_a->right->data;
+	node = p_a->right->prev;
 	while (node)
 	{
 		if (node->data > x)

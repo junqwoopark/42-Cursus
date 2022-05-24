@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 19:07:56 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/11 09:43:38 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/11 10:19:47 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	deque_print_data(t_deque *p_deque)
 	ft_putchar_fd('\n', 1);
 }
 
-void	deque_print_char(t_deque *p_deque)
+void	deque_print_result(t_deque *p_deque)
 {
 	t_node	*node;
 

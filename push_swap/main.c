@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 19:10:40 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/11 09:41:41 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/24 14:52:03 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,16 +111,27 @@ int	*get_num_list(int size, char **argv)
 int	*set_idx_return_null(t_deque *a, int *num_list)
 {
 	int		idx;
+	int		**data_addr;
 	t_node	*node;
 
 	idx = 0;
+	data_addr = malloc(sizeof(int *) * a->size);
+	if (data_addr == NULL)
+		exit_with_error("Error\n");
 	while (idx < a->size)
 	{
 		node = deque_find_data(a, num_list[idx]);
-		node->data = idx;
+		data_addr[idx] = &(node->data);
+		idx++;
+	}
+	idx = 0;
+	while (idx < a->size)
+	{
+		*(data_addr[idx]) = idx;
 		idx++;
 	}
 	free(num_list);
+	free(data_addr);
 	return (NULL);
 }
 
@@ -160,7 +171,7 @@ void	b_to_a(t_deque *p_a, t_deque *p_b, t_deque *to_print)
 	while (p_b->size != 0)
 	{
 		idx = deque_get_idx_to_top(p_b, num);
-		if (idx <= p_b->size)
+		if (idx <= p_b->size / 2)
 		{
 			while (idx--)
 				rb(p_b, to_print);
@@ -181,8 +192,8 @@ int	main(int argc, char **argv)
 {
 	t_deque	a;
 	t_deque	b;
-	int		*num_list;
 	t_deque	to_print;
+	int		*num_list;
 
 	check_argv(argc, argv);
 	init_deque(argc, argv, &a, &b);
@@ -192,8 +203,13 @@ int	main(int argc, char **argv)
 	num_list = get_num_list(a.size, argv);
 	quick_sort(num_list, 0, a.size - 1);
 	num_list = set_idx_return_null(&a, num_list);
-	deque_print_data(&a);
+	if (a.size <= 5)
+	{
+		sort_under_five(&a, &b, &to_print);
+		deque_print_result(&to_print);
+		return (0);
+	}
 	a_to_b(&a, &b, &to_print);
 	b_to_a(&a, &b, &to_print);
-	deque_print_char(&to_print);
+	deque_print_result(&to_print);
 }

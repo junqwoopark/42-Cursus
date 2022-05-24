@@ -6,7 +6,7 @@
 #    By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
-#    Updated: 2022/05/10 14:55:49 by junkpark         ###   ########.fr        #
+#    Updated: 2022/05/24 14:49:25 by junkpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ SRC = \
 	$(SRC_DIR)/push_swap_r.c \
 	$(SRC_DIR)/push_swap_rr.c \
 	$(SRC_DIR)/push_swap_s.c \
-	$(SRC_DIR)/quick_sort.c
+	$(SRC_DIR)/quick_sort.c \
+	$(SRC_DIR)/sort_under_five.c
 
 OBJ = $(SRC:.c=.o)
 

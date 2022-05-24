@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 11:33:07 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/10 14:31:32 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/24 14:48:51 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,18 @@ int		is_deque_empty(t_deque *p_deque);
 int		deque_get_size(t_deque *p_deque);
 int		deque_get_left(t_deque *p_deque);
 int		deque_get_right(t_deque *p_deque);
+int		deque_get_max(t_deque *p_deque);
 int		deque_pop_left(t_deque *p_deque);
 int		deque_pop_right(t_deque *p_deque);
 void	deque_push_left(t_deque *p_deque, int data);
 void	deque_push_right(t_deque *p_deque, int data);
 t_node	*deque_find_data(t_deque *p_deque, int data);
 void	deque_print_data(t_deque *p_deque);
-void	deque_print_char(t_deque *p_deque);
+void	deque_print_result(t_deque *p_deque);
 int		is_deque_sorted(t_deque *p_a);
 int		deque_get_idx_to_top(t_deque *p_deque, int data);
 void	quick_sort(int *input, int first, int last);
+void	sort_under_five(t_deque *a, t_deque *b, t_deque *to_print);
 
 void	pa(t_deque *stack_a, t_deque *stack_b, t_deque *to_print);
 void	pb(t_deque *stack_a, t_deque *stack_b, t_deque *to_print);

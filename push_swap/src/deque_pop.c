@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:04:42 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/10 00:40:11 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/24 15:35:24 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	deque_pop_left(t_deque *p_deque)
 	free(node);
 	if (p_deque->left == NULL)
 		p_deque->right = NULL;
-	// else
-	// 	p_deque->left->prev = NULL;
+	else
+		p_deque->left->prev = NULL;
 	return (data);
 }
 
@@ -45,7 +45,7 @@ int	deque_pop_right(t_deque *p_deque)
 	free(node);
 	if (p_deque->right == NULL)
 		p_deque->left = NULL;
-	// else
-	// 	p_deque->right->prev = NULL;
+	else
+		p_deque->right->next = NULL;
 	return (data);
 }
