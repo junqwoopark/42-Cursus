@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 22:24:43 by junkpark          #+#    #+#             */
-/*   Updated: 2022/04/14 01:08:15 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/31 21:35:52 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 typedef struct s_list
 {
 	void			*content;
-	struct s_list	*next;
+	struct s_list	*over;
 }	t_list;
 
 // is_function

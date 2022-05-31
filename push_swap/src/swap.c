@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 20:56:29 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/31 20:57:04 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/31 21:34:51 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	a_to_b(t_deque *p_a, t_deque *p_b, t_deque *to_print)
 	num = 0;
 	while (p_a->size != 0)
 	{
-		top = deque_get_right(p_a);
+		top = deque_get_top(p_a);
 		if (top <= num)
 		{
 			pb(p_a, p_b, to_print);

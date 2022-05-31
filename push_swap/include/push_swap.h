@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 11:33:07 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/31 21:10:03 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/31 21:35:52 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ enum e_cmd
 typedef struct s_node
 {
 	int				data;
-	struct s_node	*next;
-	struct s_node	*prev;
+	struct s_node	*over;
+	struct s_node	*under;
 }	t_node;
 
 typedef struct s_deque
 {
 	int		size;
-	t_node	*left;
-	t_node	*right;
+	t_node	*bottom;
+	t_node	*top;
 }	t_deque;
 
 // deque_utils.c
@@ -55,17 +55,17 @@ int		is_deque_empty(t_deque *p_deque);
 int		is_deque_sorted(t_deque *p_a);
 
 // deque_push.c
-void	deque_push_left(t_deque *p_deque, int data);
-void	deque_push_right(t_deque *p_deque, int data);
+void	deque_push_bottom(t_deque *p_deque, int data);
+void	deque_push_top(t_deque *p_deque, int data);
 
 // deque_pop.c
-int		deque_pop_left(t_deque *p_deque);
-int		deque_pop_right(t_deque *p_deque);
+int		deque_pop_bottom(t_deque *p_deque);
+int		deque_pop_top(t_deque *p_deque);
 
 // deque_get.c
 int		deque_get_size(t_deque *p_deque);
-int		deque_get_left(t_deque *p_deque);
-int		deque_get_right(t_deque *p_deque);
+int		deque_get_bottom(t_deque *p_deque);
+int		deque_get_top(t_deque *p_deque);
 int		deque_get_max(t_deque *p_deque);
 
 //deque_find_print.c

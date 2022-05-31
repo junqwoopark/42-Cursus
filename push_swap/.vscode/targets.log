@@ -1,6 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # GNU Make 3.81
-# Copyright (C) 2006  Free Software Foundation, Inc.
+# Copytop (C) 2006  Free Software Foundation, Inc.
 # This is free software; see the source for copying conditions.
 # There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
@@ -18,7 +18,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # makefile (from `Makefile', line 40)
 OBJ = $(SRC:.c=.o)
 # makefile (from `Makefile', line 24)
-SRC = main.c $(SRC_DIR)/deque_pop.c $(SRC_DIR)/deque_push.c $(SRC_DIR)/deque_utils.c $(SRC_DIR)/deque_get.c $(SRC_DIR)/deque_find_print.c $(SRC_DIR)/push_swap_p.c $(SRC_DIR)/push_swap_r.c $(SRC_DIR)/push_swap_rr.c $(SRC_DIR)/push_swap_s.c $(SRC_DIR)/quick_sort.c $(SRC_DIR)/sort_under_five.c $(SRC_DIR)/check.c $(SRC_DIR)/swap.c 
+SRC = main.c $(SRC_DIR)/deque_pop.c $(SRC_DIR)/deque_push.c $(SRC_DIR)/deque_utils.c $(SRC_DIR)/deque_get.c $(SRC_DIR)/deque_find_print.c $(SRC_DIR)/push_swap_p.c $(SRC_DIR)/push_swap_r.c $(SRC_DIR)/push_swap_rr.c $(SRC_DIR)/push_swap_s.c $(SRC_DIR)/quick_sort.c $(SRC_DIR)/sort_under_five.c $(SRC_DIR)/check.c $(SRC_DIR)/swap.c
 # environment
 VSCODE_LOG_NATIVE = false
 # automatic
@@ -124,7 +124,7 @@ LESS = -R
 # default
 MAKE_COMMAND := /Library/Developer/CommandLineTools/usr/bin/make
 # default
-.VARIABLES := 
+.VARIABLES :=
 # environment
 TMPDIR = /var/folders/mk/n94fcjfd2wgfylp03ch4krt00000gn/T/
 # automatic
@@ -154,7 +154,7 @@ __CF_USER_TEXT_ENCODING = 0x1F5:0x3:0x33
 # environment
 COMMAND_MODE = unix2003
 # default
-MAKEFILES := 
+MAKEFILES :=
 # makefile (from `Makefile', line 23)
 SRC_DIR = ./src
 # automatic
@@ -166,7 +166,7 @@ LC_ALL = C
 # automatic
 ^F = $(notdir $^)
 # default
-SUFFIXES := 
+SUFFIXES :=
 # environment
 MAKELEVEL := 0
 # environment
@@ -192,7 +192,7 @@ VSCODE_PID = 26443
 %.o: %.c
 #  commands to execute (from `Makefile', line 50):
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
-	
+
 
 # 1 implicit rules, 0 (0.0%) terminal.
 
@@ -241,7 +241,7 @@ src/push_swap_p.o: src/push_swap_p.c
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 50):
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
-	
+
 
 # Not a target:
 src/deque_pop.c:
@@ -295,20 +295,20 @@ src/deque_utils.o: src/deque_utils.c
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 50):
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
-	
+
 
 src/quick_sort.o: src/quick_sort.c
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `src/quick_sort'
 #  Last modified 2022-05-31 21:10:19
- 
+
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 50):
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
-	
+
 
 src/deque_get.o: src/deque_get.c
 #  Implicit rule search has been done.
@@ -320,7 +320,7 @@ src/deque_get.o: src/deque_get.c
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 50):
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
-	
+
 
 src/sort_under_five.o: src/sort_under_five.c
 #  Implicit rule search has been done.
@@ -332,7 +332,7 @@ src/sort_under_five.o: src/sort_under_five.c
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 50):
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
-	
+
 
 src/push_swap_r.o: src/push_swap_r.c
 #  Implicit rule search has been done.
@@ -344,7 +344,7 @@ src/push_swap_r.o: src/push_swap_r.c
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 50):
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
-	
+
 
 fclean: clean
 #  Phony target (prerequisite of .PHONY).
@@ -354,7 +354,7 @@ fclean: clean
 #  commands to execute (from `Makefile', line 57):
 	$(MAKE) fclean -C $(FT_DIR)
 	rm -f $(NAME)
-	
+
 
 # Not a target:
 src/push_swap_r.c:
@@ -375,7 +375,7 @@ src/swap.o: src/swap.c
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 50):
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
-	
+
 
 # Not a target:
 src/push_swap_p.c:
@@ -402,7 +402,7 @@ src/deque_find_print.o: src/deque_find_print.c
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 50):
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
-	
+
 
 src/check.o: src/check.c
 #  Implicit rule search has been done.
@@ -414,7 +414,7 @@ src/check.o: src/check.c
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 50):
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
-	
+
 
 re: fclean all
 #  Phony target (prerequisite of .PHONY).
@@ -430,7 +430,7 @@ clean:
 #  commands to execute (from `Makefile', line 53):
 	$(MAKE) clean -C $(FT_DIR)
 	rm -f $(OBJ)
-	
+
 
 # Not a target:
 src/deque_utils.c:
@@ -470,7 +470,7 @@ push_swap: main.o src/deque_pop.o src/deque_push.o src/deque_utils.o src/deque_g
 	$(MAKE) -C $(FT_DIR)
 	$(CC) $(CFLAGS) -o $@ $^ \
 	-L$(FT_DIR) -l $(FT)
-	
+
 
 # Not a target:
 src/sort_under_five.c:
@@ -491,7 +491,7 @@ main.o: main.c
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 50):
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
-	
+
 
 src/push_swap_s.o: src/push_swap_s.c
 #  Implicit rule search has been done.
@@ -503,7 +503,7 @@ src/push_swap_s.o: src/push_swap_s.c
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 50):
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
-	
+
 
 # Not a target:
 src/swap.c:
@@ -524,7 +524,7 @@ src/deque_pop.o: src/deque_pop.c
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 50):
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
-	
+
 
 src/push_swap_rr.o: src/push_swap_rr.c
 #  Implicit rule search has been done.
@@ -536,7 +536,7 @@ src/push_swap_rr.o: src/push_swap_rr.c
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 50):
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
-	
+
 
 # Not a target:
 src/deque_find_print.c:
@@ -557,7 +557,7 @@ src/deque_push.o: src/deque_push.c
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 #  commands to execute (from `Makefile', line 50):
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
-	
+
 
 # Not a target:
 src/check.c:
@@ -578,10 +578,10 @@ src/check.c:
 
 # # of strings in strcache: 1
 # # of strcache buffers: 1
- 
+
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
 # Finished Make data base on Tue May 31 21:33:05 2022
 
- 
+

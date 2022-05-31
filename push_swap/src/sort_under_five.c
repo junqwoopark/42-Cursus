@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 10:23:22 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/31 20:51:02 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/31 21:34:51 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	sort_five(t_deque *a, t_deque *b, t_deque *to_print)
 	cnt = 2;
 	while (cnt)
 	{
-		if (deque_get_right(a) == 0 || deque_get_right(a) == 1)
+		if (deque_get_top(a) == 0 || deque_get_top(a) == 1)
 		{
 			pb(a, b, to_print);
 			cnt--;

@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 19:10:40 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/31 21:00:20 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/31 21:34:59 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	init_deque(int argc, char **argv, t_deque *p_a, t_deque *p_b)
 		data = ft_atoi(argv[idx]);
 		if (deque_find_data(p_a, data))
 			exit_with_error("Error\n");
-		deque_push_left(p_a, data);
+		deque_push_bottom(p_a, data);
 		idx++;
 	}
 }

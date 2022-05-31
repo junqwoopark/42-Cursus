@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 08:34:18 by junkpark          #+#    #+#             */
-/*   Updated: 2021/11/21 18:59:17 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/31 21:35:52 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	while (*lst)
 	{
 		tmp = (*lst);
-		(*lst) = (*lst)->next;
+		(*lst) = (*lst)->over;
 		ft_lstdelone(tmp, del);
 	}
 }
