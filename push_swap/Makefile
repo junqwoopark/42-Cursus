@@ -6,14 +6,14 @@
 #    By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
-#    Updated: 2022/05/24 14:49:25 by junkpark         ###   ########.fr        #
+#    Updated: 2022/05/31 21:02:32 by junkpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	= push_swap
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -g
+CFLAGS	= -Wall -Wextra -Werror
 
 FT_DIR	= ./lib/libft
 FT		= ft
@@ -33,7 +33,9 @@ SRC = \
 	$(SRC_DIR)/push_swap_rr.c \
 	$(SRC_DIR)/push_swap_s.c \
 	$(SRC_DIR)/quick_sort.c \
-	$(SRC_DIR)/sort_under_five.c
+	$(SRC_DIR)/sort_under_five.c \
+	$(SRC_DIR)/check.c \
+	$(SRC_DIR)/swap.c \
 
 OBJ = $(SRC:.c=.o)
 

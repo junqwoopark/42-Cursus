@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 10:23:22 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/24 15:11:22 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/05/31 20:51:02 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	sort_five(t_deque *a, t_deque *b, t_deque *to_print)
 	pa(a, b, to_print);
 	pa(a, b, to_print);
 }
-
 
 void	sort_under_five(t_deque *a, t_deque *b, t_deque *to_print)
 {
