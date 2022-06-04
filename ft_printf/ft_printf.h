@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 20:13:01 by junkpark          #+#    #+#             */
-/*   Updated: 2022/04/07 20:10:05 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/04/09 02:32:52 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ typedef struct s_options
 }	t_options;
 
 // ft_printf_utils.c
-int			ft_putsize_t_base_fd(size_t p, char *base, int fd);
-int			ft_lensize_t_base(size_t p, char *base);
+int			ft_putsize_t_base_fd(size_t p, char *base, int fd, t_options *options);
+int			ft_lensize_t_base(size_t p, char *base, t_options *options);
 int			ft_lennbr_base(int n, char *base);
 int			ft_putnbr_base_fd(int n, char *base, int fd);
 void		set_width_or_prec(int	*ptr, va_list *ap, char **p_format);

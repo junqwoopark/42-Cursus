@@ -8,19 +8,20 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This program built for i386-apple-darwin11.3.0
  
 
-# Make data base, printed on Tue May 31 21:43:43 2022
+# Make data base, printed on Thu Jun  2 13:42:45 2022
 
 # Variables
 
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
- 
 # automatic
 ?F = $(notdir $?)
-# makefile (from `Makefile', line 41)
+# environment
+ELECTRON_NO_ATTACH_CONSOLE = 1
+# makefile (from `Makefile', line 37)
 OBJ = $(SRC:.c=.o)
-# makefile (from `Makefile', line 25)
-SRC = main.c $(SRC_DIR)/deque_pop.c $(SRC_DIR)/deque_push.c $(SRC_DIR)/deque_utils.c $(SRC_DIR)/deque_get.c $(SRC_DIR)/deque_find_print.c $(SRC_DIR)/push_swap_p.c $(SRC_DIR)/push_swap_r.c $(SRC_DIR)/push_swap_rr.c $(SRC_DIR)/push_swap_s.c $(SRC_DIR)/quick_sort.c $(SRC_DIR)/sort_under_five.c $(SRC_DIR)/check.c $(SRC_DIR)/swap.c
+# makefile (from `Makefile', line 29)
+SRC = $(SRC_DIR)/main.c $(SRC_DIR)/check.c $(SRC_DIR)/init.c $(SRC_DIR)/map.c $(SRC_DIR)/player.c $(SRC_DIR)/utils.c
 # environment
 VSCODE_LOG_NATIVE = false
 # automatic
@@ -30,23 +31,25 @@ VSCODE_LOG_NATIVE = false
 # automatic
 @F = $(notdir $@)
 # makefile
-CURDIR := /Users/junkpark/Projects/42seoul_cadet/push_swap
+CURDIR := /Users/junkpark/Projects/42seoul_cadet/so_long
 # makefile
 SHELL = /bin/sh
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{},"_languagePackSupport":true}
+# makefile (from `Makefile', line 24)
+MLX = mlx
 # environment
 _ = /usr/bin/make
-# makefile (from `Makefile', line 17)
-CFLAGS = -Wall -Wextra -Werror
+# makefile (from `Makefile', line 16)
+CFLAGS = -Wall -Wextra -Werror -g
+# makefile (from `Makefile', line 21)
+MLX_DIR = ./lib/minilibx_opengl
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # environment
 VSCODE_VERBOSE_LOGGING = true
-# makefile (from `Makefile', line 20)
+# makefile (from `Makefile', line 22)
 FT = ft
-# makefile (from `Makefile', line 14)
-BONUS = checker
 # environment
 __CFBundleIdentifier = com.microsoft.VSCode
 # environment
@@ -54,9 +57,9 @@ INFOPATH = /opt/homebrew/share/info:
 # environment
 P9K_SSH = 0
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/mk/n94fcjfd2wgfylp03ch4krt00000gn/T/vscode-ipc-470239a9-2a8a-4e2f-9ecd-0ec1fccd2bff.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/mk/n94fcjfd2wgfylp03ch4krt00000gn/T/vscode-ipc-8aaca0eb-a032-4f50-90b2-506c76499828.sock
 # environment
-VSCODE_CWD = /
+VSCODE_CWD = /Users/junkpark/Projects/42seoul_cadet/so_long
 # environment
 PATH = /opt/homebrew/Caskroom/miniforge/base/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin
 # environment
@@ -74,7 +77,7 @@ SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.7SSQUuSrrs/Listeners
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
-PWD = /Users/junkpark/Projects/42seoul_cadet/push_swap
+PWD = /Users/junkpark/Projects/42seoul_cadet/so_long
 # environment
 HOMEBREW_CELLAR = /opt/homebrew/Cellar
 # environment
@@ -87,6 +90,8 @@ VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 HOME = /Users/junkpark
 # default
 MAKEFILEPATH = $(shell /usr/bin/xcode-select -print-path 2>/dev/null || echo /Developer)/Makefiles
+# environment
+VSCODE_CLI = 1
 # environment
 VSCODE_CODE_CACHE_PATH = /Users/junkpark/Library/Application Support/Code/CachedData/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5
 # environment
@@ -103,31 +108,38 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
 XPC_FLAGS = 0x0
+# environment
+COLORTERM = truecolor
 # default
 MAKE = $(MAKE_COMMAND)
-# default
-MAKECMDGOALS := all
 # environment
-SHLVL = 1
- 
-# makefile (from `Makefile', line 16)
-CC = cc
+LC_TERMINAL = iTerm2
+# environment
+SHLVL = 3
+# makefile (from `Makefile', line 15)
+CC = gcc
 # default
 MAKE_VERSION := 3.81
 # environment
 USER = junkpark
 # makefile
 .DEFAULT_GOAL := all
-# makefile (from `Makefile', line 22)
+# makefile (from `Makefile', line 26)
 INCLUDE = -I ./include
+# default
+MAKECMDGOALS := all
+# environment
+TERM_SESSION_ID = w0t0p0:0DDF0B4D-1D3D-42F9-8E8A-02D41CDE8521
 # makefile (from `Makefile', line 13)
-NAME = push_swap
+NAME = so_long
 # environment
 LESS = -R
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := /Library/Developer/CommandLineTools/usr/bin/make
+# environment
+TERM_PROGRAM = iTerm.app
 # default
 .VARIABLES := 
 # environment
@@ -138,14 +150,18 @@ TMPDIR = /var/folders/mk/n94fcjfd2wgfylp03ch4krt00000gn/T/
 VSCODE_IPC_HOOK = /Users/junkpark/Library/Application Support/Code/1.67.2-main.sock
 # makefile
 MAKEFLAGS = Rrqp
-# environment
-MFLAGS = -Rrqp
+# makefile (from `Makefile', line 17)
+MFLAGS = -framework OpenGL -framework AppKit
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
+TERM_PROGRAM_VERSION = 3.4.15
+# environment
 MAIL = junkpark@student.42seoul.kr
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.13421878.13421884
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.13421878.13421884.A1DBF85A-C515-40F3-880F-C7B7E2DA76B6
+# environment
+LC_TERMINAL_VERSION = 3.4.15
 # environment
 HOMEBREW_PREFIX = /opt/homebrew
 # automatic
@@ -153,21 +169,31 @@ HOMEBREW_PREFIX = /opt/homebrew
 # automatic
 +F = $(notdir $+)
 # environment
+ITERM_SESSION_ID = w0t0p0:0DDF0B4D-1D3D-42F9-8E8A-02D41CDE8521
+# environment
 HOMEBREW_REPOSITORY = /opt/homebrew
+# environment
+COLORFGBG = 7;0
 # environment
 __CF_USER_TEXT_ENCODING = 0x1F5:0x3:0x33
 # environment
 COMMAND_MODE = unix2003
 # default
 MAKEFILES := 
-# makefile (from `Makefile', line 24)
+# makefile (from `Makefile', line 23)
+GNL = gnl
+# makefile (from `Makefile', line 28)
 SRC_DIR = ./src
 # automatic
 <F = $(notdir $<)
 # environment
+ITERM_PROFILE = Default
+# environment
 PAGER = less
 # environment
 LC_ALL = C
+# environment
+P9K_TTY = old
 # automatic
 ^F = $(notdir $^)
 # default
@@ -177,20 +203,26 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 26443
+TERM = xterm-256color
+# environment
+_P9K_TTY = /dev/ttys000
+# environment
+VSCODE_PID = 17978
+# makefile (from `Makefile', line 20)
+GNL_DIR = ./lib/libgnl
 # variable set hash-table stats:
-# Load=82/1024=8%, Rehash=0, Collisions=6/127=5%
+# Load=99/1024=10%, Rehash=0, Collisions=12/138=9%
 
 # Pattern-specific Variable Values
 
- 
 # No pattern-specific variable values.
 
 # Directories
 
-# . (device 16777229, inode 11949101): 10 files, no impossibilities.
+# . (device 16777229, inode 11136075): 10 files, no impossibilities.
+# src (device 16777229, inode 11136791): 7 files, no impossibilities so far.
 
-# 10 files, no impossibilities in 1 directories.
+# 17 files, no impossibilities in 2 directories.
 
 # Implicit Rules
 
@@ -203,7 +235,7 @@ VSCODE_PID = 26443
 
 # Files
 
-all: push_swap
+all: so_long
 #  Phony target (prerequisite of .PHONY).
 #  Command-line target.
 #  Implicit rule search has not been done.
@@ -218,20 +250,33 @@ all: push_swap
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-main.c:
+src/main.o: src/main.c
 #  Implicit rule search has been done.
-#  Last modified 2022-05-31 21:34:59
+#  Implicit/static pattern stem: `src/main'
+#  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := src/main.o
+# automatic
+# % := 
+# automatic
+# * := src/main
+# automatic
+# + := src/main.c
+# automatic
+# | := 
+# automatic
+# < := src/main.c
+# automatic
+# ^ := src/main.c
+# automatic
+# ? := src/main.c
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-
-# Not a target:
-src/push_swap_p.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+# Load=8/32=25%, Rehash=0, Collisions=2/15=13%
+#  commands to execute (from `Makefile', line 51):
+	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
+	
 
 # Not a target:
 .SUFFIXES:
@@ -242,38 +287,20 @@ src/push_swap_p.o:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-31 21:43:37
+#  Last modified 2022-05-31 22:17:08
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
-src/deque_utils.o:
+src/utils.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
 # Not a target:
-src/quick_sort.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-src/deque_get.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-src/sort_under_five.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-src/push_swap_r.o:
+src/player.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -283,13 +310,23 @@ fclean: clean
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 58):
+#  commands to execute (from `Makefile', line 60):
 	$(MAKE) fclean -C $(FT_DIR)
+	$(MAKE) fclean -C $(GNL_DIR)
 	rm -f $(NAME)
 	
 
 # Not a target:
-src/swap.o:
+src/main.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-04-20 00:50:17
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/init.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -298,12 +335,7 @@ src/swap.o:
 .DEFAULT:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-src/deque_find_print.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
+ 
 #  File has not been updated.
 
 # Not a target:
@@ -325,77 +357,36 @@ clean:
 #  File has not been updated.
 #  commands to execute (from `Makefile', line 54):
 	$(MAKE) clean -C $(FT_DIR)
+	$(MAKE) clean -C $(GNL_DIR)
+	$(MAKE) clean -C $(MLX_DIR)
 	rm -f $(OBJ)
 	
 
-push_swap: main.o src/deque_pop.o src/deque_push.o src/deque_utils.o src/deque_get.o src/deque_find_print.o src/push_swap_p.o src/push_swap_r.o src/push_swap_rr.o src/push_swap_s.o src/quick_sort.o src/sort_under_five.o src/check.o src/swap.o
+# Not a target:
+src/map.o:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+so_long: src/main.o src/check.o src/init.o src/map.o src/player.o src/utils.o
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/5=0%
-#  commands to execute (from `Makefile', line 46):
+#  commands to execute (from `Makefile', line 42):
 	$(MAKE) -C $(FT_DIR)
+	$(MAKE) -C $(GNL_DIR)
+	$(MAKE) -C $(MLX_DIR)
 	$(CC) $(CFLAGS) -o $@ $^ \
-	-L$(FT_DIR) -l $(FT)
+	-L$(FT_DIR) -l $(FT) \
+	-L$(GNL_DIR) -l $(GNL) \
+	-L$(MLX_DIR) -l $(MLX) $(MFLAGS)
 	
-
-main.o: main.c
-#  Implicit rule search has been done.
-#  Implicit/static pattern stem: `main'
-#  File does not exist.
-#  File has been updated.
- 
-#  Needs to be updated (-q is set).
-# automatic
-# @ := main.o
-# automatic
-# % := 
-# automatic
-# * := main
-# automatic
-# + := main.c
-# automatic
-# | := 
-# automatic
-# < := main.c
-# automatic
-# ^ := main.c
-# automatic
-# ? := main.c
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=2/15=13%
-#  commands to execute (from `Makefile', line 51):
-	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
-	
-
-# Not a target:
-src/push_swap_s.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-src/deque_pop.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-src/push_swap_rr.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
-src/deque_push.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
 
 # files hash-table stats:
-# Load=24/1024=2%, Rehash=0, Collisions=0/62=0%
+# Load=16/1024=2%, Rehash=0, Collisions=2/46=4%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -407,6 +398,6 @@ src/deque_push.o:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Tue May 31 21:43:43 2022
+# Finished Make data base on Thu Jun  2 13:42:45 2022
 
  

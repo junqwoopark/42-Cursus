@@ -1,0 +1,8 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory `/Users/junkpark/Projects/42seoul_cadet/philosophers/philo'
+cc -Wall -Wextra -Werror -I ./include -c -o src/init.o src/init.c
+ 
+cc -Wall -Wextra -Werror -I ./include -c -o src/utils.o src/utils.c
+cc -Wall -Wextra -Werror -o philo src/main.o src/init.o src/utils.o
+make: Leaving directory `/Users/junkpark/Projects/42seoul_cadet/philosophers/philo'
+ 

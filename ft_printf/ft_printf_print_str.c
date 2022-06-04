@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 14:17:22 by junkpark          #+#    #+#             */
-/*   Updated: 2022/04/07 20:08:13 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/04/09 02:01:24 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	print_s(t_options *options, va_list *ap)
 	ret = 0;
 	s = (char *) va_arg(*ap, char *);
 	if (s == NULL)
-		return (ft_putstr_fd("(null)", 1));
+		s = "(null)";
 	if (options->prec == -1 || options->prec >= (int) ft_strlen(s))
 		options->prec = ft_strlen(s);
 	if ((size_t) options->width > ft_strlen(s))

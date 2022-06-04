@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 20:26:58 by junkpark          #+#    #+#             */
-/*   Updated: 2022/04/07 20:09:29 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/04/09 02:47:35 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	init_options(t_options *p_options)
 t_options	get_options(va_list *ap, char **p_format, t_options *p_options)
 {
 	init_options(p_options);
-	if (**p_format == '-')
+	while (**p_format == '-')
 	{
 		p_options->left = 1;
 		(*p_format)++;

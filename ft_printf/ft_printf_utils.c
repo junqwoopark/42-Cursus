@@ -6,20 +6,20 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:40:00 by junkpark          #+#    #+#             */
-/*   Updated: 2022/04/07 18:30:54 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/04/09 02:32:29 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putsize_t_base_fd(size_t p, char *base, int fd)
+int	ft_putsize_t_base_fd(size_t p, char *base, int fd, t_options *options)
 {
 	char	final[100];
 	int		idx;
 	int		ret;
 	size_t	base_n;
 
-	if (p == 0)
+	if (p == 0 && options->prec == -1)
 		return (ft_putchar_fd('0', 1));
 	base_n = ft_strlen(base);
 	idx = 0;
@@ -35,7 +35,7 @@ int	ft_putsize_t_base_fd(size_t p, char *base, int fd)
 	return (ret);
 }
 
-int	ft_lensize_t_base(size_t p, char *base)
+int	ft_lensize_t_base(size_t p, char *base, t_options *options)
 {
 	char	final[100];
 	int		idx;
@@ -43,7 +43,7 @@ int	ft_lensize_t_base(size_t p, char *base)
 
 	base_n = ft_strlen(base);
 	idx = 0;
-	if (p == 0)
+	if (p == 0 && options->prec == -1)
 		return (1);
 	while (p)
 	{

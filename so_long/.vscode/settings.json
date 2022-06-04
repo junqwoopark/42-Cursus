@@ -7,5 +7,6 @@
 		"fcntl.h": "c",
 		"stdio.h": "c",
 		"get_next_line.h": "c"
-	}
+	},
+	"C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
 }

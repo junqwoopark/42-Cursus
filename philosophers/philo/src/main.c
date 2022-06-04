@@ -5,22 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/11 00:58:02 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/02 13:42:52 by junkpark         ###   ########.fr       */
+/*   Created: 2022/06/02 13:33:37 by junkpark          #+#    #+#             */
+/*   Updated: 2022/06/02 14:54:34 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "philo.h"
+
+void	exit_with_error(char *err)
+{
+	while (*err)
+	{
+		write(2, err, 1);
+		err++;
+	}
+	exit(1);
+}
 
 int	main(int argc, char **argv)
 {
-	t_game	game;
+	t_instance	instance;
 
-	if (argc != 2)
-		exit_with_error("argc is not 2");
-	init_game(&game, argv[1]);
-	draw_game(&game);
-	mlx_hook(game.mlx.win_ptr, X_EVENT_KEY_PRESS, 0, key_input, &game);
-	mlx_hook(game.mlx.win_ptr, X_EVENT_KEY_EXIT, 0, exit_game, &game);
-	mlx_loop(game.mlx.mlx_ptr);
+	init_instance(argc, argv, &instance);
 }

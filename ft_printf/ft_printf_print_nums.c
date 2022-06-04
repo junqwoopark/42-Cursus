@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:36:26 by junkpark          #+#    #+#             */
-/*   Updated: 2022/04/07 17:41:52 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/04/09 03:36:04 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ unsigned int	set_padd_precision(va_list *ap, char *base, t_options *options)
 		u = (int) u * -1;
 		options->is_minus = 1;
 	}
-	len = ft_lensize_t_base(u, base);
+	len = ft_lensize_t_base(u, base, options);
 	if (len < options->prec)
 	{
 		len = options->prec;
-		options->prec = options->prec - ft_lensize_t_base(u, base);
+		options->prec = options->prec - ft_lensize_t_base(u, base, options);
 	}
 	else if (options->prec != -1)
 		options->prec = 0;
@@ -37,6 +37,8 @@ unsigned int	set_padd_precision(va_list *ap, char *base, t_options *options)
 		if (options->is_minus && (options->type == 'i' || options->type == 'd'))
 			options->padd -= 1;
 	}
+	else if (len == options->width && u == 0 && options->prec == -1)
+		options->prec = 1;
 	return (u);
 }
 
@@ -49,9 +51,12 @@ int	print_int(char *base, t_options *options, unsigned int u)
 	{
 		if (options->is_minus)
 			ret += ft_putchar_fd('-', 1);
-		while (options->prec-- > 0)
+		while (options->prec > 0)
+		{
 			ret += ft_putchar_fd('0', 1);
-		ret += ft_putsize_t_base_fd(u, base, 1);
+			options->prec--;
+		}
+		ret += ft_putsize_t_base_fd(u, base, 1, options);
 		while (options->padd--)
 			ret += ft_putchar_fd(' ', 1);
 	}
@@ -61,9 +66,12 @@ int	print_int(char *base, t_options *options, unsigned int u)
 			ret += ft_putchar_fd(' ', 1);
 		if (options->is_minus)
 			ret += ft_putchar_fd('-', 1);
-		while (options->prec-- > 0)
+		while (options->prec > 0)
+		{
 			ret += ft_putchar_fd('0', 1);
-		ret += ft_putsize_t_base_fd(u, base, 1);
+			options->prec--;
+		}
+		ret += ft_putsize_t_base_fd(u, base, 1, options);
 	}
 	return (ret);
 }
@@ -76,13 +84,13 @@ int	print_p(t_options *options, va_list *ap)
 
 	ret = 0;
 	p = (size_t)va_arg(*ap, size_t);
-	len = 2 + ft_lensize_t_base(p, "0123456789abcdef");
+	len = 2 + ft_lensize_t_base(p, "0123456789abcdef", options);
 	if (len < options->width)
 		options->padd = options->width - len;
 	if (options -> left == 1)
 	{
 		ret += ft_putstr_fd("0x", 1);
-		ret += ft_putsize_t_base_fd(p, "0123456789abcdef", 1);
+		ret += ft_putsize_t_base_fd(p, "0123456789abcdef", 1, options);
 		while ((options -> padd)--)
 			ret += ft_putchar_fd(' ', 1);
 	}
@@ -91,7 +99,7 @@ int	print_p(t_options *options, va_list *ap)
 		while ((options -> padd)--)
 			ret += ft_putchar_fd(' ', 1);
 		ret += ft_putstr_fd("0x", 1);
-		ret += ft_putsize_t_base_fd(p, "0123456789abcdef", 1);
+		ret += ft_putsize_t_base_fd(p, "0123456789abcdef", 1, options);
 	}
 	return (ret);
 }

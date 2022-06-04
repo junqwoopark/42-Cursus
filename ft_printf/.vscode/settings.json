@@ -2,6 +2,10 @@
 	"files.associations": {
 		"libft.h": "c",
 		"ft_printf.h": "c",
-		"stdio.h": "c"
+		"stdio.h": "c",
+		"bitset": "c",
+		"functional": "c",
+		"iterator": "c",
+		"memory": "c"
 	}
 }
