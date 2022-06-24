@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 19:07:56 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/31 21:35:52 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/24 18:09:33 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	deque_print_result(t_deque *p_deque)
 	}
 }
 
-int	deque_get_idx_to_top(t_deque *p_deque, int data)
+int	deque_get_idx(t_deque *p_deque, int data)
 {
 	t_node	*node;
 	int		idx;

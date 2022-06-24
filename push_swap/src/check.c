@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 20:58:12 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/31 20:59:20 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/22 19:31:27 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ void	check_argv(int argc, char **argv)
 	int	idx;
 
 	if (argc == 1)
-		exit_with_error("Error\n");
+		exit_with_err("Error\n");
 	idx = 1;
 	while (idx < argc)
 	{
 		if (!is_digit_only(argv[idx]) || is_ft_atoi_overflow(argv[idx]))
-			exit_with_error("Error\n");
+			exit_with_err("Error\n");
 		idx++;
 	}
 }

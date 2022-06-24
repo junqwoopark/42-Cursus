@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 11:35:25 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/31 21:35:33 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/24 19:20:03 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,44 @@ int	is_deque_empty(t_deque *p_deque)
 	return (FALSE);
 }
 
-int	is_deque_sorted(t_deque *p_a)
+int	is_deque_sorted(t_deque *deque, int	size)
 {
 	int			x;
+	int			idx;
 	t_node		*node;
 
-	x = p_a->top->data;
-	node = p_a->top->under;
-	while (node)
+	x = deque->top->data;
+	node = deque->top->under;
+	idx = 0;
+	while (node && idx < size - 1)
 	{
 		if (node->data > x)
 			x = node->data;
 		else
 			return (FALSE);
 		node = node->under;
+		idx++;
+	}
+	return (TRUE);
+}
+
+int	is_deque_sorted_reversed(t_deque *deque, int size)
+{
+	int			x;
+	int			idx;
+	t_node		*node;
+
+	x = deque->top->data;
+	node = deque->top->under;
+	idx = 0;
+	while (node && idx < size - 1)
+	{
+		if (node->data < x)
+			x = node->data;
+		else
+			return (FALSE);
+		node = node->under;
+		idx++;
 	}
 	return (TRUE);
 }

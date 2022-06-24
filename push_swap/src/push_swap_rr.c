@@ -6,32 +6,35 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:27:31 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/31 21:34:59 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/24 17:17:59 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	rra(t_deque *stack_a, t_deque *to_print)
+void	rra(t_data *data)
 {
-	int	data;
+	int	bottom;
 
-	data = deque_pop_bottom(stack_a);
-	deque_push_top(stack_a, data);
-	deque_push_top(to_print, RRA);
+	bottom = deque_pop_bottom(&data->a);
+	deque_push_top(&data->a, bottom);
+	deque_push_top(&data->to_print, RRA);
 }
 
-void	rrb(t_deque *stack_b, t_deque *to_print)
+void	rrb(t_data *data)
 {
-	int	data;
+	int	bottom;
 
-	data = deque_pop_bottom(stack_b);
-	deque_push_top(stack_b, data);
-	deque_push_top(to_print, RRB);
+	bottom = deque_pop_bottom(&data->b);
+	deque_push_top(&data->b, bottom);
+	deque_push_top(&data->to_print, RRB);
 }
 
-void	rrr(t_deque *stack_a, t_deque *stack_b, t_deque *to_print)
+void	rrr(t_data *data)
 {
-	rra(stack_a, to_print);
-	rrb(stack_b, to_print);
+	rra(data);
+	rrb(data);
+	deque_pop_top(&data->to_print);
+	deque_pop_top(&data->to_print);
+	deque_push_top(&data->to_print, RRR);
 }

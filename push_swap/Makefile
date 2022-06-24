@@ -6,15 +6,15 @@
 #    By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by junkpark          #+#    #+#              #
-#    Updated: 2022/05/31 21:43:37 by junkpark         ###   ########.fr        #
+#    Updated: 2022/06/24 21:22:43 by junkpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 	= push_swap
+NAME 	= ./push_swap_visualizer/bin/push_swap ./push_swap
 BONUS	= checker
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g
 
 FT_DIR	= ./lib/libft
 FT		= ft
@@ -29,14 +29,15 @@ SRC = \
 	$(SRC_DIR)/deque_utils.c \
 	$(SRC_DIR)/deque_get.c \
 	$(SRC_DIR)/deque_find_print.c \
+	$(SRC_DIR)/deque_del.c \
 	$(SRC_DIR)/push_swap_p.c \
 	$(SRC_DIR)/push_swap_r.c \
 	$(SRC_DIR)/push_swap_rr.c \
 	$(SRC_DIR)/push_swap_s.c \
 	$(SRC_DIR)/quick_sort.c \
-	$(SRC_DIR)/sort_under_five.c \
 	$(SRC_DIR)/check.c \
-	$(SRC_DIR)/swap.c
+	$(SRC_DIR)/swap.c \
+	$(SRC_DIR)/sort_under_five.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -58,6 +59,8 @@ fclean: clean
 	$(MAKE) fclean -C $(FT_DIR)
 	rm -f $(NAME)
 
-re: fclean all
+re:
+	$(MAKE) fclean
+	$(MAKE) all
 
 .PHONY: all clean fclean re

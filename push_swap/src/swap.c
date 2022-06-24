@@ -6,61 +6,210 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 20:56:29 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/31 21:34:51 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/24 19:54:40 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	a_to_b(t_deque *p_a, t_deque *p_b, t_deque *to_print)
+void	reverse(int ra_cnt, int rb_cnt, t_data *data)
 {
-	int	num;
-	int	top;
-	int	chunk;
-
-	chunk = 0.000000053 * (p_a->size) * (p_a->size) + 0.03 * (p_a->size) + 14.5;
-	num = 0;
-	while (p_a->size != 0)
+	while (ra_cnt && rb_cnt)
 	{
-		top = deque_get_top(p_a);
-		if (top <= num)
+		rrr(data);
+		ra_cnt--;
+		rb_cnt--;
+	}
+	while (ra_cnt)
+	{
+		rra(data);
+		ra_cnt--;
+	}
+	while (rb_cnt)
+	{
+		rrb(data);
+		rb_cnt--;
+	}
+}
+void	sort_under_three(t_data *data, int size)
+{
+	int	min;
+	int	min_idx;
+	int	max_idx;
+
+	if (!is_deque_sorted(&data->a, size))
+	{
+		if (size == 2)
+			sa(data);
+		if (size == 3)
 		{
-			pb(p_a, p_b, to_print);
-			num++;
+			min = deque_get_min(&data->a, size);
+			min_idx = deque_get_idx(&data->a, min);
+			max_idx = deque_get_idx(&data->a, min + 2);
+			if (min_idx == 0)
+			{
+				pb(data);
+				sa(data);
+				pa(data);
+			}
+			if (min_idx == 1)
+			{
+				if (max_idx == 2)
+					sa(data);
+				else
+				{
+					sa(data);
+					pb(data);
+					sa(data);
+					pa(data);
+				}
+			}
+			if (min_idx == 2)
+			{
+				if (max_idx == 1)
+				{
+					pb(data);
+					pb(data);
+					ra(data);
+					pa(data);
+					pa(data);
+					rra(data);
+				}
+				else
+				{
+					pb(data);
+					pb(data);
+					ra(data);
+					pa(data);
+					pa(data);
+					sa(data);
+					rra(data);
+				}
+			}
 		}
-		else if (num < top && top <= num + chunk)
-		{
-			pb(p_a, p_b, to_print);
-			rb(p_b, to_print);
-			num++;
-		}
-		else if (num + chunk < top)
-			ra(p_a, to_print);
 	}
 }
 
-void	b_to_a(t_deque *p_a, t_deque *p_b, t_deque *to_print)
+void	a_to_b(int start, int size, t_data *data)
 {
-	int	num;
-	int	idx;
+	int			idx;
+	int			ra_cnt;
+	int			rb_cnt;
+	int			pb_cnt;
+	int			top;
+	t_pivots	pivots;
 
-	num = p_b->size - 1;
-	while (p_b->size != 0)
+	ra_cnt = 0;
+	if (size <= 3)
 	{
-		idx = deque_get_idx_to_top(p_b, num);
-		if (idx <= p_b->size / 2)
+		sort_under_three(data, size);
+		return ;
+	}
+	if (is_deque_sorted(&data->a, size))
+		return ;
+	idx = 0;
+	rb_cnt = 0;
+	pb_cnt = 0;
+	pivots.min = start + size / 3;
+	pivots.max = start + size / 3 * 2;
+	if (data->is_first)
+	{
+		while (idx < size)
 		{
-			while (idx--)
-				rb(p_b, to_print);
-			pa(p_a, p_b, to_print);
+			top = deque_get_top(&data->a);
+			if (top >= pivots.max)
+			{
+				ra(data);
+				ra_cnt++;
+			}
+			else
+			{
+				pb(data);
+				pb_cnt++;
+				if (top < pivots.min)
+				{
+					rb(data);
+					rb_cnt++;
+				}
+			}
+			idx++;
+		}
+		data->is_first = 0;
+	}
+	else
+	{
+		while (idx < size)
+		{
+			top = deque_get_top(&data->a);
+			if (top >= pivots.max)
+			{
+				ra(data);
+				ra_cnt++;
+			}
+			else
+			{
+				pb(data);
+				pb_cnt++;
+				if (top >= pivots.min)
+				{
+					rb(data);
+					rb_cnt++;
+				}
+			}
+			idx++;
+		}
+		reverse(ra_cnt, rb_cnt, data);
+	}
+	a_to_b(pivots.max, ra_cnt, data);
+	b_to_a(pivots.min, rb_cnt, data);
+	b_to_a(start, pb_cnt - rb_cnt, data);
+}
+
+void	b_to_a(int start, int size, t_data *data)
+{
+	int			idx;
+	int			ra_cnt;
+	int			rb_cnt;
+	int			pa_cnt;
+	int			top;
+	t_pivots	pivots;
+
+	if (size <= 3)
+	{
+		idx = size;
+		while (idx--)
+			pa(data);
+		sort_under_three(data, size);
+		return ;
+	}
+	idx = 0;
+	ra_cnt = 0;
+	rb_cnt = 0;
+	pa_cnt = 0;
+	pivots.min = start + size / 3;
+	pivots.max = start + size / 3 * 2;
+	while (idx < size)
+	{
+		top = deque_get_top(&data->b);
+		if (top < pivots.min)
+		{
+			rb(data);
+			rb_cnt++;
 		}
 		else
 		{
-			idx = p_b->size - idx;
-			while (idx--)
-				rrb(p_b, to_print);
-			pa(p_a, p_b, to_print);
+			pa(data);
+			pa_cnt++;
+			if (top < pivots.max)
+			{
+				ra(data);
+				ra_cnt++;
+			}
 		}
-		num--;
+		idx++;
 	}
+	a_to_b(pivots.max, pa_cnt - ra_cnt, data);
+	reverse(ra_cnt, rb_cnt, data);
+	a_to_b(pivots.min, ra_cnt, data);
+	b_to_a(start, rb_cnt, data);
 }
