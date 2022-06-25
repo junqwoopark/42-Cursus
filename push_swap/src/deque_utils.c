@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 11:35:25 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/24 19:20:03 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/25 15:05:32 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_deque_empty(t_deque *p_deque)
 	return (FALSE);
 }
 
-int	is_deque_sorted(t_deque *deque, int	size)
+int	is_deque_sorted(t_deque *deque, int size)
 {
 	int			x;
 	int			idx;

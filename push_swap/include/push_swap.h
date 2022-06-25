@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 11:33:07 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/24 21:21:55 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/25 16:57:25 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ typedef struct s_pivots
 	int	max;
 }	t_pivots;
 
-
 typedef struct s_data
 {
 	t_deque		a;
@@ -64,6 +63,15 @@ typedef struct s_data
 	int			is_first;
 }	t_data;
 
+typedef struct s_instance
+{
+	int			ra_cnt;
+	int			rb_cnt;
+	int			pa_cnt;
+	int			pb_cnt;
+	int			size;
+	t_pivots	pivots;
+}	t_instance;
 
 // deque_utils.c
 void	deque_init(t_deque *p_deque);
@@ -129,12 +137,25 @@ int		*set_idx_return_null(t_deque *a, int *num_list);
 void	a_to_b(int start, int size, t_data *data);
 void	b_to_a(int start, int size, t_data *data);
 
+// reverse.c
+void	init_instance(t_instance *instance, int start, int size);
+void	reverse(int ra_cnt, int rb_cnt, t_data *data);
+
+// a_to_b.c
+void	a_to_b(int start, int size, t_data *data);
+
+// b_to_a.c
+void	b_to_a(int start, int size, t_data *data);
+
 // sort_under_five.c
 void	sort_two(t_data *data);
 void	sort_three(t_data *data);
 void	sort_four(t_data *data);
 void	sort_five(t_data *data);
 void	sort_under_five(t_data *data);
+
+// sort_under_three.c
+void	sort_under_three(t_data *data, int size);
 
 // main.c
 void	exit_with_err(const char *error_msg);

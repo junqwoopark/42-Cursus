@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 10:23:22 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/24 21:27:46 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/25 16:44:45 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	sort_three(t_data *data)
 	if (!is_deque_sorted(&data->a, 3))
 		sa(data);
 }
-
 
 void	sort_four(t_data *data)
 {
@@ -59,11 +58,13 @@ void	sort_four(t_data *data)
 void	sort_five(t_data *data)
 {
 	int	cnt;
+	int	top;
 
 	cnt = 2;
 	while (cnt)
 	{
-		if (deque_get_top(&data->a) == 0 || deque_get_top(&data->a) == 1)
+		top = deque_get_top(&data->a);
+		if (top == 0 || top == 1)
 		{
 			pb(data);
 			cnt--;
@@ -71,7 +72,8 @@ void	sort_five(t_data *data)
 		}
 		ra(data);
 	}
-	sort_three(data);
+	if (!is_deque_sorted(&data->a, 3))
+		sort_three(data);
 	pa(data);
 	pa(data);
 	if (!is_deque_sorted(&data->a, 2))

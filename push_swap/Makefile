@@ -6,11 +6,11 @@
 #    By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by junkpark          #+#    #+#              #
-#    Updated: 2022/06/24 21:22:43 by junkpark         ###   ########.fr        #
+#    Updated: 2022/06/25 16:54:43 by junkpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 	= ./push_swap_visualizer/bin/push_swap ./push_swap
+NAME 	= ./push_swap
 BONUS	= checker
 
 CC		= cc
@@ -36,8 +36,11 @@ SRC = \
 	$(SRC_DIR)/push_swap_s.c \
 	$(SRC_DIR)/quick_sort.c \
 	$(SRC_DIR)/check.c \
-	$(SRC_DIR)/swap.c \
-	$(SRC_DIR)/sort_under_five.c
+	$(SRC_DIR)/reverse.c \
+	$(SRC_DIR)/a_to_b.c \
+	$(SRC_DIR)/b_to_a.c \
+	$(SRC_DIR)/sort_under_five.c \
+	$(SRC_DIR)/sort_under_three.c
 
 OBJ = $(SRC:.c=.o)
 

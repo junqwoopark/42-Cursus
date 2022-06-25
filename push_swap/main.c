@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 19:10:40 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/24 21:22:18 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/25 16:51:49 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	optimize_result(t_deque *result)
 int	main(int argc, char **argv)
 {
 	t_data	data;
-
 	int		*num_list;
 
 	check_argv(argc, argv);
@@ -82,7 +81,8 @@ int	main(int argc, char **argv)
 	data.is_first = 1;
 	if (data.a.size <= 5)
 		sort_under_five(&data);
-	a_to_b(0, data.a.size, &data);
+	else
+		a_to_b(0, data.a.size, &data);
 	optimize_result(&data.to_print);
 	deque_print_result(&data.to_print);
 }
