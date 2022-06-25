@@ -6,11 +6,11 @@
 #    By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/18 12:26:56 by junkpark          #+#    #+#              #
-#    Updated: 2021/11/22 17:05:18 by junkpark         ###   ########.fr        #
+#    Updated: 2022/06/22 04:12:17 by junkpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 NAME = libft.a
 HEADER = libft.h
@@ -81,6 +81,8 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-re: fclean all
+re:
+	$(MAKE) fclean
+	$(MAKE) all
 
 .PHONY: all bonus clean fclean re

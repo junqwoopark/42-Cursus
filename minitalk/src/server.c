@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:00:38 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/23 21:44:24 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/24 22:16:25 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	handler(int signum)
 		g_info.c |= 0;
 		g_info.idx++;
 	}
-	else
+	else if (signum == SIGUSR2)
 	{
 		g_info.c |= 1;
 		g_info.idx++;
@@ -35,14 +35,6 @@ static void	handler(int signum)
 		g_info.idx = 0;
 	}
 	g_info.c <<= 1;
-}
-
-static void	print_pid(void)
-{
-	ft_putstr_fd("PID : ", 1);
-	ft_putnbr_fd(getpid(), 1);
-	ft_putstr_fd("\n", 1);
-	return ;
 }
 
 int	main(void)

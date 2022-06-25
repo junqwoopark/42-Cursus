@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/31 17:01:30 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/24 21:54:33 by junkpark         ###   ########.fr       */
+/*   Created: 2022/06/24 21:42:43 by junkpark          #+#    #+#             */
+/*   Updated: 2022/06/24 22:04:00 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "minitalk.h"
 
-# include <unistd.h>
-# include <signal.h>
-# include <stdlib.h>
-# include "../lib/libft/libft.h"
-# include "../lib/libgnl/get_next_line.h"
-
-typedef struct s_info
+void	print_pid(void)
 {
-	int	idx;
-	int	c;
-}	t_info;
-
-void	exit_with_err(char *err_msg);
-void	print_pid();
-
-#endif
+	ft_putstr_fd("PID : ", 1);
+	ft_putnbr_fd(getpid(), 1);
+	ft_putstr_fd("\n", 1);
+	return ;
+}

@@ -6,14 +6,14 @@
 #    By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
-#    Updated: 2022/05/31 20:43:09 by junkpark         ###   ########.fr        #
+#    Updated: 2022/06/24 22:03:10 by junkpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	= server client
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g
 
 FT_DIR	= ./lib/libft
 GNL_DIR	= ./lib/libgnl
@@ -21,14 +21,14 @@ FT		= ft
 GNL		= gnl
 
 INCLUDE = -I ./include
+SRC = ./src
 
-SERVER_SRC_DIR = ./server_src
 SERVER_SRC = \
-	$(SERVER_SRC_DIR)/server_main.c \
-
-CLIENT_SRC_DIR = ./client_src
+	$(SRC)/server.c \
+	$(SRC)/utils.c
 CLIENT_SRC = \
-	$(CLIENT_SRC_DIR)/client_main.c
+	$(SRC)/client.c \
+	$(SRC)/utils.c
 
 
 SERVER_OBJ = $(SERVER_SRC:.c=.o)
@@ -64,6 +64,8 @@ fclean: clean
 	$(MAKE) fclean -C $(GNL_DIR)
 	rm -f $(NAME)
 
-re: fclean all
+re:
+	$(MAKE) fclean
+	$(MAKE) all
 
 .PHONY: all clean fclean re
