@@ -6,13 +6,21 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:00:38 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/24 22:16:25 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/25 09:22:58 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
 t_info	g_info;
+
+static void	print_pid(void)
+{
+	ft_putstr_fd("PID : ", 1);
+	ft_putnbr_fd(getpid(), 1);
+	ft_putstr_fd("\n", 1);
+	return ;
+}
 
 static void	handler(int signum)
 {

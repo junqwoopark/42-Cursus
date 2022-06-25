@@ -6,7 +6,7 @@
 #    By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/18 12:26:56 by junkpark          #+#    #+#              #
-#    Updated: 2022/06/22 04:12:17 by junkpark         ###   ########.fr        #
+#    Updated: 2022/06/25 09:25:43 by junkpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,32 +51,18 @@ ft_tolower.c \
 ft_striteri.c \
 ft_toupper.c
 
-BONUSES = \
-ft_lstnew.c \
-ft_lstadd_front.c \
-ft_lstsize.c \
-ft_lstlast.c \
-ft_lstadd_back.c \
-ft_lstdelone.c \
-ft_lstclear.c \
-ft_lstiter.c \
-ft_lstmap.c
-
 OBJS = $(SRCS:.c=.o)
-BONUS_OBJS = $(BONUSES:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-
-bonus: $(OBJS) $(BONUS_OBJS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $^
 	ar crsu $(NAME) $@
 
 clean:
-	rm -f $(OBJS) $(BONUS_OBJS)
+	rm -f $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)
@@ -85,4 +71,4 @@ re:
 	$(MAKE) fclean
 	$(MAKE) all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re
