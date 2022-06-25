@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 17:51:12 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/25 10:12:35 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/25 10:29:27 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int argc, char **argv)
 	if (argc != 3)
 		exit_with_err("./client [pid] [string]");
 	pid = ft_atoi(argv[1]);
-	if (pid <= 100 || pid > 100000)
+	if (pid <= 100 || pid > 99999)
 		exit_with_err("Invalid pid.\n");
 	send_string(pid, argv[2]);
 	return (0);

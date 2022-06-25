@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 14:51:47 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/23 22:17:49 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/25 10:25:40 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,7 @@ int	ft_atoi(const char *str)
 			return (0);
 		ret = ret * 10 + *str - '0';
 		if (ret < 0)
-		{
-			if (sign == 1)
-				return (-1);
-			return (0);
-		}
+			return ((-1 * sign - 1) / 2);
 		str++;
 	}
 	return (ret * sign);
