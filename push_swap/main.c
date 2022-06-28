@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 19:10:40 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/25 16:51:49 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/28 13:05:47 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,21 @@ void	exit_with_err(const char *err_msg)
 	exit(1);
 }
 
-void	init_deque(int argc, char **argv, t_deque *p_a, t_deque *p_b)
+void	init_deque(int argc, char **argv, t_data *data)
 {
 	int	idx;
-	int	data;
+	int	val;
 
-	deque_init(p_a);
-	deque_init(p_b);
+	deque_init(&data->a);
+	deque_init(&data->b);
+	deque_init(&data->to_print);
 	idx = 1;
 	while (idx < argc)
 	{
-		data = ft_atoi(argv[idx]);
-		if (deque_find_data(p_a, data))
+		val = ft_atoi(argv[idx]);
+		if (deque_find_data(&data->a, val))
 			exit_with_err("Error\n");
-		deque_push_bottom(p_a, data);
+		deque_push_bottom(&data->a, val);
 		idx++;
 	}
 }
@@ -65,20 +66,25 @@ void	optimize_result(t_deque *result)
 	}
 }
 
+void	init(int argc, char **argv, t_data *data)
+{
+	int	*num_list;
+
+	init_deque(argc, argv, data);
+	if (is_deque_sorted(&data->a, data->a.size))
+		exit(0);
+	num_list = get_num_list(data->a.size, argv);
+	quick_sort(num_list, 0, data->a.size - 1);
+	num_list = set_idx_return_null(&data->a, num_list);
+	data->is_first = 1;
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	int		*num_list;
 
 	check_argv(argc, argv);
-	init_deque(argc, argv, &data.a, &data.b);
-	if (is_deque_sorted(&data.a, data.a.size))
-		return (0);
-	deque_init(&data.to_print);
-	num_list = get_num_list(data.a.size, argv);
-	quick_sort(num_list, 0, data.a.size - 1);
-	num_list = set_idx_return_null(&data.a, num_list);
-	data.is_first = 1;
+	init(argc, argv, &data);
 	if (data.a.size <= 5)
 		sort_under_five(&data);
 	else

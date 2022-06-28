@@ -1,21 +1,5 @@
 make --dry-run --keep-going --print-directory
-make: Entering directory `/Users/junkpark/Projects/42seoul_cadet/push_swap(quick_sort)'
-cc -Wall -Wextra -Werror -g -I ./include -c -o src/sort_under_five.o src/sort_under_five.c
-/Library/Developer/CommandLineTools/usr/bin/make -C ./lib/libft
- 
-make[1]: Entering directory `/Users/junkpark/Projects/42seoul_cadet/push_swap(quick_sort)/lib/libft'
-make[1]: Nothing to be done for `all'.
-make[1]: Leaving directory `/Users/junkpark/Projects/42seoul_cadet/push_swap(quick_sort)/lib/libft'
- 
-cc -Wall -Wextra -Werror -g -o push_swap_visualizer/bin/push_swap main.o src/deque_pop.o src/deque_push.o src/deque_utils.o src/deque_get.o src/deque_find_print.o src/deque_del.o src/push_swap_p.o src/push_swap_r.o src/push_swap_rr.o src/push_swap_s.o src/quick_sort.o src/check.o src/swap.o src/sort_under_five.o \
-		-L./lib/libft -l ft
-/Library/Developer/CommandLineTools/usr/bin/make -C ./lib/libft
- 
-make[1]: Entering directory `/Users/junkpark/Projects/42seoul_cadet/push_swap(quick_sort)/lib/libft'
-make[1]: Nothing to be done for `all'.
-make[1]: Leaving directory `/Users/junkpark/Projects/42seoul_cadet/push_swap(quick_sort)/lib/libft'
- 
-cc -Wall -Wextra -Werror -g -o push_swap main.o src/deque_pop.o src/deque_push.o src/deque_utils.o src/deque_get.o src/deque_find_print.o src/deque_del.o src/push_swap_p.o src/push_swap_r.o src/push_swap_rr.o src/push_swap_s.o src/quick_sort.o src/check.o src/swap.o src/sort_under_five.o \
-		-L./lib/libft -l ft
-make: Leaving directory `/Users/junkpark/Projects/42seoul_cadet/push_swap(quick_sort)'
+make: Entering directory `/Users/junkpark/Projects/42seoul_cadet/push_swap'
+make: Nothing to be done for `all'.
+make: Leaving directory `/Users/junkpark/Projects/42seoul_cadet/push_swap'
  

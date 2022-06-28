@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:15:37 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/24 17:07:39 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/28 12:54:42 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,26 +66,26 @@ int	*get_num_list(int size, char **argv)
 int	*set_idx_return_null(t_deque *a, int *num_list)
 {
 	int		idx;
-	int		**data_addr;
+	int		**val_addr;
 	t_node	*node;
 
 	idx = 0;
-	data_addr = malloc(sizeof(int *) * a->size);
-	if (data_addr == NULL)
+	val_addr = malloc(sizeof(int *) * a->size);
+	if (val_addr == NULL)
 		exit_with_err("Error\n");
 	while (idx < a->size)
 	{
 		node = deque_find_data(a, num_list[idx]);
-		data_addr[idx] = &(node->data);
+		val_addr[idx] = &(node->data);
 		idx++;
 	}
 	idx = 0;
 	while (idx < a->size)
 	{
-		*(data_addr[idx]) = idx;
+		*(val_addr[idx]) = idx;
 		idx++;
 	}
 	free(num_list);
-	free(data_addr);
+	free(val_addr);
 	return (NULL);
 }

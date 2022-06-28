@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 11:33:07 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/25 16:57:25 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/28 12:56:54 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,6 @@ void	sort_under_three(t_data *data, int size);
 
 // main.c
 void	exit_with_err(const char *error_msg);
-void	init_deque(int argc, char **argv, t_deque *p_a, t_deque *p_b);
+void	init_deque(int argc, char **argv, t_data *data);
 
 #endif
