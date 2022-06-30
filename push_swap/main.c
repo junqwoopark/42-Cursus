@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 19:10:40 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/29 18:17:11 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/30 17:45:06 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,5 @@ int	main(int argc, char **argv)
 		a_to_b(0, data.a.size, &data);
 	optimize_result(&data.result);
 	print_result(&data.result);
+	return (0);
 }
