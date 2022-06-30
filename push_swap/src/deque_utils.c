@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 11:35:25 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/25 15:05:32 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/29 17:14:07 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	deque_init(t_deque *p_deque)
 {
 	p_deque->size = 0;
-	p_deque->bottom = NULL;
-	p_deque->top = NULL;
+	p_deque->front = NULL;
+	p_deque->back = NULL;
 }
 
 int	is_deque_empty(t_deque *p_deque)
@@ -32,8 +32,8 @@ int	is_deque_sorted(t_deque *deque, int size)
 	int			idx;
 	t_node		*node;
 
-	x = deque->top->data;
-	node = deque->top->under;
+	x = deque->back->data;
+	node = deque->back->prev;
 	idx = 0;
 	while (node && idx < size - 1)
 	{
@@ -41,7 +41,7 @@ int	is_deque_sorted(t_deque *deque, int size)
 			x = node->data;
 		else
 			return (FALSE);
-		node = node->under;
+		node = node->prev;
 		idx++;
 	}
 	return (TRUE);
@@ -53,8 +53,8 @@ int	is_deque_sorted_reversed(t_deque *deque, int size)
 	int			idx;
 	t_node		*node;
 
-	x = deque->top->data;
-	node = deque->top->under;
+	x = deque->back->data;
+	node = deque->back->prev;
 	idx = 0;
 	while (node && idx < size - 1)
 	{
@@ -62,7 +62,7 @@ int	is_deque_sorted_reversed(t_deque *deque, int size)
 			x = node->data;
 		else
 			return (FALSE);
-		node = node->under;
+		node = node->prev;
 		idx++;
 	}
 	return (TRUE);

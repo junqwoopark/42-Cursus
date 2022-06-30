@@ -6,13 +6,13 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 20:58:12 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/22 19:31:27 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/30 16:46:40 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	is_digit_only(const char *str)
+static int	is_digit_only(const char *str)
 {
 	if (*str == '-')
 		str++;
@@ -27,7 +27,7 @@ int	is_digit_only(const char *str)
 	return (1);
 }
 
-int	is_ft_atoi_overflow(const char *str)
+static int	is_ft_atoi_overflow(const char *str)
 {
 	long long	ret;
 	int			sign;

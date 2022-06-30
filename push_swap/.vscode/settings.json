@@ -23,7 +23,8 @@
 		"string": "c",
 		"string_view": "c",
 		"utility": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"iterator": "c"
 	},
 	"C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
 }

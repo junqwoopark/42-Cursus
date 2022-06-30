@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 08:34:18 by junkpark          #+#    #+#             */
-/*   Updated: 2022/05/31 21:35:52 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/29 17:13:56 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ t_list	*ft_lstnew(void *content)
 	if (ret == NULL)
 		return (NULL);
 	ret -> content = content;
-	ret -> over = NULL;
+	ret -> next = NULL;
 	return (ret);
 }

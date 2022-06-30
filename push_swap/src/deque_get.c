@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 14:24:34 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/24 18:26:37 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/29 17:14:07 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@ int	deque_get_size(t_deque *p_deque)
 	return (p_deque->size);
 }
 
-int	deque_get_bottom(t_deque *p_deque)
+int	deque_get_front(t_deque *p_deque)
 {
 	if (is_deque_empty(p_deque))
 		exit(1);
-	return (p_deque->bottom->data);
+	return (p_deque->front->data);
 }
 
-int	deque_get_top(t_deque *p_deque)
+int	deque_get_back(t_deque *p_deque)
 {
 	if (is_deque_empty(p_deque))
 		exit(1);
-	return (p_deque->top->data);
+	return (p_deque->back->data);
 }
 
 int	deque_get_max(t_deque *p_deque, int size)
@@ -39,14 +39,14 @@ int	deque_get_max(t_deque *p_deque, int size)
 
 	idx = 0;
 	max = INT_MIN;
-	node = p_deque->top;
+	node = p_deque->back;
 	while (node && idx < size)
 	{
 		if (node->data > max)
 		{
 			max = node->data;
 		}
-		node = node->under;
+		node = node->prev;
 		idx++;
 	}
 	return (max);
@@ -60,14 +60,14 @@ int	deque_get_min(t_deque *p_deque, int size)
 
 	idx = 0;
 	min = INT_MAX;
-	node = p_deque->top;
+	node = p_deque->back;
 	while (node && idx < size)
 	{
 		if (node->data < min)
 		{
 			min = node->data;
 		}
-		node = node->under;
+		node = node->prev;
 		idx++;
 	}
 	return (min);

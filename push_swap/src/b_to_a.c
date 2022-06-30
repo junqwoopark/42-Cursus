@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 16:53:09 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/25 16:56:02 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/29 18:23:27 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 static void	pa_bigger_than_pivot(t_data *data, t_instance *instance)
 {
 	int	idx;
-	int	top;
+	int	back;
 
 	idx = 0;
 	while (idx < instance->size)
 	{
-		top = deque_get_top(&data->b);
-		if (top < instance->pivots.min)
+		back = deque_get_back(&data->b);
+		if (back < instance->pivots.min)
 		{
 			rb(data);
 			instance->rb_cnt++;
@@ -30,7 +30,7 @@ static void	pa_bigger_than_pivot(t_data *data, t_instance *instance)
 		{
 			pa(data);
 			instance->pa_cnt++;
-			if (top < instance->pivots.max)
+			if (back < instance->pivots.max)
 			{
 				ra(data);
 				instance->ra_cnt++;
@@ -51,7 +51,7 @@ void	b_to_a(int start, int size, t_data *data)
 		idx = size;
 		while (idx--)
 			pa(data);
-		sort_under_three(data, size);
+		sort_under_five(data, size);
 		return ;
 	}
 	pa_bigger_than_pivot(data, &instance);

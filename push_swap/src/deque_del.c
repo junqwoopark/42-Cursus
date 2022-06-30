@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 20:31:26 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/24 20:37:27 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/29 17:14:07 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 void	deque_del(t_deque *deque, t_node *node)
 {
-	t_node	*over;
-	t_node	*under;
+	t_node	*next;
+	t_node	*prev;
 
-	if (node == deque->top)
-		deque_pop_top(deque);
-	else if (node == deque->bottom)
-		deque_pop_bottom(deque);
+	if (node == deque->back)
+		deque_pop_back(deque);
+	else if (node == deque->front)
+		deque_pop_front(deque);
 	else
 	{
-		over = node->over;
-		under = node->under;
+		next = node->next;
+		prev = node->prev;
 		deque->size -= 1;
 		free(node);
-		over->under = under;
-		under->over = over;
+		next->prev = prev;
+		prev->next = next;
 	}
 }

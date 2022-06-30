@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 16:52:39 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/25 16:55:42 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/29 18:22:27 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 static void	pb_smaller_than_pivot_first(t_data *data, t_instance *instance)
 {
 	int	idx;
-	int	top;
+	int	back;
 
 	idx = 0;
 	while (idx < instance->size)
 	{
-		top = deque_get_top(&data->a);
-		if (top >= instance->pivots.max)
+		back = deque_get_back(&data->a);
+		if (back >= instance->pivots.max)
 		{
 			ra(data);
 			instance->ra_cnt++;
@@ -30,7 +30,7 @@ static void	pb_smaller_than_pivot_first(t_data *data, t_instance *instance)
 		{
 			pb(data);
 			instance->pb_cnt++;
-			if (top < instance->pivots.min)
+			if (back < instance->pivots.min)
 			{
 				rb(data);
 				instance->rb_cnt++;
@@ -44,13 +44,13 @@ static void	pb_smaller_than_pivot_first(t_data *data, t_instance *instance)
 static void	pb_smaller_than_pivot(t_data *data, t_instance *instance)
 {
 	int	idx;
-	int	top;
+	int	back;
 
 	idx = 0;
 	while (idx < instance->size)
 	{
-		top = deque_get_top(&data->a);
-		if (top >= instance->pivots.max)
+		back = deque_get_back(&data->a);
+		if (back >= instance->pivots.max)
 		{
 			ra(data);
 			instance->ra_cnt++;
@@ -59,7 +59,7 @@ static void	pb_smaller_than_pivot(t_data *data, t_instance *instance)
 		{
 			pb(data);
 			instance->pb_cnt++;
-			if (top >= instance->pivots.min)
+			if (back >= instance->pivots.min)
 			{
 				rb(data);
 				instance->rb_cnt++;
@@ -77,7 +77,7 @@ void	a_to_b(int start, int size, t_data *data)
 	init_instance(&instance, start, size);
 	if (size <= 3)
 	{
-		sort_under_three(data, size);
+		sort_under_five(data, size);
 		return ;
 	}
 	if (data->is_first)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_under_three.c                                 :+:      :+:    :+:   */
+/*   sort_three_while_recursive.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/25 15:23:28 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/25 15:31:10 by junkpark         ###   ########.fr       */
+/*   Created: 2022/06/30 16:41:16 by junkpark          #+#    #+#             */
+/*   Updated: 2022/06/30 16:41:21 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,27 +55,19 @@ static void	sort_three_min_is_bottom(t_data *data, int max_idx)
 	}
 }
 
-void	sort_under_three(t_data *data, int size)
+void	sort_three_while_recursive(t_data *data)
 {
 	int	min;
 	int	min_idx;
 	int	max_idx;
 
-	if (!is_deque_sorted(&data->a, size))
-	{
-		if (size == 2)
-			sa(data);
-		if (size == 3)
-		{
-			min = deque_get_min(&data->a, size);
-			min_idx = deque_get_idx(&data->a, min);
-			max_idx = deque_get_idx(&data->a, min + 2);
-			if (min_idx == 0)
-				sort_three_min_is_top(data);
-			if (min_idx == 1)
-				sort_three_min_is_mid(data, max_idx);
-			if (min_idx == 2)
-				sort_three_min_is_bottom(data, max_idx);
-		}
-	}
+	min = deque_get_min(&data->a, 3);
+	min_idx = deque_find_idx(&data->a, min);
+	max_idx = deque_find_idx(&data->a, min + 2);
+	if (min_idx == 0)
+		sort_three_min_is_top(data);
+	if (min_idx == 1)
+		sort_three_min_is_mid(data, max_idx);
+	if (min_idx == 2)
+		sort_three_min_is_bottom(data, max_idx);
 }

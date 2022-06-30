@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 12:27:31 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/24 17:17:59 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/06/29 17:58:06 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 void	rra(t_data *data)
 {
-	int	bottom;
+	int	front;
 
-	bottom = deque_pop_bottom(&data->a);
-	deque_push_top(&data->a, bottom);
-	deque_push_top(&data->to_print, RRA);
+	front = deque_pop_front(&data->a);
+	deque_push_back(&data->a, front);
+	deque_push_back(&data->result, RRA);
 }
 
 void	rrb(t_data *data)
 {
-	int	bottom;
+	int	front;
 
-	bottom = deque_pop_bottom(&data->b);
-	deque_push_top(&data->b, bottom);
-	deque_push_top(&data->to_print, RRB);
+	front = deque_pop_front(&data->b);
+	deque_push_back(&data->b, front);
+	deque_push_back(&data->result, RRB);
 }
 
 void	rrr(t_data *data)
 {
 	rra(data);
 	rrb(data);
-	deque_pop_top(&data->to_print);
-	deque_pop_top(&data->to_print);
-	deque_push_top(&data->to_print, RRR);
+	deque_pop_back(&data->result);
+	deque_pop_back(&data->result);
+	deque_push_back(&data->result, RRR);
 }
