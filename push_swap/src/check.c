@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 20:58:12 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/01 10:37:42 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/01 14:15:54 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,20 @@ static int	is_ft_atoi_overflow(const char *str)
 
 void	check_argv(int argc, char **argv)
 {
-	int	idx;
+	int		idx;
+	char	*tmp;
 
 	if (argc == 1)
-		exit_with_err("Error\n");
+		exit(0);
 	idx = 1;
 	while (idx < argc)
 	{
-		if (!is_digit_only(argv[idx]) || is_ft_atoi_overflow(argv[idx]))
+		tmp = ft_strtrim(argv[idx], "\f\r \t\v\n");
+		if (!tmp)
 			exit_with_err("Error\n");
+		if (!is_digit_only(tmp) || is_ft_atoi_overflow(tmp))
+			exit_with_err("Error\n");
+		free(tmp);
 		idx++;
 	}
 }
