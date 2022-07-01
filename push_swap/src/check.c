@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 20:58:12 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/30 16:46:40 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/01 10:37:42 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	is_digit_only(const char *str)
 {
-	if (*str == '-')
+	if (*str == '-' || *str == '+')
 		str++;
 	if (*str == 0)
 		return (0);

@@ -6,7 +6,7 @@
 #    By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by junkpark          #+#    #+#              #
-#    Updated: 2022/06/30 17:40:53 by junkpark         ###   ########.fr        #
+#    Updated: 2022/07/01 10:34:53 by junkpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME 	= ./push_swap
 BONUS	= checker
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -O3
+CFLAGS	= -Wall -Wextra -Werror
 
 FT_DIR	= ./lib/libft
 FT		= ft

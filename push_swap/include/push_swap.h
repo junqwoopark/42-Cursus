@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 11:33:07 by junkpark          #+#    #+#             */
-/*   Updated: 2022/06/30 17:10:07 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/01 10:34:05 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct s_instance
 }	t_instance;
 
 // main.c
-void	exit_with_err(const char *err_msg);
+void	exit_with_err(const char *err);
 
 // a_to_b.c
 void	a_to_b(int start, int size, t_data *data);
