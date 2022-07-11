@@ -6,14 +6,14 @@
 #    By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
-#    Updated: 2022/06/02 14:55:05 by junkpark         ###   ########.fr        #
+#    Updated: 2022/07/09 23:06:22 by junkpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	= philo
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g -fsanitize=address
 
 INCLUDE = -I ./include
 
@@ -22,6 +22,7 @@ SRC = \
 	$(SRC_DIR)/main.c \
 	$(SRC_DIR)/init.c \
 	$(SRC_DIR)/utils.c \
+	$(SRC_DIR)/philosophers.c
 
 OBJ = $(SRC:.c=.o)
 
