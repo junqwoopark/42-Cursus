@@ -31,3 +31,9 @@ void	deque_del(t_deque *deque, t_node *node)
 		prev->next = next;
 	}
 }
+
+void	deque_clear(t_deque *deque)
+{
+	while (deque->size)
+		deque_pop_front(deque);
+}

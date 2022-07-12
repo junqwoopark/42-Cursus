@@ -25,7 +25,10 @@ static void	init_deque(int argc, char **argv, t_data *data)
 	{
 		val = ft_atoi(argv[idx]);
 		if (deque_find_node(&data->a, val))
+		{
+			free_deques(data);
 			exit_with_err("Error\n");
+		}
 		deque_push_front(&data->a, val);
 		idx++;
 	}
@@ -35,8 +38,6 @@ void	init_data(int argc, char **argv, t_data *data)
 {
 	data->is_first = 1;
 	init_deque(argc, argv, data);
-	if (is_deque_sorted(&data->a, data->a.size))
-		exit(0);
 	label_data(argv, data);
 }
 

@@ -66,7 +66,10 @@ void	check_argv(int argc, char **argv)
 		if (!tmp)
 			exit_with_err("Error\n");
 		if (!is_digit_only(tmp) || is_ft_atoi_overflow(tmp))
+		{
+			free(tmp);
 			exit_with_err("Error\n");
+		}
 		free(tmp);
 		idx++;
 	}

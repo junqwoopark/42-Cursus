@@ -18,17 +18,28 @@ void	exit_with_err(const char *err)
 	exit(1);
 }
 
+void	free_deques(t_data *data)
+{
+	deque_clear(&data->a);
+	deque_clear(&data->b);
+	deque_clear(&data->result);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
 
 	check_argv(argc, argv);
 	init_data(argc, argv, &data);
-	if (data.a.size <= 5)
-		sort_under_five(&data, data.a.size);
-	else
-		a_to_b(0, data.a.size, &data);
+	if (!is_deque_sorted(&data.a, data.a.size))
+	{
+		if (data.a.size <= 5)
+			sort_under_five(&data, data.a.size);
+		else
+			a_to_b(0, data.a.size, &data);
+	}
 	optimize_result(&data.result);
 	print_result(&data.result);
+	free_deques(&data);
 	return (0);
 }

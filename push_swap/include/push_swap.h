@@ -75,6 +75,7 @@ typedef struct s_instance
 
 // main.c
 void	exit_with_err(const char *err);
+void	free_deques(t_data *data);
 
 // a_to_b.c
 void	a_to_b(int start, int size, t_data *data);
@@ -87,6 +88,7 @@ void	check_argv(int argc, char **argv);
 
 // deque_del.c
 void	deque_del(t_deque *deque, t_node *node);
+void	deque_clear(t_deque *deque);
 
 // deque_find_print.c
 t_node	*deque_find_node(t_deque *p_deque, int data);
