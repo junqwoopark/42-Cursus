@@ -89,7 +89,7 @@ void	*monitoring(void *arg)
 	while (instance->shared.rule.is_ready == 0)
 	{
 	}
-	usleep(7000);
+	ft_usleep(5000);
 	while (1)
 	{
 		idx = 0;
@@ -98,7 +98,7 @@ void	*monitoring(void *arg)
 			time = get_us_of_day();
 			if (time - instance->philos[idx].last_meal > instance->philos[idx].rule->time.die)
 			{
-				printf("%lldms %d died.\n", (time - instance->philos[idx].rule->time.start) / 1000, idx);
+				print_event(&instance->philos[idx], "is died\n");
 				exit(0);
 			}
 			idx++;
@@ -114,7 +114,7 @@ void	*monitoring(void *arg)
 		if (cnt == instance->shared.rule.number.philosophers)
 			exit(0);
 	}
-	usleep(5000);
+	ft_usleep(5000);
 }
 
 void	init_monitor(t_instance *instance)

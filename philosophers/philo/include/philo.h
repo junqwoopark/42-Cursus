@@ -71,7 +71,7 @@ void	exit_with_error(char *err);
 
 // utils.c
 int		ft_atoi(const char *str);
-// void	usleep(long long u_sec);
+void	ft_usleep(long long u_sec);
 long long	get_us_of_passed_time(long long start);
 void	print_event(t_philo *philo, char *event);
 

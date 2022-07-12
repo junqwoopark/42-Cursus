@@ -50,20 +50,20 @@ void	eating(t_philo *philo)
 	philo->last_meal = get_us_of_day();
 	philo->meal_cnt += 1;
 	print_event(philo, "is eating\n");
-	usleep(philo->rule->time.eat);
+	ft_usleep(philo->rule->time.eat);
 	release_forks(philo);
 }
 
 void	sleeping(t_philo *philo)
 {
 	print_event(philo, "is sleeping\n");
-	usleep(philo->rule->time.sleep);
+	ft_usleep(philo->rule->time.sleep);
 }
 
 void	thinking(t_philo *philo)
 {
 	print_event(philo, "is thinking\n");
-	usleep(100);
+	ft_usleep(50);
 }
 
 void	*routine(void *arg)

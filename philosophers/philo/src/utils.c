@@ -38,16 +38,15 @@ int	ft_atoi(const char *str)
 }
 
 
-// void	usleep(long long u_sec)
-// {
-// 	long long	target_u_sec;
+void	ft_usleep(long long u_sec)
+{
+	long long	target_u_sec;
 
-// 	target_u_sec = get_us_of_day() + u_sec;
-// 	while (target_u_sec > get_us_of_day())
-// 	{
-// 		usleep(50);
-// 	}
-// }
+	target_u_sec = get_us_of_day() + u_sec;
+	while (target_u_sec > get_us_of_day())
+	{
+	}
+}
 
 long long	get_us_of_passed_time(long long start)
 {
