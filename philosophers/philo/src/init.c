@@ -1,145 +1,137 @@
-          /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:09:58 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/04 13:38:18 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/16 21:57:58 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long long	get_us_of_day(void)
+void	init_argv(int argc, char **argv, t_shared *shared)
 {
-	struct timeval tv;
-	if (gettimeofday(&tv, NULL))
-		exit_with_error("ERROR: gettimeofday()\n");
-	return (tv.tv_sec * 1000000 + tv.tv_usec);
-}
-
-void	init_rule(int argc, char **argv, t_rule *rule)
-{
-	rule->is_ready = 0;
-	rule->number.philosophers = ft_atoi(argv[1]);
-	rule->time.die = ft_atoi(argv[2]) * 1000;
-	rule->time.eat = ft_atoi(argv[3]) * 1000;
-	rule->time.sleep = ft_atoi(argv[4]) * 1000;
-	rule->time.start = get_us_of_day();
-	if (argc == 6)
-		rule->number.must_eat = ft_atoi(argv[5]);
-	else
-		rule->number.must_eat = -1;
-}
-
-void	init_forks(t_instance *instance)
-{
-	int				idx;
-
-	instance->shared.forks = malloc(sizeof(pthread_mutex_t) * instance->shared.rule.number.philosophers);
-	if (instance->shared.forks == NULL)
-		exit_with_error("Error: malloc()\n");
-	idx = 0;
-	while (idx < instance->shared.rule.number.philosophers)
+	if (!(argc == 5 || argc == 6))
 	{
-		if (pthread_mutex_init(&instance->shared.forks[idx], NULL) != 0)
-			exit_with_error("Error: pthread_mutex_init()\n");
+		shared->observer.is_error = 1;
+		return ;
+	}
+	shared->time.die = ft_atoi(argv[2]);
+	shared->time.eat = ft_atoi(argv[3]);
+	shared->time.sleep = ft_atoi(argv[4]);
+	shared->time.start = get_ms_of_day();
+	shared->number.philosophers = ft_atoi(argv[1]);
+	if (argc == 6)
+		shared->number.must_eat = ft_atoi(argv[5]);
+	else
+		shared->number.must_eat = -2;
+	if (shared->time.die == -1 ||
+		shared->time.eat == -1 ||
+		shared->time.sleep == -1 ||
+		shared->number.philosophers == -1 ||
+		shared->number.must_eat == -1)
+		shared->observer.is_error = 1;
+	return;
+}
+
+void	init_number(int argc, char **argv, t_number *number)
+{
+	number->philosophers = ft_atoi(argv[1]);
+	if (argc == 6)
+		number->must_eat = ft_atoi(argv[5]);
+	else
+		number->must_eat = -1;
+}
+
+void	init_observer(t_observer *observer)
+{
+	observer->nbr_of_full = 0;
+	observer->is_end = 0;
+	observer->is_error = 0;
+}
+
+void	init_forks(t_shared *shared)
+{
+	int	idx;
+
+	if (shared->observer.is_error)
+		return ;
+	shared->forks = malloc(sizeof(pthread_mutex_t)
+			* shared->number.philosophers);
+	if (shared->forks == NULL)
+	{
+		shared->observer.is_error = 1;
+		return ;
+	}
+	idx = 0;
+	while (idx < shared->number.philosophers)
+	{
+		if (pthread_mutex_init(&(shared->forks[idx]), NULL) != 0)
+			shared->observer.is_error = 1;
 		idx++;
 	}
+}
+
+void	init_mutex(t_shared *shared)
+{
+	shared->print = malloc(sizeof(pthread_mutex_t));
+	if (shared->print == NULL)
+	{
+		shared->observer.is_error = 1;
+		return ;
+	}
+	if (pthread_mutex_init(shared->print, NULL) != 0)
+		shared->observer.is_error = 1;
+	shared->event = malloc(sizeof(pthread_mutex_t));
+	if (shared->event == NULL)
+	{
+		shared->observer.is_error = 1;
+		return ;
+	}
+	if (pthread_mutex_init(shared->event, NULL) != 0)
+		shared->observer.is_error = 1;
+}
+
+void	init_shared(int argc, char **argv, t_shared *shared)
+{
+
+	init_observer(&shared->observer);
+	init_argv(argc, argv, shared);
+	init_forks(shared);
+	init_mutex(shared);
 }
 
 void	init_philos(t_instance *instance)
 {
 	int	idx;
 
-	instance->philos = malloc(sizeof(t_philo) * instance->shared.rule.number.philosophers);
+	if (instance->shared.observer.is_error)
+		return ;
+	instance->philos = malloc(sizeof(t_philo) * instance->shared.number.philosophers);
 	if (instance->philos == NULL)
-		exit_with_error("ERROR: malloc()\n");
+		instance->shared.observer.is_error = 1;
 	idx = 0;
-	while (idx < instance->shared.rule.number.philosophers)
+	while (idx < instance->shared.number.philosophers)
 	{
-		instance->philos[idx].tid = idx;
+		instance->philos[idx].tid = idx + 1;
 		instance->philos[idx].meal_cnt = 0;
-		instance->philos[idx].lfork = &instance->shared.forks[idx];
-		instance->philos[idx].rfork = &instance->shared.forks[(idx + instance->shared.rule.number.philosophers - 1) % instance->shared.rule.number.philosophers];
-		instance->philos[idx].rule = &instance->shared.rule;
+		instance->philos[idx].lfork = &(instance->shared.forks[idx]);
+		instance->philos[idx].rfork = &(instance->shared.forks[(idx + instance->shared.number.philosophers - 1)
+			% instance->shared.number.philosophers]);
 		instance->philos[idx].shared = &instance->shared;
-		if (pthread_create(&instance->philos[idx].thread, NULL, routine, &instance->philos[idx]))
-			exit_with_error("ERROR: pthread_create()\n");
+		instance->philos[idx].last_meal = instance->shared.time.start;
 		idx++;
 	}
-	idx = 0;
-	while (idx < instance->shared.rule.number.philosophers)
-	{
-		pthread_detach(instance->philos[idx].thread);
-		idx++;
-	}
-}
-
-void	*monitoring(void *arg)
-{
-	int			idx;
-	int			cnt;
-	long long	time;
-	t_instance		*instance;
-
-	instance = arg;
-	while (instance->shared.rule.is_ready == 0)
-	{
-	}
-	ft_usleep(5000);
-	while (1)
-	{
-		idx = 0;
-		while (idx < instance->philos->rule->number.philosophers)
-		{
-			time = get_us_of_day();
-			if (time - instance->philos[idx].last_meal > instance->philos[idx].rule->time.die)
-			{
-				print_event(&instance->philos[idx], "is died\n");
-				exit(0);
-			}
-			idx++;
-		}
-		idx = 0;
-		cnt = 0;
-		while (idx < instance->philos->rule->number.philosophers)
-		{
-			if (instance->shared.rule.number.must_eat != -1 && instance->philos[idx].meal_cnt >= instance->shared.rule.number.must_eat)
-				cnt++;
-			idx++;
-		}
-		if (cnt == instance->shared.rule.number.philosophers)
-			exit(0);
-	}
-	ft_usleep(5000);
-}
-
-void	init_monitor(t_instance *instance)
-{
-	instance->monitor = malloc(sizeof(pthread_t));
-	if (pthread_create(instance->monitor, NULL, monitoring, instance) != 0)
-		exit_with_error("ERROR: pthread_create()\n");
-}
-
-void	init_event(t_instance *instance)
-{
-	instance->shared.event = malloc(sizeof(pthread_mutex_t));
-	if (instance->shared.event == NULL)
-		exit_with_error("Error: malloc()\n");
-	if (pthread_mutex_init(instance->shared.event, NULL) != 0)
-		exit_with_error("Error: pthread_mutex_init()\n");
+	instance->shared.philos = instance->philos;
 }
 
 void	init_instance(int argc, char **argv, t_instance *instance)
 {
 	if (!(argc == 5 || argc == 6))
-		exit_with_error("./philo number.philosophers time._die time._eat time._sleep [number.must_eat]");
-	init_rule(argc, argv, &instance->shared.rule);
-	init_forks(instance);
-	init_event(instance);
+		instance->shared.observer.is_error = 1;
+	init_shared(argc, argv, &instance->shared);
 	init_philos(instance);
-	init_monitor(instance);
 }

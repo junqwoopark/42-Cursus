@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:51:09 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/09 23:00:23 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/16 17:08:20 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_atoi(const char *str)
 {
-	long long	ret;
-	int			sign;
+	int					sign;
+	unsigned long long	ret;
 
 	ret = 0;
 	sign = 1;
@@ -28,35 +28,43 @@ int	ft_atoi(const char *str)
 	while (*str)
 	{
 		if (!('0' <= *str && *str <= '9'))
-			exit_with_error("ft_atoi : is not digit\n");
+			return (-1);
 		ret = ret * 10 + *str - '0';
-		if (ret < 0)
-			exit_with_error("ft_atoi : overflow\n");
+		if (ret > 2147483648)
+			return (-1);
+		else if (ret == 2147483648 && sign == 1)
+			return (-1);
 		str++;
 	}
+	if (ret * sign < 0)
+		return (-1);
 	return (ret * sign);
 }
 
-
-void	ft_usleep(long long u_sec)
+time_t	get_ms_of_day(void)
 {
-	long long	target_u_sec;
+	struct timeval	tv;
 
-	target_u_sec = get_us_of_day() + u_sec;
-	while (target_u_sec > get_us_of_day())
-	{
-	}
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
 
-long long	get_us_of_passed_time(long long start)
+time_t	get_ms_of_passed_time(time_t start)
 {
-	return ((get_us_of_day() - start));
+	return ((get_ms_of_day() - start));
 }
 
-void	print_event(t_philo *philo, char *event)
+void	print_mutex(t_philo *philo, char *print)
 {
+	pthread_mutex_lock(philo->shared->print);
 	pthread_mutex_lock(philo->shared->event);
-	printf("%lldms %d %s", get_us_of_passed_time(philo->shared->rule.time.start) / 1000, philo->tid, event);
-	pthread_mutex_unlock(philo->shared->event);
+	if (!philo->shared->observer.is_end)
+	{
+		pthread_mutex_unlock(philo->shared->event);
+		printf("%ld %d %s", get_ms_of_passed_time(philo->shared->time.start),
+			philo->tid, print);
+	}
+	else
+		pthread_mutex_unlock(philo->shared->event);
+	pthread_mutex_unlock(philo->shared->print);
 }
-
