@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 15:24:46 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 15:43:45 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/18 20:51:39 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	simulate_philosophers(t_instance *instance)
 	idx = 0;
 	while (idx < shared->number.philosophers)
 	{
+		philos[idx].last_meal = get_ms_of_day();
 		if (pthread_create(&philos[idx].thread, NULL, routine, &philos[idx]))
 			shared->observer.is_error = 1;
 		idx++;
