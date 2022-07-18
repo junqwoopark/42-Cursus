@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 00:33:32 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 15:24:05 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:43:57 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 static void	eating(t_philo *philo)
 {
 	take_forks(philo);
-	print_mutex(philo, "is eating\n");
+	print_atomic(philo, "is eating\n");
 	ft_usleep(philo->shared->time.eat);
 	release_forks(philo);
 }
 
 static void	sleeping(t_philo *philo)
 {
-	print_mutex(philo, "is sleeping\n");
+	print_atomic(philo, "is sleeping\n");
 	ft_usleep(philo->shared->time.sleep);
 }
 
 static void	thinking(t_philo *philo)
 {
-	print_mutex(philo, "is thinking\n");
+	print_atomic(philo, "is thinking\n");
 	usleep(200);
 }
 
@@ -41,10 +41,10 @@ void	*routine(void *arg)
 		usleep(1000);
 	while (1)
 	{
-		if (check_mutex(philo->shared, philo->shared->philos, IS_END, 0))
+		if (check_atomic(philo->shared, philo->shared->philos, IS_END, 0))
 			return (NULL);
 		eating(philo);
-		if (check_mutex(philo->shared, philo->shared->philos, IS_END, 0))
+		if (check_atomic(philo->shared, philo->shared->philos, IS_END, 0))
 			return (NULL);
 		sleeping(philo);
 		thinking(philo);

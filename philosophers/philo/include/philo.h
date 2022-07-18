@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 22:25:23 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 15:28:40 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:44:17 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,9 @@ time_t	get_ms_of_day(void);
 time_t	get_ms_of_passed_time(time_t start);
 void	ft_usleep(time_t wait_time);
 
-// mutex.c
-void	print_mutex(t_philo *philo, char *print);
-int		check_mutex(t_shared *shared, t_philo *philos, int to_check, int idx);
+// atomic.c
+void	print_atomic(t_philo *philo, char *print);
+int		check_atomic(t_shared *shared, t_philo *philos, int to_check, int idx);
 
 // observing.c
 void	observing(t_shared *shared, t_philo *philos);

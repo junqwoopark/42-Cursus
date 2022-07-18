@@ -6,7 +6,7 @@
 #    By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
-#    Updated: 2022/07/18 15:25:43 by junkpark         ###   ########.fr        #
+#    Updated: 2022/07/18 15:44:59 by junkpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC = \
 	$(SRC_DIR)/utils.c \
 	$(SRC_DIR)/philosophers.c \
 	$(SRC_DIR)/observing.c \
-	$(SRC_DIR)/mutex.c \
+	$(SRC_DIR)/atomic.c \
 	$(SRC_DIR)/forks.c \
 	$(SRC_DIR)/simulate.c
 

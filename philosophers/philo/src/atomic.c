@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mutex.c                                            :+:      :+:    :+:   */
+/*   atomic.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:21:24 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 14:36:47 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:45:11 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print_mutex(t_philo *philo, char *print)
+void	print_atomic(t_philo *philo, char *print)
 {
 	pthread_mutex_lock(philo->shared->print);
 	pthread_mutex_lock(philo->shared->event);
@@ -27,7 +27,7 @@ void	print_mutex(t_philo *philo, char *print)
 	pthread_mutex_unlock(philo->shared->print);
 }
 
-int	check_mutex(t_shared *shared, t_philo *philos, int to_check, int idx)
+int	check_atomic(t_shared *shared, t_philo *philos, int to_check, int idx)
 {
 	int	ret;
 

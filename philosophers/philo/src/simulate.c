@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 15:24:46 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 15:25:47 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/18 15:43:45 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static void	simulate_solo(t_instance *instance)
 	shared = &instance->shared;
 	philos = instance->philos;
 	pthread_mutex_lock(&shared->forks[0]);
-	print_mutex(&philos[0], "has taken a fork\n");
+	print_atomic(&philos[0], "has taken a fork\n");
 	ft_usleep(shared->time.die);
 	pthread_mutex_unlock(&shared->forks[0]);
-	print_mutex(&philos[0], "is dead\n");
+	print_atomic(&philos[0], "is dead\n");
 	return ;
 }
 
