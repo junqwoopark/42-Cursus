@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 22:25:23 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 15:44:17 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/18 18:48:01 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	ft_usleep(time_t wait_time);
 
 // atomic.c
 void	print_atomic(t_philo *philo, char *print);
-int		check_atomic(t_shared *shared, t_philo *philos, int to_check, int idx);
+int		check_atomic(t_shared *shared, int to_check);
 
 // observing.c
 void	observing(t_shared *shared, t_philo *philos);

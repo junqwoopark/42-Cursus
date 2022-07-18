@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:51:09 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 14:21:30 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/18 20:33:14 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_usleep(time_t wait_time)
 	time_t	start_time;
 
 	start_time = get_ms_of_day();
-	while (get_ms_of_passed_time(start_time) <= wait_time)
+	while (get_ms_of_passed_time(start_time) < wait_time)
 	{
 		usleep(1000);
 	}

@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 00:33:32 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 15:43:57 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/18 20:30:40 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	sleeping(t_philo *philo)
 static void	thinking(t_philo *philo)
 {
 	print_atomic(philo, "is thinking\n");
-	usleep(200);
+	usleep(100);
 }
 
 void	*routine(void *arg)
@@ -41,10 +41,10 @@ void	*routine(void *arg)
 		usleep(1000);
 	while (1)
 	{
-		if (check_atomic(philo->shared, philo->shared->philos, IS_END, 0))
+		if (check_atomic(philo->shared, IS_END))
 			return (NULL);
 		eating(philo);
-		if (check_atomic(philo->shared, philo->shared->philos, IS_END, 0))
+		if (check_atomic(philo->shared, IS_END))
 			return (NULL);
 		sleeping(philo);
 		thinking(philo);
