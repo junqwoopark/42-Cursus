@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:09:58 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 15:23:35 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/18 22:12:01 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void	init_argv(int argc, char **argv, t_shared *shared)
 	shared->time.die = ft_atoi(argv[2]);
 	shared->time.eat = ft_atoi(argv[3]);
 	shared->time.sleep = ft_atoi(argv[4]);
-	shared->time.start = get_ms_of_day();
 	shared->number.philosophers = ft_atoi(argv[1]);
 	if (argc == 6)
 		shared->number.must_eat = ft_atoi(argv[5]);
@@ -103,7 +102,6 @@ static void	init_philos(t_instance *instance)
 				(idx + shared->number.philosophers - 1)
 				% shared->number.philosophers]);
 		philos[idx].shared = shared;
-		philos[idx].last_meal = shared->time.start;
 		idx++;
 	}
 	instance->shared.philos = instance->philos;

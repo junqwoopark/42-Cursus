@@ -1,7 +1,0 @@
-==26621== Helgrind, a thread error detector
-==26621== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
-==26621== Using Valgrind-3.19.0.GIT-lbmacos and LibVEX; rerun with -h for copyright info
-==26621== Command: ./philo 4 410 200 200 4
-==26621== Parent PID: 26049
-==26621== 
---26621-- UNKNOWN task message [id 3453, to mach_task_self(), reply 0x707]

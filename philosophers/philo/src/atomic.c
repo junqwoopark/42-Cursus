@@ -6,17 +6,16 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:21:24 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 20:51:56 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/18 22:23:52 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <string.h>
 
-void	print_atomic(t_philo *philo, char *print)
+void	print_atomic(t_philo *philo, char *print, int to_print)
 {
 	pthread_mutex_lock(philo->shared->print);
-	if (!strcmp(print, "is died\n"))
+	if (to_print == DIED)
 	{
 		printf("%ld %d %s", get_ms_of_passed_time(philo->shared->time.start),
 			philo->tid, print);

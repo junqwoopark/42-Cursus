@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:51:09 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 20:33:14 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/18 22:18:37 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,21 @@ time_t	get_ms_of_passed_time(time_t start)
 	return ((get_ms_of_day() - start));
 }
 
-void	ft_usleep(time_t wait_time)
+void	ft_msleep(time_t wait_time)
 {
 	time_t	start_time;
 
 	start_time = get_ms_of_day();
 	while (get_ms_of_passed_time(start_time) < wait_time)
-	{
 		usleep(1000);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	while (*s1 && *s2 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
 	}
+	return (s1 - s2);
 }

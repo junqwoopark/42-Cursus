@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 22:25:23 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 18:48:01 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/18 22:22:31 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-enum	e_check
+enum	e_options
 {
 	IS_END,
 	IS_FULL,
-	TIME_PASSED
+	DIED,
+	EVENT
 };
 
 typedef struct s_time
@@ -94,10 +95,10 @@ void	simulate_philosophers(t_instance *instance);
 int		ft_atoi(const char *str);
 time_t	get_ms_of_day(void);
 time_t	get_ms_of_passed_time(time_t start);
-void	ft_usleep(time_t wait_time);
+void	ft_msleep(time_t wait_time);
 
 // atomic.c
-void	print_atomic(t_philo *philo, char *print);
+void	print_atomic(t_philo *philo, char *print, int to_print);
 int		check_atomic(t_shared *shared, int to_check);
 
 // observing.c

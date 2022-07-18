@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 15:24:46 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 20:51:39 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/18 22:23:36 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static void	simulate_solo(t_instance *instance)
 	shared = &instance->shared;
 	philos = instance->philos;
 	pthread_mutex_lock(&shared->forks[0]);
-	print_atomic(&philos[0], "has taken a fork\n");
-	ft_usleep(shared->time.die);
+	print_atomic(&philos[0], "has taken a fork\n", EVENT);
+	ft_msleep(shared->time.die);
 	pthread_mutex_unlock(&shared->forks[0]);
-	print_atomic(&philos[0], "is dead\n");
+	print_atomic(&philos[0], "is dead\n", EVENT);
 	return ;
 }
 
@@ -40,9 +40,10 @@ void	simulate_philosophers(t_instance *instance)
 	if (shared->number.philosophers == 1)
 		return (simulate_solo(instance));
 	idx = 0;
+	instance->shared.time.start = get_ms_of_day();
 	while (idx < shared->number.philosophers)
 	{
-		philos[idx].last_meal = get_ms_of_day();
+		philos[idx].last_meal = instance->shared.time.start;
 		if (pthread_create(&philos[idx].thread, NULL, routine, &philos[idx]))
 			shared->observer.is_error = 1;
 		idx++;

@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 20:39:28 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 20:28:58 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/18 22:22:56 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	check_is_dead(t_shared *shared, t_philo *philos)
 		pthread_mutex_lock(shared->event);
 		if (get_ms_of_passed_time(philos[idx].last_meal) > shared->time.die)
 		{
-			print_atomic(&philos[idx], "is died\n");
+			print_atomic(&philos[idx], "is died\n", DIED);
 			shared->observer.is_end = 1;
 			pthread_mutex_unlock(shared->event);
 			return (1);
@@ -48,7 +48,7 @@ void	observing(t_shared *shared, t_philo *philos)
 		if (check_is_dead(shared, philos)
 			|| check_atomic(shared, IS_FULL))
 			break ;
-		usleep(50);
+		usleep(1000);
 	}
 	return ;
 }

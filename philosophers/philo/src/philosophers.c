@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 00:33:32 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 20:47:41 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/18 22:23:21 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 static void	eating(t_philo *philo)
 {
 	take_forks(philo);
-	print_atomic(philo, "is eating\n");
-	ft_usleep(philo->shared->time.eat);
+	print_atomic(philo, "is eating\n", EVENT);
+	ft_msleep(philo->shared->time.eat);
 	release_forks(philo);
 }
 
 static void	sleeping(t_philo *philo)
 {
-	print_atomic(philo, "is sleeping\n");
-	ft_usleep(philo->shared->time.sleep);
+	print_atomic(philo, "is sleeping\n", EVENT);
+	ft_msleep(philo->shared->time.sleep);
 }
 
 static void	thinking(t_philo *philo)
 {
-	print_atomic(philo, "is thinking\n");
-	usleep(100);
+	print_atomic(philo, "is thinking\n", EVENT);
+	usleep(1000);
 }
 
 void	*routine(void *arg)
