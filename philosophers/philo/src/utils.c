@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:51:09 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/16 17:08:20 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/18 14:21:30 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,13 @@ time_t	get_ms_of_passed_time(time_t start)
 	return ((get_ms_of_day() - start));
 }
 
-void	print_mutex(t_philo *philo, char *print)
+void	ft_usleep(time_t wait_time)
 {
-	pthread_mutex_lock(philo->shared->print);
-	pthread_mutex_lock(philo->shared->event);
-	if (!philo->shared->observer.is_end)
+	time_t	start_time;
+
+	start_time = get_ms_of_day();
+	while (get_ms_of_passed_time(start_time) <= wait_time)
 	{
-		pthread_mutex_unlock(philo->shared->event);
-		printf("%ld %d %s", get_ms_of_passed_time(philo->shared->time.start),
-			philo->tid, print);
+		usleep(1000);
 	}
-	else
-		pthread_mutex_unlock(philo->shared->event);
-	pthread_mutex_unlock(philo->shared->print);
 }
