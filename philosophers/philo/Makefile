@@ -6,17 +6,17 @@
 #    By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
-#    Updated: 2022/07/19 14:07:37 by junkpark         ###   ########.fr        #
+#    Updated: 2022/07/19 16:04:13 by junkpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	= philo
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -g
-INCLUDE = -I ./
+CFLAGS	= -Wall -Wextra -Werror
+INCLUDE = -I .
 
-SRC_DIR = ./
+SRC_DIR = .
 SRC = \
 	$(SRC_DIR)/main.c \
 	$(SRC_DIR)/init.c \
