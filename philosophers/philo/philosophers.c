@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 00:33:32 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 22:23:21 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/19 13:33:53 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->tid % 2)
-		usleep(500);
+		usleep(1000);
 	while (1)
 	{
 		if (check_atomic(philo->shared, IS_END))
@@ -47,6 +47,8 @@ void	*routine(void *arg)
 		if (check_atomic(philo->shared, IS_END))
 			return (NULL);
 		sleeping(philo);
+		if (check_atomic(philo->shared, IS_END))
+			return (NULL);
 		thinking(philo);
 	}
 }

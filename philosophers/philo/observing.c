@@ -6,13 +6,13 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 20:39:28 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 22:22:56 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/19 13:53:44 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	check_is_dead(t_shared *shared, t_philo *philos)
+static int	check_is_died(t_shared *shared, t_philo *philos)
 {
 	int	idx;
 
@@ -45,10 +45,10 @@ void	observing(t_shared *shared, t_philo *philos)
 	{
 		if (check_atomic(shared, IS_END))
 			return ;
-		if (check_is_dead(shared, philos)
+		if (check_is_died(shared, philos)
 			|| check_atomic(shared, IS_FULL))
 			break ;
-		usleep(1000);
+		ft_msleep(1);
 	}
 	return ;
 }

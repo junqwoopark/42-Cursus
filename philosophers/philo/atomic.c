@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:21:24 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 22:23:52 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/19 13:36:18 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_atomic(t_philo *philo, char *print, int to_print)
 	pthread_mutex_lock(philo->shared->print);
 	if (to_print == DIED)
 	{
-		printf("%ld %d %s", get_ms_of_passed_time(philo->shared->time.start),
+		printf("%ld\t%d\t%s", get_ms_of_passed_time(philo->shared->time.start),
 			philo->tid, print);
 		pthread_mutex_unlock(philo->shared->print);
 		return ;
@@ -25,7 +25,7 @@ void	print_atomic(t_philo *philo, char *print, int to_print)
 	pthread_mutex_lock(philo->shared->event);
 	if (!philo->shared->observer.is_end)
 	{
-		printf("%ld %d %s", get_ms_of_passed_time(philo->shared->time.start),
+		printf("%ld\t%d\t%s", get_ms_of_passed_time(philo->shared->time.start),
 			philo->tid, print);
 		pthread_mutex_unlock(philo->shared->event);
 	}
@@ -42,7 +42,7 @@ int	check_atomic(t_shared *shared, int to_check)
 	pthread_mutex_lock(shared->event);
 	if (to_check == IS_END)
 	{
-		if (shared->observer.is_end)
+		if (shared->observer.is_end || shared->observer.is_error)
 			ret = 1;
 	}
 	else if (to_check == IS_FULL)

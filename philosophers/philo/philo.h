@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 22:25:23 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 22:22:31 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/19 14:05:56 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	init_instance(int argc, char **argv, t_instance *instance);
 void	*routine(void *arg);
 
 // simulate.c
+void	simulate_solo(t_instance *instance);
 void	simulate_philosophers(t_instance *instance);
 
 // utils.c
