@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:21:24 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/20 19:29:57 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/20 19:53:41 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ int	check_atomic(t_shared *shared, int to_check)
 	}
 	else if (to_check == IS_FULL)
 	{
-		if (shared->number.must_eat == 0
-			|| shared->observer.nbr_of_full == shared->number.philosophers)
+		if (shared->observer.nbr_of_full == shared->number.philosophers)
 		{
 			shared->observer.is_end = 1;
 			ret = 1;

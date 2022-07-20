@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 15:24:46 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/20 19:49:31 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/20 19:57:03 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void	simulate_solo(t_instance *instance)
 	t_philo		*philo;
 	t_shared	*shared;
 
+	if (instance->shared.observer.is_error)
+		return ;
 	philo = &instance->philos[0];
 	shared = &instance->shared;
 	shared->time.start = get_ms_of_day();
-	if (shared->observer.is_error)
-		return ;
 	if (pthread_create(&philo->thread, NULL, solo_routine, (void *) philo))
 	{
 		shared->observer.is_error = 1;
@@ -89,11 +89,11 @@ void	simulate_philosophers(t_instance *instance)
 	t_philo		*philos;
 	t_shared	*shared;
 
+	if (instance->shared.observer.is_error)
+		return ;
 	shared = &instance->shared;
 	philos = instance->philos;
 	shared->time.start = get_ms_of_day();
-	if (shared->observer.is_error)
-		return ;
 	create_threads(instance);
 	observing(shared, philos);
 	join_threads(instance);
