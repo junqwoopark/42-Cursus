@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 14:09:58 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 22:12:01 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/20 19:49:25 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,10 @@ static void	init_philos(t_instance *instance)
 	if (philos == NULL)
 		shared->observer.is_error = 1;
 	idx = 0;
-	while (idx < shared->number.philosophers)
+	while (idx < shared->number.philosophers && !shared->observer.is_error)
 	{
 		philos[idx].tid = idx + 1;
+		philos[idx].thread = 0;
 		philos[idx].meal_cnt = 0;
 		philos[idx].lfork = &(shared->forks[idx]);
 		philos[idx].rfork = &(shared->forks[
@@ -109,8 +110,6 @@ static void	init_philos(t_instance *instance)
 
 void	init_instance(int argc, char **argv, t_instance *instance)
 {
-	if (!(argc == 5 || argc == 6))
-		instance->shared.observer.is_error = 1;
 	init_argv(argc, argv, &instance->shared);
 	init_forks(&instance->shared);
 	init_mutex(&instance->shared);

@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 20:39:28 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/19 13:53:44 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/20 19:41:28 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,19 @@
 
 static int	check_is_died(t_shared *shared, t_philo *philos)
 {
-	int	idx;
+	int		idx;
+	time_t	passed_time;
 
 	idx = 0;
 	while (idx < shared->number.philosophers)
 	{
 		pthread_mutex_lock(shared->event);
-		if (get_ms_of_passed_time(philos[idx].last_meal) > shared->time.die)
+		passed_time = get_ms_of_passed_time(philos[idx].last_meal);
+		if (passed_time > shared->time.die)
 		{
-			print_atomic(&philos[idx], "is died\n", DIED);
 			shared->observer.is_end = 1;
+			printf("%ld\t%d\tis died\n",
+				passed_time, idx + 1);
 			pthread_mutex_unlock(shared->event);
 			return (1);
 		}

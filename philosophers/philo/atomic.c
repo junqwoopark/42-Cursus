@@ -6,31 +6,22 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:21:24 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/19 16:10:55 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/20 19:29:57 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print_atomic(t_philo *philo, char *print, int to_print)
+void	print_atomic(t_philo *philo, char *print)
 {
 	pthread_mutex_lock(philo->shared->print);
-	if (to_print == DIED)
-	{
-		printf("%ld\t%d\t%s", get_ms_of_passed_time(philo->shared->time.start),
-			philo->tid, print);
-		pthread_mutex_unlock(philo->shared->print);
-		return ;
-	}
 	pthread_mutex_lock(philo->shared->event);
 	if (!philo->shared->observer.is_end)
 	{
 		printf("%ld\t%d\t%s", get_ms_of_passed_time(philo->shared->time.start),
 			philo->tid, print);
-		pthread_mutex_unlock(philo->shared->event);
 	}
-	else
-		pthread_mutex_unlock(philo->shared->event);
+	pthread_mutex_unlock(philo->shared->event);
 	pthread_mutex_unlock(philo->shared->print);
 }
 

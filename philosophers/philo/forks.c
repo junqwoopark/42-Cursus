@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 14:37:31 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/18 22:22:47 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/20 19:31:00 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	take_forks(t_philo *philo)
 {
 	pthread_mutex_lock(philo->lfork);
-	print_atomic(philo, "has taken a fork\n", EVENT);
+	print_atomic(philo, "has taken a fork\n");
 	pthread_mutex_lock(philo->rfork);
-	print_atomic(philo, "has taken a fork\n", EVENT);
+	print_atomic(philo, "has taken a fork\n");
 	pthread_mutex_lock(philo->shared->event);
 	philo->last_meal = get_ms_of_day();
 	pthread_mutex_unlock(philo->shared->event);

@@ -6,7 +6,7 @@
 /*   By: junkpark <junkpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 15:24:46 by junkpark          #+#    #+#             */
-/*   Updated: 2022/07/19 14:16:38 by junkpark         ###   ########.fr       */
+/*   Updated: 2022/07/20 19:49:31 by junkpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static void	*solo_routine(void *arg)
 	philo = (t_philo *) arg;
 	shared = philo->shared;
 	pthread_mutex_lock(&shared->forks[0]);
-	print_atomic(philo, "has taken a fork\n", EVENT);
+	print_atomic(philo, "has taken a fork\n");
 	ft_msleep(shared->time.die);
 	pthread_mutex_unlock(&shared->forks[0]);
-	print_atomic(philo, "is died\n", DIED);
+	print_atomic(philo, "is died\n");
 	return (NULL);
 }
 
