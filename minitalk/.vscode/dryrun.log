@@ -1,5 +1,0 @@
-make --dry-run --keep-going --print-directory
-make: Entering directory `/Users/junkpark/Projects/42seoul_cadet/minitalk'
-make: Nothing to be done for `all'.
-make: Leaving directory `/Users/junkpark/Projects/42seoul_cadet/minitalk'
- 
