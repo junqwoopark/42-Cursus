@@ -1,10 +1,23 @@
+#include <array>
 #include <iostream>
+#include <stack>
+#include <string>
 #include <vector>
+using namespace std;
 
-// test of vector comparison
+// 정수일때만 함수 코드를 생성하고 싶음
+template <typename T>
+typename enable_if<is_integral<T>::value, T>::type foo(T a) {
+  cout << "T" << endl;
+
+  return 0;
+}
+
+void foo(...) { cout << "not integer" << endl; }
+
 int main() {
-  std::vector<int> v1(5, 42);
-  std::vector<int> v2(5, 42);
-
-  std::cout << "v1 == v2 ? " << (v1 == v2) << std::endl;
+  std::stack<int> s1;
+  std::stack<int> s2;
+  cout << (s1 == s2) << endl;
+  cout << (s1 > s2) << endl;
 }
