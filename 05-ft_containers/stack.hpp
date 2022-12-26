@@ -18,9 +18,7 @@ protected:
   container_type c;
 
 public:
-  stack() : c() {}
-  explicit stack(const container_type &container = container_type())
-      : c(container) {}
+  stack(const container_type &container = container_type()) : c(container) {}
 
   bool empty() const { return c.empty(); }
 
