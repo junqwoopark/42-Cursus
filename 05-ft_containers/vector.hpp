@@ -13,17 +13,19 @@
 
 namespace ft {
 
-template <class T>
-class vector_iterator : public ft::iterator<ft::random_access_iterator_tag, T> {
+template <class T> class vector_iterator {
 public:
-  typedef T value_type;
-  typedef T *pointer;
-  typedef T &reference;
-  typedef ptrdiff_t difference_type;
-  typedef ft::random_access_iterator_tag iterator_category;
+  typedef T iterator_type;
+  typedef typename ft::iterator_traits<iterator_type>::iterator_category
+      iterator_category;
+  typedef typename ft::iterator_traits<iterator_type>::value_type value_type;
+  typedef typename ft::iterator_traits<iterator_type>::difference_type
+      difference_type;
+  typedef typename ft::iterator_traits<iterator_type>::pointer pointer;
+  typedef typename ft::iterator_traits<iterator_type>::reference reference;
 
 private:
-  pointer _ptr;
+  iterator_type _ptr;
 
 public:
   vector_iterator() : _ptr(0) {}
@@ -132,8 +134,8 @@ public:
   typedef typename allocator_type::const_pointer const_pointer;
   typedef typename allocator_type::size_type size_type;
   typedef typename allocator_type::difference_type difference_type;
-  typedef vector_iterator<T> iterator;
-  typedef vector_iterator<const T> const_iterator;
+  typedef ft::vector_iterator<pointer> iterator;
+  typedef ft::vector_iterator<const_pointer> const_iterator;
   typedef ft::reverse_iterator<iterator> reverse_iterator;
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
@@ -208,12 +210,12 @@ public:
   iterator end() { return iterator(_data + _size); }
   reverse_iterator rbegin() { return reverse_iterator(end()); }
   reverse_iterator rend() { return reverse_iterator(begin()); }
-  const_iterator cbegin() const { return const_iterator(_data); }
-  const_iterator cend() const { return const_iterator(_data + _size); }
-  const_reverse_iterator crbegin() const {
+  const_iterator begin() const { return const_iterator(_data); }
+  const_iterator end() const { return const_iterator(_data + _size); }
+  const_reverse_iterator rbegin() const {
     return const_reverse_iterator(end());
   }
-  const_reverse_iterator crend() const {
+  const_reverse_iterator rend() const {
     return const_reverse_iterator(begin());
   }
 
@@ -289,9 +291,10 @@ public:
       InputIterator first, InputIterator last,
       typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * =
           0) {
+    size_type n = ft::distance(first, last);
     clear();
-    if (last - first > _capacity) {
-      reserve(last - first);
+    if (n > _capacity) {
+      reserve(n);
     }
     while (first != last) {
       push_back(*first);
