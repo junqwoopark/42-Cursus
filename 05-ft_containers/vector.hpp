@@ -30,12 +30,13 @@ protected:
 
 public:
   typedef vector_iterator<Iterator> normal_iterator_type;
-  typedef ft::iterator_traits<Iterator> __traits_type;
-  typedef typename __traits_type::iterator_category iterator_category;
-  typedef typename __traits_type::value_type value_type;
-  typedef typename __traits_type::difference_type difference_type;
-  typedef typename __traits_type::pointer pointer;
-  typedef typename __traits_type::reference reference;
+  typedef typename ft::iterator_traits<Iterator>::iterator_category
+      iterator_category;
+  typedef typename ft::iterator_traits<Iterator>::value_type value_type;
+  typedef
+      typename ft::iterator_traits<Iterator>::difference_type difference_type;
+  typedef typename ft::iterator_traits<Iterator>::pointer pointer;
+  typedef typename ft::iterator_traits<Iterator>::reference reference;
 
   vector_iterator() : _M_current(Iterator()) {}
 
