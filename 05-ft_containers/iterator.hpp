@@ -175,18 +175,6 @@ operator+(typename reverse_iterator<Iterator>::difference_type n,
   return reverse_iterator<Iterator>(x.base() - n);
 }
 
-template <class Iterator>
-inline bool operator!=(const reverse_iterator<Iterator> &x,
-                       const reverse_iterator<Iterator> &y) {
-  return !(x == y);
-}
-
-template <class Iterator>
-inline bool operator>(const reverse_iterator<Iterator> &x,
-                      const reverse_iterator<Iterator> &y) {
-  return y < x;
-}
-
 } // namespace ft
 
 #endif
