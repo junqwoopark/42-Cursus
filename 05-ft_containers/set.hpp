@@ -24,7 +24,8 @@ public:
   typedef Compare value_compare;
 
 private:
-  typedef Rb_tree<key_type, value_type, _Identity<value_type>, key_compare>
+  typedef Rb_tree<key_type, value_type, _Identity<value_type>, key_compare,
+                  Alloc>
       _Rep_type;
   _Rep_type _M_t;
 

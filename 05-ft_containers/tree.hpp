@@ -8,7 +8,6 @@
 #include <utility>
 
 #include "algorithm.hpp"
-#include "construct.hpp"
 #include "iterator.hpp"
 #include "utility.hpp"
 
@@ -349,6 +348,7 @@ protected:
   Rb_tree_node<Tp> *_M_header;
   typedef typename Alloc::template rebind<Rb_tree_node<Tp> >::other
       node_allocator_type;
+  allocator_type _M_value_allocator;
   node_allocator_type _M_node_allocator;
 
   Rb_tree_node<Tp> *_M_get_node() { return _M_node_allocator.allocate(1); }
@@ -365,6 +365,7 @@ protected:
   using Base::_M_get_node;
   using Base::_M_header;
   using Base::_M_put_node;
+  using Base::_M_value_allocator;
 
 public:
   Rb_tree_base(const allocator_type &a) : Base(a) { _M_header = _M_get_node(); }
@@ -399,11 +400,12 @@ protected:
   using Base::_M_get_node;
   using Base::_M_header;
   using Base::_M_put_node;
+  using Base::_M_value_allocator;
 
   link_type create_node(const value_type &x) {
     link_type tmp = _M_get_node();
     try {
-      construct(&tmp->value_field, x);
+      _M_value_allocator.construct(&tmp->value_field, x);
     } catch (...) {
       _M_put_node(tmp);
       throw;
@@ -420,7 +422,7 @@ protected:
   }
 
   void destroy_node(link_type p) {
-    destroy(&p->value_field);
+    _M_value_allocator.destroy(&p->value_field);
     _M_put_node(p);
   }
 
