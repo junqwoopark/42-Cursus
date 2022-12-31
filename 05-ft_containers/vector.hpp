@@ -29,7 +29,7 @@ protected:
   Iterator _M_current;
 
 public:
-  typedef vector_iterator<Iterator> normal_iterator_type;
+  typedef Iterator iterator_type;
   typedef typename ft::iterator_traits<Iterator>::iterator_category
       iterator_category;
   typedef typename ft::iterator_traits<Iterator>::value_type value_type;
@@ -52,45 +52,45 @@ public:
 
   pointer operator->() const { return _M_current; }
 
-  normal_iterator_type &operator++() {
+  iterator_type &operator++() {
     ++_M_current;
     return *this;
   }
 
-  normal_iterator_type operator++(int) { return vector_iterator(_M_current++); }
+  iterator_type operator++(int) { return vector_iterator(_M_current++); }
 
   // Bidirectional iterator requirements
-  normal_iterator_type &operator--() {
+  iterator_type &operator--() {
     --_M_current;
     return *this;
   }
 
-  normal_iterator_type operator--(int) { return vector_iterator(_M_current--); }
+  iterator_type operator--(int) { return vector_iterator(_M_current--); }
 
   // Random access iterator requirements
   reference operator[](const difference_type &__n) const {
     return _M_current[__n];
   }
 
-  normal_iterator_type &operator+=(const difference_type &__n) {
+  iterator_type &operator+=(const difference_type &__n) {
     _M_current += __n;
     return *this;
   }
 
-  normal_iterator_type operator+(const difference_type &__n) const {
+  iterator_type operator+(const difference_type &__n) const {
     return vector_iterator(_M_current + __n);
   }
 
-  normal_iterator_type &operator-=(const difference_type &__n) {
+  iterator_type &operator-=(const difference_type &__n) {
     _M_current -= __n;
     return *this;
   }
 
-  normal_iterator_type operator-(const difference_type &__n) const {
+  iterator_type operator-(const difference_type &__n) const {
     return vector_iterator(_M_current - __n);
   }
 
-  difference_type operator-(const normal_iterator_type &__i) const {
+  difference_type operator-(const iterator_type &__i) const {
     return _M_current - __i._M_current;
   }
 
