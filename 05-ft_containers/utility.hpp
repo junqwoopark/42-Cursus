@@ -1,6 +1,9 @@
 #ifndef FT_UTILITY_HPP
 #define FT_UTILITY_HPP
 
+#include "algorithm.hpp"
+#include "iterator.hpp"
+#include "type_traits.hpp"
 namespace ft {
 
 template <typename T1, typename T2> struct pair {
