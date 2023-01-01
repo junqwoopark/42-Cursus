@@ -52,45 +52,45 @@ public:
 
   pointer operator->() const { return _M_current; }
 
-  iterator_type &operator++() {
+  vector_iterator &operator++() {
     ++_M_current;
     return *this;
   }
 
-  iterator_type operator++(int) { return vector_iterator(_M_current++); }
+  vector_iterator operator++(int) { return vector_iterator(_M_current++); }
 
   // Bidirectional iterator requirements
-  iterator_type &operator--() {
+  vector_iterator &operator--() {
     --_M_current;
     return *this;
   }
 
-  iterator_type operator--(int) { return vector_iterator(_M_current--); }
+  vector_iterator operator--(int) { return vector_iterator(_M_current--); }
 
   // Random access iterator requirements
   reference operator[](const difference_type &__n) const {
     return _M_current[__n];
   }
 
-  iterator_type &operator+=(const difference_type &__n) {
+  vector_iterator &operator+=(const difference_type &__n) {
     _M_current += __n;
     return *this;
   }
 
-  iterator_type operator+(const difference_type &__n) const {
+  vector_iterator operator+(const difference_type &__n) const {
     return vector_iterator(_M_current + __n);
   }
 
-  iterator_type &operator-=(const difference_type &__n) {
+  vector_iterator &operator-=(const difference_type &__n) {
     _M_current -= __n;
     return *this;
   }
 
-  iterator_type operator-(const difference_type &__n) const {
+  vector_iterator operator-(const difference_type &__n) const {
     return vector_iterator(_M_current - __n);
   }
 
-  difference_type operator-(const iterator_type &__i) const {
+  difference_type operator-(const vector_iterator &__i) const {
     return _M_current - __i._M_current;
   }
 
