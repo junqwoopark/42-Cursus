@@ -42,12 +42,10 @@ public:
 
   explicit vector_iterator(const Iterator &__i) : _M_current(__i) {}
 
-  // Allow iterator to const_iterator conversion
   template <typename _Iter>
   inline vector_iterator(const vector_iterator<_Iter> &__i)
       : _M_current(__i.base()) {}
 
-  // Forward iterator requirements
   reference operator*() const { return *_M_current; }
 
   pointer operator->() const { return _M_current; }
@@ -59,7 +57,6 @@ public:
 
   vector_iterator operator++(int) { return vector_iterator(_M_current++); }
 
-  // Bidirectional iterator requirements
   vector_iterator &operator--() {
     --_M_current;
     return *this;
@@ -67,7 +64,6 @@ public:
 
   vector_iterator operator--(int) { return vector_iterator(_M_current--); }
 
-  // Random access iterator requirements
   reference operator[](const difference_type &__n) const {
     return _M_current[__n];
   }
@@ -108,8 +104,6 @@ inline bool operator!=(const vector_iterator<_IteratorL> &__lhs,
                        const vector_iterator<_IteratorR> &__rhs) {
   return !(__lhs == __rhs);
 }
-
-// random access iterator requirements
 
 template <typename _IteratorL, typename _IteratorR>
 inline bool operator<(const vector_iterator<_IteratorL> &__lhs,
