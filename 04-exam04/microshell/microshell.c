@@ -112,9 +112,10 @@ int main(int argc, char **argv, char **envp) {
       continue;
     else if (!strcmp(argv[0], "cd"))
       cd(argv, i);
-    else if (argv[i] && strcmp(argv[i], "|"))
+    else if (argv[i] && !strcmp(argv[i], "|"))
       exec_parallel(argv, i, envp);
     else
       exec(argv, i, envp);
+    argv += i;
   }
 }
