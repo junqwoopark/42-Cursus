@@ -1,39 +1,36 @@
-#ifndef WARLOCK_HPP
-#define WARLOCK_HPP
+#pragma once
 
 #include "ASpell.hpp"
-#include "ATarget.hpp"
+#include "SpellBook.hpp"
 #include <iostream>
 #include <map>
 #include <string>
 
-using namespace std;
-
 class Warlock {
 private:
-  string _name;
-  string _title;
-  std::map<std::string, ASpell *> _spells;
+  std::string _name;
+  std::string _title;
+  SpellBook _spellBook;
 
 public:
-  Warlock(string name, string title) : _name(name), _title(title) {
-    cout << _name << ": This looks like another boring day." << endl;
+  Warlock(std::string name, std::string title) : _name(name), _title(title) {
+    std::cout << _name << ": This looks like another boring day." << std::endl;
   }
-  ~Warlock() { cout << _name << ": My job here is done!" << endl; }
+  ~Warlock() { std::cout << _name << ": My job here is done!" << std::endl; }
 
   void introduce() {
-    cout << _name << ": I am " << _name << ", " << _title << "!" << endl;
+    std::cout << _name << ": I am " << _name << ", " << _title << "!"
+              << std::endl;
   }
-  const string &getName() const { return _name; }
-  const string &getTitle() const { return _title; }
-  void setTitle(const string &title) { _title = title; }
+  const std::string &getName() const { return _name; }
+  const std::string &getTitle() const { return _title; }
+  void setTitle(const std::string &title) { _title = title; }
 
-  void learnSpell(ASpell *spell) { _spells[spell->getName()] = spell; }
-  void forgetSpell(std::string spellName) { _spells[spellName] = NULL; }
+  void learnSpell(ASpell *spell) { _spellBook.learnSpell(spell); }
+  void forgetSpell(std::string spellName) { _spellBook.forgetSpell(spellName); }
   void launchSpell(std::string spellName, ATarget &target) {
-    if (_spells[spellName])
-      _spells[spellName]->launch(target);
+    ASpell *spell = _spellBook.createSpell(spellName);
+    spell->launch(target);
+    delete spell;
   }
 };
-
-#endif
