@@ -6,11 +6,11 @@
 #    By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by junkpark          #+#    #+#              #
-#    Updated: 2022/06/22 22:19:22 by junkpark         ###   ########.fr        #
+#    Updated: 2023/01/05 17:46:36 by junkpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 	= ./push_swap_visualizer/bin/push_swap ./push_swap
+NAME 	= ./push_swap
 BONUS	= checker
 
 CC		= cc
