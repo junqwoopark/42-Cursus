@@ -21,9 +21,9 @@ ft_set_test : stack_test.cpp; $(CXX) $(CXXFLAGS) -o ft_set_test $^ -D TEST
 ft_map_test : map_test.cpp; $(CXX) $(CXXFLAGS) -o ft_map_test $^ -D TEST
 
 clean:
-  rm -f default_test
+	rm -f default_test
 	rm -f stl_vector_test stl_stack_test stl_set_test stl_map_test
-  rm -f ft_vector_test ft_stack_test ft_set_test ft_map_test
+	rm -f ft_vector_test ft_stack_test ft_set_test ft_map_test
 
 fclean: clean
 
