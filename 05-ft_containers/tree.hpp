@@ -345,27 +345,27 @@ Rb_tree_node_base *Rb_tree_rebalance_for_erase(Rb_tree_node_base *z, Rb_tree_nod
   return y;
 }
 
-template <class Tp, class Alloc> class Rb_tree_alloc_base {
+template <class T, class Alloc> class Rb_tree_alloc_base {
 public:
-  typedef typename Alloc::template rebind<Tp>::other allocator_type;
+  typedef typename Alloc::template rebind<T>::other allocator_type;
   allocator_type get_allocator() const { return _M_node_allocator; }
 
   Rb_tree_alloc_base(const allocator_type &a) : _M_node_allocator(a) {}
 
 protected:
-  Rb_tree_node<Tp> *_M_header;
-  typedef typename Alloc::template rebind<Rb_tree_node<Tp> >::other node_allocator_type;
+  Rb_tree_node<T> *_M_header;
+  typedef typename Alloc::template rebind<Rb_tree_node<T> >::other node_allocator_type;
   allocator_type _M_value_allocator;
   node_allocator_type _M_node_allocator;
 
-  Rb_tree_node<Tp> *_M_get_node() { return _M_node_allocator.allocate(1); }
-  void _M_put_node(Rb_tree_node<Tp> *p) { _M_node_allocator.deallocate(p, 1); }
+  Rb_tree_node<T> *_M_get_node() { return _M_node_allocator.allocate(1); }
+  void _M_put_node(Rb_tree_node<T> *p) { _M_node_allocator.deallocate(p, 1); }
 };
 
-template <class Tp, class Alloc> class Rb_tree_base : public Rb_tree_alloc_base<Tp, Alloc> {
+template <class T, class Alloc> class Rb_tree_base : public Rb_tree_alloc_base<T, Alloc> {
 
 protected:
-  typedef Rb_tree_alloc_base<Tp, Alloc> Base;
+  typedef Rb_tree_alloc_base<T, Alloc> Base;
   typedef typename Base::allocator_type allocator_type;
   typedef typename Base::node_allocator_type node_allocator_type;
   using Base::_M_get_node;
@@ -567,44 +567,44 @@ public:
 };
 
 template <class Key, class Value, class KeyOfValue, class Compare, class Alloc>
-inline bool operator==(const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &x,
-                       const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &y) {
+bool operator==(const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &x,
+                const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &y) {
   return x.size() == y.size() && ft::equal(x.begin(), x.end(), y.begin());
 }
 
 template <class Key, class Value, class KeyOfValue, class Compare, class Alloc>
-inline bool operator<(const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &x,
-                      const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &y) {
+bool operator<(const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &x,
+               const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &y) {
   return std::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());
 }
 
 template <class Key, class Value, class KeyOfValue, class Compare, class Alloc>
-inline bool operator!=(const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &x,
-                       const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &y) {
+bool operator!=(const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &x,
+                const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &y) {
   return !(x == y);
 }
 
 template <class Key, class Value, class KeyOfValue, class Compare, class Alloc>
-inline bool operator>(const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &x,
-                      const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &y) {
+bool operator>(const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &x,
+               const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &y) {
   return y < x;
 }
 
 template <class Key, class Value, class KeyOfValue, class Compare, class Alloc>
-inline bool operator<=(const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &x,
-                       const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &y) {
+bool operator<=(const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &x,
+                const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &y) {
   return !(y < x);
 }
 
 template <class Key, class Value, class KeyOfValue, class Compare, class Alloc>
-inline bool operator>=(const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &x,
-                       const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &y) {
+bool operator>=(const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &x,
+                const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &y) {
   return !(x < y);
 }
 
 // #ifdef __STL_FUNCTION_TMPL_PARTIAL_ORDER
 // template <class Key, class Value, class KeyOfValue, class Compare, class
-// Alloc> inline void swap(Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &x,
+// Alloc>  void swap(Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &x,
 //                  Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &y) {
 //   x.swap(y);
 // }
@@ -960,4 +960,5 @@ Rb_tree<Key, Value, KeyOfValue, Compare, Alloc>::equal_range(const key_type &k) 
 }
 
 } // namespace ft
+
 #endif

@@ -34,22 +34,9 @@ public:
 
   void swap(stack &x) { c.swap(x.c); }
 
-  template <class T1, class Container1>
-  friend bool operator==(const stack<T1, Container1> &lhs, const stack<T1, Container1> &rhs);
-
-  template <class T1, class Container1>
-  friend bool operator<(const stack<T1, Container1> &lhs, const stack<T1, Container1> &rhs);
+  friend bool operator==(const stack &lhs, const stack &rhs) { return lhs.c == rhs.c; }
+  friend bool operator<(const stack &lhs, const stack &rhs) { return lhs.c < rhs.c; }
 };
-
-template <class T, class Container>
-bool operator==(const stack<T, Container> &lhs, const stack<T, Container> &rhs) {
-  return lhs.c == rhs.c;
-}
-
-template <class T, class Container>
-bool operator<(const stack<T, Container> &lhs, const stack<T, Container> &rhs) {
-  return lhs.c < rhs.c;
-}
 
 template <class T, class Container>
 bool operator!=(const stack<T, Container> &lhs, const stack<T, Container> &rhs) {
