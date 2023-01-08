@@ -47,13 +47,12 @@ public:
   typedef typename iterator_traits<Iterator>::reference reference;
 
   typedef Iterator iterator_type;
-  typedef reverse_iterator<Iterator> Self;
 
 public:
   reverse_iterator() {}
   explicit reverse_iterator(iterator_type x) : current(x) {}
 
-  reverse_iterator(const Self &x) : current(x.current) {}
+  reverse_iterator(const reverse_iterator &x) : current(x.current) {}
   template <class _Iter> reverse_iterator(const reverse_iterator<_Iter> &x) : current(x.base()) {}
 
   iterator_type base() const { return current; }
@@ -63,32 +62,32 @@ public:
   }
   pointer operator->() const { return &(operator*()); }
 
-  Self &operator++() {
+  reverse_iterator &operator++() {
     --current;
     return *this;
   }
-  Self operator++(int) {
-    Self tmp = *this;
+  reverse_iterator operator++(int) {
+    reverse_iterator tmp = *this;
     --current;
     return tmp;
   }
-  Self &operator--() {
+  reverse_iterator &operator--() {
     ++current;
     return *this;
   }
-  Self operator--(int) {
-    Self tmp = *this;
+  reverse_iterator operator--(int) {
+    reverse_iterator tmp = *this;
     ++current;
     return tmp;
   }
 
-  Self operator+(difference_type n) const { return Self(current - n); }
-  Self &operator+=(difference_type n) {
+  reverse_iterator operator+(difference_type n) const { return reverse_iterator(current - n); }
+  reverse_iterator &operator+=(difference_type n) {
     current -= n;
     return *this;
   }
-  Self operator-(difference_type n) const { return Self(current + n); }
-  Self &operator-=(difference_type n) {
+  reverse_iterator operator-(difference_type n) const { return reverse_iterator(current + n); }
+  reverse_iterator &operator-=(difference_type n) {
     current += n;
     return *this;
   }
