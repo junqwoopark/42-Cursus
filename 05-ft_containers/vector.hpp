@@ -39,7 +39,8 @@ public:
 
   explicit vector_iterator(const Iterator &i) : _M_current(i) {}
 
-  template <typename Iter> vector_iterator(const vector_iterator<Iter> &i) : _M_current(i.base()) {}
+  template <typename Iter>
+  vector_iterator<Iter>(const vector_iterator<Iter> &i) : _M_current(i.base()) {}
 
   reference operator*() const { return *_M_current; }
 
@@ -81,7 +82,7 @@ public:
 
   difference_type operator-(const vector_iterator &i) const { return _M_current - i._M_current; }
 
-  const Iterator &base() const { return _M_current; }
+  iterator_type base() const { return _M_current; }
 };
 
 template <typename IteratorL, typename IteratorR>
