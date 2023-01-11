@@ -92,6 +92,7 @@ public:
   bool empty() const { return _M_t.empty(); }
   size_type size() const { return _M_t.size(); }
   size_type max_size() const { return _M_t.max_size(); }
+
   T &operator[](const key_type k) {
     iterator i = lower_bound(k);
     if (i == end() || key_comp()(k, (*i).first))

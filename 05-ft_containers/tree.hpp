@@ -92,17 +92,18 @@ struct Rb_tree_iterator : public Rb_tree_base_iterator {
   typedef Ref reference;
   typedef Ptr pointer;
   typedef Rb_tree_iterator<Value, Value &, Value *> iterator;
-  typedef Rb_tree_iterator<Value, const Value &, const Value *> const_iterator;
   typedef Rb_tree_iterator<Value, Ref, Ptr> self;
   typedef Rb_tree_node<Value> *link_type;
 
   Rb_tree_iterator() {}
   Rb_tree_iterator(link_type x) { node = x; }
-  Rb_tree_iterator(const iterator &it) { node = it.node; }
+  template <class Other> Rb_tree_iterator(const Rb_tree_iterator<Other, Other &, Other *> &it) {
+    node = it.node;
+  }
+  // Rb_tree_iterator(const iterator &it) { node = it.node; }
 
   reference operator*() const { return link_type(node)->value_field; }
-
-  pointer operator->() const { return &(operator*()); }
+  pointer operator->() const { return &operator*(); }
 
   self &operator++() {
     increment();
@@ -127,11 +128,15 @@ struct Rb_tree_iterator : public Rb_tree_base_iterator {
   }
 };
 
-bool operator==(const Rb_tree_base_iterator &x, const Rb_tree_base_iterator &y) {
+template <class Value, class Ref1, class Ptr1, class Ref2, class Ptr2>
+bool operator==(const Rb_tree_iterator<Value, Ref1, Ptr1> &x,
+                const Rb_tree_iterator<Value, Ref2, Ptr2> &y) {
   return x.node == y.node;
 }
 
-bool operator!=(const Rb_tree_base_iterator &x, const Rb_tree_base_iterator &y) {
+template <class Value, class Ref1, class Ptr1, class Ref2, class Ptr2>
+bool operator!=(const Rb_tree_iterator<Value, Ref1, Ptr1> &x,
+                const Rb_tree_iterator<Value, Ref2, Ptr2> &y) {
   return x.node != y.node;
 }
 
