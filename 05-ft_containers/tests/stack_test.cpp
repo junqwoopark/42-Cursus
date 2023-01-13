@@ -3,13 +3,13 @@
 int main() {
   // constructor
   {
-    std::deque<int> mydeque(3, 100);   // deque with 3 elements
-    std::vector<int> myvector(2, 200); // vector with 2 elements
+    std::deque<int> mydeque(3, 100);    // deque with 3 elements
+    std::vector<int> myvector(2, 200);  // vector with 2 elements
 
-    NAMESPACE::stack<int> first;                             // empty stack
-    NAMESPACE::stack<int, std::deque<int> > second(mydeque); // stack initialized to copy of deque
+    NAMESPACE::stack<int> first;                              // empty stack
+    NAMESPACE::stack<int, std::deque<int> > second(mydeque);  // stack initialized to copy of deque
 
-    NAMESPACE::stack<int, std::vector<int> > third; // empty stack using vector
+    NAMESPACE::stack<int, std::vector<int> > third;  // empty stack using vector
     NAMESPACE::stack<int, std::vector<int> > fourth(myvector);
 
     std::cout << "size of first: " << first.size() << '\n';
@@ -23,8 +23,7 @@ int main() {
     NAMESPACE::stack<int> mystack;
     int sum(0);
 
-    for (int i = 1; i <= 10; i++)
-      mystack.push(i);
+    for (int i = 1; i <= 10; i++) mystack.push(i);
 
     while (!mystack.empty()) {
       sum += mystack.top();
@@ -39,8 +38,7 @@ int main() {
     NAMESPACE::stack<int> myints;
     std::cout << "0. size: " << myints.size() << '\n';
 
-    for (int i = 0; i < 5; i++)
-      myints.push(i);
+    for (int i = 0; i < 5; i++) myints.push(i);
     std::cout << "1. size: " << myints.size() << '\n';
 
     myints.pop();
@@ -63,8 +61,7 @@ int main() {
   {
     NAMESPACE::stack<int> mystack;
 
-    for (int i = 0; i < 5; i++)
-      mystack.push(i);
+    for (int i = 0; i < 5; i++) mystack.push(i);
 
     std::cout << "Popping out elements...";
     while (!mystack.empty()) {

@@ -20,10 +20,10 @@ int main() {
 
     NAMESPACE::map<char, int> third(second);
 
-    NAMESPACE::map<char, int, classcomp> fourth; // class as Compare
+    NAMESPACE::map<char, int, classcomp> fourth;  // class as Compare
 
     bool (*fn_pt)(char, char) = fncomp;
-    NAMESPACE::map<char, int, bool (*)(char, char)> fifth(fn_pt); // function pointer as Compare
+    NAMESPACE::map<char, int, bool (*)(char, char)> fifth(fn_pt);  // function pointer as Compare
   }
 
   // operator=
@@ -35,8 +35,8 @@ int main() {
     first['y'] = 16;
     first['z'] = 32;
 
-    second = first;                      // second now contains 3 ints
-    first = NAMESPACE::map<char, int>(); // and first is now empty
+    second = first;                       // second now contains 3 ints
+    first = NAMESPACE::map<char, int>();  // and first is now empty
 
     std::cout << "Size of first: " << first.size() << '\n';
     std::cout << "Size of second: " << second.size() << '\n';
@@ -65,8 +65,7 @@ int main() {
 
     // show content:
     NAMESPACE::map<char, int>::reverse_iterator rit;
-    for (rit = mymap.rbegin(); rit != mymap.rend(); ++rit)
-      std::cout << rit->first << " => " << rit->second << '\n';
+    for (rit = mymap.rbegin(); rit != mymap.rend(); ++rit) std::cout << rit->first << " => " << rit->second << '\n';
   }
 
   // empty()
@@ -100,8 +99,7 @@ int main() {
     NAMESPACE::map<int, int> mymap;
 
     if (mymap.max_size() > 1000) {
-      for (i = 0; i < 1000; i++)
-        mymap[i] = 0;
+      for (i = 0; i < 1000; i++) mymap[i] = 0;
       std::cout << "The map contains 1000 elements.\n";
     } else
       std::cout << "The map could not hold 1000 elements.\n";
@@ -156,8 +154,8 @@ int main() {
 
     // second insert function version (with hint position):
     NAMESPACE::map<char, int>::iterator it = mymap.begin();
-    mymap.insert(it, NAMESPACE::pair<char, int>('b', 300)); // max efficiency inserting
-    mymap.insert(it, NAMESPACE::pair<char, int>('c', 400)); // no max efficiency inserting
+    mymap.insert(it, NAMESPACE::pair<char, int>('b', 300));  // max efficiency inserting
+    mymap.insert(it, NAMESPACE::pair<char, int>('c', 400));  // no max efficiency inserting
 
     // third insert function version (range insertion):
     NAMESPACE::map<char, int> anothermap;
@@ -165,12 +163,10 @@ int main() {
 
     // showing contents:
     std::cout << "mymap contains:\n";
-    for (it = mymap.begin(); it != mymap.end(); ++it)
-      std::cout << it->first << " => " << it->second << '\n';
+    for (it = mymap.begin(); it != mymap.end(); ++it) std::cout << it->first << " => " << it->second << '\n';
 
     std::cout << "anothermap contains:\n";
-    for (it = anothermap.begin(); it != anothermap.end(); ++it)
-      std::cout << it->first << " => " << it->second << '\n';
+    for (it = anothermap.begin(); it != anothermap.end(); ++it) std::cout << it->first << " => " << it->second << '\n';
   }
 
   // erase()
@@ -187,16 +183,15 @@ int main() {
     mymap['f'] = 60;
 
     it = mymap.find('b');
-    mymap.erase(it); // erasing by iterator
+    mymap.erase(it);  // erasing by iterator
 
-    mymap.erase('c'); // erasing by key
+    mymap.erase('c');  // erasing by key
 
     it = mymap.find('e');
-    mymap.erase(it, mymap.end()); // erasing by range
+    mymap.erase(it, mymap.end());  // erasing by range
 
     // show content:
-    for (it = mymap.begin(); it != mymap.end(); ++it)
-      std::cout << it->first << " => " << it->second << '\n';
+    for (it = mymap.begin(); it != mymap.end(); ++it) std::cout << it->first << " => " << it->second << '\n';
   }
 
   // swap()
@@ -254,7 +249,7 @@ int main() {
 
     std::cout << "mymap contains:\n";
 
-    char highest = mymap.rbegin()->first; // key value of last element
+    char highest = mymap.rbegin()->first;  // key value of last element
 
     NAMESPACE::map<char, int>::iterator it = mymap.begin();
     do {
@@ -274,7 +269,7 @@ int main() {
 
     std::cout << "mymap contains:\n";
 
-    NAMESPACE::pair<char, int> highest = *mymap.rbegin(); // last element
+    NAMESPACE::pair<char, int> highest = *mymap.rbegin();  // last element
 
     NAMESPACE::map<char, int>::iterator it = mymap.begin();
     do {
@@ -293,8 +288,7 @@ int main() {
     mymap['d'] = 200;
 
     it = mymap.find('b');
-    if (it != mymap.end())
-      mymap.erase(it);
+    if (it != mymap.end()) mymap.erase(it);
 
     // print content:
     std::cout << "elements in mymap:" << '\n';
@@ -331,10 +325,10 @@ int main() {
     mymap['d'] = 80;
     mymap['e'] = 100;
 
-    itlow = mymap.lower_bound('b'); // itlow points to b
-    itup = mymap.upper_bound('d');  // itup points to e (not d!)
+    itlow = mymap.lower_bound('b');  // itlow points to b
+    itup = mymap.upper_bound('d');   // itup points to e (not d!)
 
-    mymap.erase(itlow, itup); // erases [itlow,itup)
+    mymap.erase(itlow, itup);  // erases [itlow,itup)
 
     // print content:
     for (NAMESPACE::map<char, int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
