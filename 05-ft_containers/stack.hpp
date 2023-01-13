@@ -5,8 +5,9 @@
 
 namespace ft {
 
-template <class T, class Container = ft::vector<T> > class stack {
-public:
+template <class T, class Container = ft::vector<T> >
+class stack {
+ public:
   typedef typename Container::value_type value_type;
   typedef typename Container::size_type size_type;
   typedef Container container_type;
@@ -14,10 +15,10 @@ public:
   typedef typename Container::reference reference;
   typedef typename Container::const_reference const_reference;
 
-protected:
+ protected:
   container_type c;
 
-public:
+ public:
   stack(const container_type &container = container_type()) : c(container) {}
 
   bool empty() const { return c.empty(); }
@@ -58,6 +59,6 @@ bool operator>=(const stack<T, Container> &lhs, const stack<T, Container> &rhs) 
   return !(lhs < rhs);
 }
 
-} // namespace ft
+}  // namespace ft
 
 #endif

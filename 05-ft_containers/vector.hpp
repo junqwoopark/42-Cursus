@@ -17,17 +17,11 @@
 namespace ft {
 
 template <typename Iterator>
-class vector_iterator
-    : public std::iterator<typename ft::iterator_traits<Iterator>::iterator_category,
-                           typename ft::iterator_traits<Iterator>::value_type,
-                           typename ft::iterator_traits<Iterator>::difference_type,
-                           typename ft::iterator_traits<Iterator>::pointer,
-                           typename ft::iterator_traits<Iterator>::reference> {
-
-protected:
+class vector_iterator {
+ protected:
   Iterator _M_current;
 
-public:
+ public:
   typedef Iterator iterator_type;
   typedef typename ft::iterator_traits<Iterator>::iterator_category iterator_category;
   typedef typename ft::iterator_traits<Iterator>::value_type value_type;
@@ -67,18 +61,14 @@ public:
     return *this;
   }
 
-  vector_iterator operator+(const difference_type &n) const {
-    return vector_iterator(_M_current + n);
-  }
+  vector_iterator operator+(const difference_type &n) const { return vector_iterator(_M_current + n); }
 
   vector_iterator &operator-=(const difference_type &n) {
     _M_current -= n;
     return *this;
   }
 
-  vector_iterator operator-(const difference_type &n) const {
-    return vector_iterator(_M_current - n);
-  }
+  vector_iterator operator-(const difference_type &n) const { return vector_iterator(_M_current - n); }
 
   difference_type operator-(const vector_iterator &i) const { return _M_current - i._M_current; }
 
@@ -121,8 +111,9 @@ vector_iterator<Iterator> operator+(typename vector_iterator<Iterator>::differen
   return vector_iterator<Iterator>(i.base() + n);
 }
 
-template <class T, class Alloc = std::allocator<T> > class Vector_base {
-public:
+template <class T, class Alloc = std::allocator<T> >
+class Vector_base {
+ public:
   typedef Alloc allocator_type;
   allocator_type get_allocator() const { return allocator; }
 
@@ -135,7 +126,7 @@ public:
 
   ~Vector_base() { _M_deallocate(_M_start, _M_end_of_storage - _M_start); }
 
-protected:
+ protected:
   allocator_type allocator;
   T *_M_start;
   T *_M_finish;
@@ -144,19 +135,19 @@ protected:
   T *_M_allocate(size_t n) { return allocator.allocate(n); }
   void _M_deallocate(T *p, size_t n) { allocator.deallocate(p, n); }
   void construct(T *p, const T &val) { allocator.construct(p, val); }
-  template <class ForwardIterator> void destroy(ForwardIterator first, ForwardIterator last) {
-    for (; first != last; ++first)
-      allocator.destroy(&*first);
+  template <class ForwardIterator>
+  void destroy(ForwardIterator first, ForwardIterator last) {
+    for (; first != last; ++first) allocator.destroy(&*first);
   }
   void destroy(T *p) { allocator.destroy(p); }
 };
 
 template <class T, class Alloc = std::allocator<T> >
 class vector : protected Vector_base<T, Alloc> {
-private:
+ private:
   typedef Vector_base<T, Alloc> Base;
 
-public:
+ public:
   typedef T value_type;
   typedef value_type *pointer;
   typedef const value_type *const_pointer;
@@ -173,7 +164,7 @@ public:
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
   typedef ft::reverse_iterator<iterator> reverse_iterator;
 
-protected:
+ protected:
   using Base::_M_allocate;
   using Base::_M_deallocate;
   using Base::_M_end_of_storage;
@@ -213,7 +204,7 @@ protected:
     }
   };
 
-public:
+ public:
   iterator begin() { return iterator(_M_start); }
   const_iterator begin() const { return const_iterator(_M_start); }
   iterator end() { return iterator(_M_finish); }
@@ -233,8 +224,7 @@ public:
   const_reference operator[](size_type n) const { return *(begin() + n); }
 
   void _M_range_check(size_type n) const {
-    if (n >= this->size())
-      throw std::out_of_range("vector");
+    if (n >= this->size()) throw std::out_of_range("vector");
   }
 
   reference at(size_type n) {
@@ -251,9 +241,7 @@ public:
     _M_finish = std::uninitialized_fill_n(_M_start, n, value);
   }
 
-  explicit vector(size_type n) : Base(n, allocator_type()) {
-    _M_finish = std::uninitialized_fill_n(_M_start, n, T());
-  }
+  explicit vector(size_type n) : Base(n, allocator_type()) { _M_finish = std::uninitialized_fill_n(_M_start, n, T()); }
 
   vector(const vector<T, Alloc> &x) : Base(x.size(), x.get_allocator()) {
     _M_finish = std::uninitialized_copy(x.begin(), x.end(), _M_start);
@@ -263,8 +251,7 @@ public:
   vector(InputIterator first, InputIterator last, const allocator_type &a = allocator_type(),
          typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0)
       : Base(a) {
-    _M_range_initialize(first, last,
-                        typename ft::iterator_traits<InputIterator>::iterator_category());
+    _M_range_initialize(first, last, typename ft::iterator_traits<InputIterator>::iterator_category());
   }
 
   ~vector() { destroy(_M_start, _M_finish); }
@@ -391,8 +378,7 @@ public:
   template <class InputIterator>
   void insert(iterator position, InputIterator first, InputIterator last,
               typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0) {
-    _M_range_insert(position, first, last,
-                    typename ft::iterator_traits<InputIterator>::iterator_category());
+    _M_range_insert(position, first, last, typename ft::iterator_traits<InputIterator>::iterator_category());
   }
 
   void pop_back() {
@@ -400,8 +386,7 @@ public:
     destroy(_M_finish);
   }
   iterator erase(iterator position) {
-    if (position + 1 != end())
-      std::copy(position + 1, end(), position);
+    if (position + 1 != end()) std::copy(position + 1, end(), position);
     --_M_finish;
     allocator.destroy(_M_finish);
 
@@ -429,7 +414,7 @@ public:
   void resize(size_type new_size) { resize(new_size, T()); }
   void clear() { erase(begin(), end()); }
 
-protected:
+ protected:
   template <class ForwardIterator>
   pointer _M_allocate_and_copy(size_type n, ForwardIterator first, ForwardIterator last) {
     pointer result = _M_allocate(n);
@@ -444,8 +429,7 @@ protected:
 
   template <class InputIterator>
   void _M_range_initialize(InputIterator first, InputIterator last, std::input_iterator_tag) {
-    for (; first != last; ++first)
-      push_back(*first);
+    for (; first != last; ++first) push_back(*first);
   }
 
   template <class ForwardIterator>
@@ -458,8 +442,7 @@ protected:
   }
 
   template <class InputIterator>
-  void _M_range_insert(iterator pos, InputIterator first, InputIterator last,
-                       std::input_iterator_tag) {
+  void _M_range_insert(iterator pos, InputIterator first, InputIterator last, std::input_iterator_tag) {
     for (; first != last; ++first) {
       pos = insert(pos, *first);
       ++pos;
@@ -467,8 +450,7 @@ protected:
   }
 
   template <class ForwardIterator>
-  void _M_range_insert(iterator pos, ForwardIterator first, ForwardIterator last,
-                       std::forward_iterator_tag) {
+  void _M_range_insert(iterator pos, ForwardIterator first, ForwardIterator last, std::forward_iterator_tag) {
     if (first != last) {
       size_type n = 0;
       n = std::distance(first, last);
@@ -538,15 +520,16 @@ bool operator<=(const vector<T, Alloc> &x, const vector<T, Alloc> &y) {
   return !(y < x);
 }
 
-template <class T, class Alloc> void swap(vector<T, Alloc> &x, vector<T, Alloc> &y) { x.swap(y); }
+template <class T, class Alloc>
+void swap(vector<T, Alloc> &x, vector<T, Alloc> &y) {
+  x.swap(y);
+}
 
 template <class T, class Alloc>
 template <class InputIterator>
-void vector<T, Alloc>::_M_assign_aux(InputIterator first, InputIterator last,
-                                     std::input_iterator_tag) {
+void vector<T, Alloc>::_M_assign_aux(InputIterator first, InputIterator last, std::input_iterator_tag) {
   iterator cur = begin();
-  for (; first != last && cur != end(); ++cur, ++first)
-    *cur = *first;
+  for (; first != last && cur != end(); ++cur, ++first) *cur = *first;
   if (first == last)
     erase(cur, end());
   else
@@ -555,8 +538,7 @@ void vector<T, Alloc>::_M_assign_aux(InputIterator first, InputIterator last,
 
 template <class T, class Alloc>
 template <class ForwardIterator>
-void vector<T, Alloc>::_M_assign_aux(ForwardIterator first, ForwardIterator last,
-                                     std::forward_iterator_tag) {
+void vector<T, Alloc>::_M_assign_aux(ForwardIterator first, ForwardIterator last, std::forward_iterator_tag) {
   size_type len = std::distance(first, last);
 
   if (len > capacity()) {
@@ -577,5 +559,5 @@ void vector<T, Alloc>::_M_assign_aux(ForwardIterator first, ForwardIterator last
   }
 }
 
-} // namespace ft
+}  // namespace ft
 #endif

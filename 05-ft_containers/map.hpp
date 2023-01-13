@@ -1,11 +1,12 @@
 #ifndef MAP_HPP
 #define MAP_HPP
 
-#include "tree.hpp"
-#include "utility.hpp"
 #include <__functional_base>
 #include <algorithm>
 #include <memory>
+
+#include "tree.hpp"
+#include "utility.hpp"
 
 namespace ft {
 
@@ -15,10 +16,9 @@ struct Select1st : public std::unary_function<Pair, typename Pair::first_type> {
   const typename Pair::first_type &operator()(const Pair &x) const { return x.first; }
 };
 
-template <class Key, class T, class Compare = std::less<Key>,
-          class Alloc = std::allocator<pair<const Key, T> > >
+template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<pair<const Key, T> > >
 class map {
-public:
+ public:
   typedef Key key_type;
   typedef T data_type;
   typedef T mapped_type;
@@ -28,21 +28,19 @@ public:
   class value_compare : public std::binary_function<value_type, value_type, bool> {
     friend class map<Key, T, Compare, Alloc>;
 
-  protected:
+   protected:
     Compare comp;
     value_compare(Compare c) : comp(c) {}
 
-  public:
-    bool operator()(const value_type &x, const value_type &y) const {
-      return comp(x.first, y.first);
-    }
+   public:
+    bool operator()(const value_type &x, const value_type &y) const { return comp(x.first, y.first); }
   };
 
-private:
+ private:
   typedef Rb_tree<key_type, value_type, Select1st<value_type>, Compare, Alloc> _Rep_type;
   _Rep_type _M_t;
 
-public:
+ public:
   typedef typename _Rep_type::pointer pointer;
   typedef typename _Rep_type::const_pointer const_pointer;
   typedef typename _Rep_type::reference reference;
@@ -64,8 +62,7 @@ public:
   }
 
   template <class InputIterator>
-  map(InputIterator first, InputIterator last, const Compare &comp,
-      const allocator_type &a = allocator_type())
+  map(InputIterator first, InputIterator last, const Compare &comp, const allocator_type &a = allocator_type())
       : _M_t(comp, a) {
     _M_t.insert_unique(first, last);
   }
@@ -95,20 +92,17 @@ public:
 
   T &operator[](const key_type k) {
     iterator i = lower_bound(k);
-    if (i == end() || key_comp()(k, (*i).first))
-      i = insert(i, value_type(k, T()));
+    if (i == end() || key_comp()(k, (*i).first)) i = insert(i, value_type(k, T()));
     return (*i).second;
   }
   T &at(const key_type k) {
     iterator i = lower_bound(k);
-    if (i == end() || key_comp()(k, (*i).first))
-      i = insert(i, value_type(k, T()));
+    if (i == end() || key_comp()(k, (*i).first)) i = insert(i, value_type(k, T()));
     return (*i).second;
   }
   const T &at(const key_type &k) const {
     iterator i = lower_bound(k);
-    if (i == end() || key_comp()(k, (*i).first))
-      i = insert(i, value_type(k, T()));
+    if (i == end() || key_comp()(k, (*i).first)) i = insert(i, value_type(k, T()));
     return (*i).second;
   }
   void swap(map<Key, T, Compare, Alloc> &x) { _M_t.swap(x._M_t); }
@@ -116,11 +110,10 @@ public:
   pair<iterator, bool> insert(value_type &x) { return _M_t.insert_unique(x); }
   pair<iterator, bool> insert(const value_type &x) { return _M_t.insert_unique(x); }
 
-  iterator insert(iterator position, const value_type &x) {
-    return _M_t.insert_unique(position, x);
-  }
+  iterator insert(iterator position, const value_type &x) { return _M_t.insert_unique(position, x); }
 
-  template <class InputIterator> void insert(InputIterator first, InputIterator last) {
+  template <class InputIterator>
+  void insert(InputIterator first, InputIterator last) {
     _M_t.insert_unique(first, last);
   }
 
@@ -138,9 +131,7 @@ public:
   const_iterator upper_bound(const key_type &x) const { return _M_t.upper_bound(x); }
 
   pair<iterator, iterator> equal_range(const key_type &x) { return _M_t.equal_range(x); }
-  pair<const_iterator, const_iterator> equal_range(const key_type &x) const {
-    return _M_t.equal_range(x);
-  }
+  pair<const_iterator, const_iterator> equal_range(const key_type &x) const { return _M_t.equal_range(x); }
 
   // template <class Key, class T, class Comp, class Alloc>
   friend bool operator==(const map &x, const map &y) { return x._M_t == y._M_t; }
@@ -174,6 +165,6 @@ void swap(map<Key, T, Comp, Alloc> &x, map<Key, T, Comp, Alloc> &y) {
   x.swap(y);
 }
 
-} // namespace ft
+}  // namespace ft
 
 #endif

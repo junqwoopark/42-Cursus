@@ -1,13 +1,15 @@
 #ifndef ITERATOR_HPP
 #define ITERATOR_HPP
 
-#include "type_traits.hpp"
 #include <cstddef>
 #include <iterator>
 
+#include "type_traits.hpp"
+
 namespace ft {
 
-template <class Iterator> struct iterator_traits {
+template <class Iterator>
+struct iterator_traits {
   typedef typename Iterator::iterator_category iterator_category;
   typedef typename Iterator::value_type value_type;
   typedef typename Iterator::difference_type difference_type;
@@ -15,7 +17,8 @@ template <class Iterator> struct iterator_traits {
   typedef typename Iterator::reference reference;
 };
 
-template <class T> struct iterator_traits<T *> {
+template <class T>
+struct iterator_traits<T *> {
   typedef std::random_access_iterator_tag iterator_category;
   typedef T value_type;
   typedef ptrdiff_t difference_type;
@@ -23,7 +26,8 @@ template <class T> struct iterator_traits<T *> {
   typedef T &reference;
 };
 
-template <class T> struct iterator_traits<const T *> {
+template <class T>
+struct iterator_traits<const T *> {
   typedef std::random_access_iterator_tag iterator_category;
   typedef T value_type;
   typedef ptrdiff_t difference_type;
@@ -35,12 +39,12 @@ template <class T> struct iterator_traits<const T *> {
 ** reverse_iterator
 ** iterator를 역순으로 순회하는 iterator이다.
 */
-template <typename Iterator> class reverse_iterator {
-
-protected:
+template <typename Iterator>
+class reverse_iterator {
+ protected:
   Iterator _M_current;
 
-public:
+ public:
   typedef Iterator iterator_type;
   typedef typename ft::iterator_traits<Iterator>::iterator_category iterator_category;
   typedef typename ft::iterator_traits<Iterator>::value_type value_type;
@@ -83,18 +87,14 @@ public:
     return *this;
   }
 
-  reverse_iterator operator+(const difference_type &n) const {
-    return reverse_iterator(_M_current - n);
-  }
+  reverse_iterator operator+(const difference_type &n) const { return reverse_iterator(_M_current - n); }
 
   reverse_iterator &operator-=(const difference_type &n) {
     _M_current += n;
     return *this;
   }
 
-  reverse_iterator operator-(const difference_type &n) const {
-    return reverse_iterator(_M_current + n);
-  }
+  reverse_iterator operator-(const difference_type &n) const { return reverse_iterator(_M_current + n); }
 
   difference_type operator-(const reverse_iterator &i) const { return i._M_current - _M_current; }
 
@@ -143,6 +143,6 @@ reverse_iterator<Iterator> operator-(typename reverse_iterator<Iterator>::differ
   return reverse_iterator<Iterator>(i.base() + n);
 }
 
-} // namespace ft
+}  // namespace ft
 
 #endif

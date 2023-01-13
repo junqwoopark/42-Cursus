@@ -92,7 +92,6 @@ struct Rb_tree_iterator : public Rb_tree_base_iterator {
   typedef Ref reference;
   typedef Ptr pointer;
   typedef Rb_tree_iterator<Value, Value &, Value *> iterator;
-  typedef Rb_tree_iterator<Value, Ref, Ptr> self;
   typedef Rb_tree_node<Value> *link_type;
 
   Rb_tree_iterator() {}
@@ -105,24 +104,24 @@ struct Rb_tree_iterator : public Rb_tree_base_iterator {
   reference operator*() const { return link_type(node)->value_field; }
   pointer operator->() const { return &operator*(); }
 
-  self &operator++() {
+  Rb_tree_iterator &operator++() {
     increment();
     return *this;
   }
 
-  self operator++(int) {
-    self tmp = *this;
+  Rb_tree_iterator operator++(int) {
+    Rb_tree_iterator tmp = *this;
     increment();
     return tmp;
   }
 
-  self &operator--() {
+  Rb_tree_iterator &operator--() {
     decrement();
     return *this;
   }
 
-  self operator--(int) {
-    self tmp = *this;
+  Rb_tree_iterator operator--(int) {
+    Rb_tree_iterator tmp = *this;
     decrement();
     return tmp;
   }

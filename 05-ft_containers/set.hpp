@@ -9,22 +9,24 @@
 
 namespace ft {
 
-template <class Value> struct Identity : public std::unary_function<Value, Value> {
+template <class Value>
+struct Identity : public std::unary_function<Value, Value> {
   const Value &operator()(const Value &x) const { return x; }
 };
 
-template <class Key, class Compare = std::less<Key>, class Alloc = std::allocator<Key> > class set {
-public:
+template <class Key, class Compare = std::less<Key>, class Alloc = std::allocator<Key> >
+class set {
+ public:
   typedef Key key_type;
   typedef Key value_type;
   typedef Compare key_compare;
   typedef Compare value_compare;
 
-private:
+ private:
   typedef Rb_tree<key_type, value_type, Identity<value_type>, key_compare, Alloc> _Rep_type;
   _Rep_type _M_t;
 
-public:
+ public:
   typedef typename _Rep_type::const_pointer pointer;
   typedef typename _Rep_type::const_pointer const_pointer;
   typedef typename _Rep_type::const_reference reference;
@@ -46,8 +48,7 @@ public:
     _M_t.insert_unique(first, last);
   }
   template <class InputIterator>
-  set(InputIterator first, InputIterator last, const Compare &comp,
-      const allocator_type &a = allocator_type())
+  set(InputIterator first, InputIterator last, const Compare &comp, const allocator_type &a = allocator_type())
       : _M_t(comp, a) {
     _M_t.insert_unique(first, last);
   }
@@ -84,7 +85,8 @@ public:
     typedef typename _Rep_type::iterator _Rep_iterator;
     return _M_t.insert_unique((_Rep_iterator &)position, x);
   }
-  template <class InputIterator> void insert(InputIterator first, InputIterator last) {
+  template <class InputIterator>
+  void insert(InputIterator first, InputIterator last) {
     _M_t.insert_unique(first, last);
   }
   template <class InputIterator>
@@ -111,9 +113,7 @@ public:
   iterator upper_bound(const key_type &x) { return _M_t.upper_bound(x); }
   const_iterator upper_bound(const key_type &x) const { return _M_t.upper_bound(x); }
   pair<iterator, iterator> equal_range(const key_type &x) { return _M_t.equal_range(x); }
-  pair<const_iterator, const_iterator> equal_range(const key_type &x) const {
-    return _M_t.equal_range(x);
-  }
+  pair<const_iterator, const_iterator> equal_range(const key_type &x) const { return _M_t.equal_range(x); }
 
   friend bool operator==(const set &x, const set &y) { return x._M_t == y._M_t; }
   friend bool operator<(const set &x, const set &y) { return x._M_t < y._M_t; }
@@ -144,6 +144,6 @@ void swap(set<Key, Compare, Alloc> &x, set<Key, Compare, Alloc> &y) {
   x.swap(y);
 }
 
-} // namespace ft
+}  // namespace ft
 
 #endif
