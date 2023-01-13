@@ -36,6 +36,105 @@ struct iterator_traits<const T *> {
 };
 
 /*
+ * wrap_iterator
+ */
+
+template <typename Iterator>
+class wrap_iterator {
+ protected:
+  Iterator _M_current;
+
+ public:
+  typedef Iterator iterator_type;
+  typedef typename ft::iterator_traits<Iterator>::iterator_category iterator_category;
+  typedef typename ft::iterator_traits<Iterator>::value_type value_type;
+  typedef typename ft::iterator_traits<Iterator>::difference_type difference_type;
+  typedef typename ft::iterator_traits<Iterator>::pointer pointer;
+  typedef typename ft::iterator_traits<Iterator>::reference reference;
+
+  wrap_iterator() : _M_current(Iterator()) {}
+
+  explicit wrap_iterator(const Iterator &i) : _M_current(i) {}
+
+  template <typename Iter>
+  wrap_iterator<Iter>(const wrap_iterator<Iter> &i) : _M_current(i.base()) {}
+
+  reference operator*() const { return *_M_current; }
+
+  pointer operator->() const { return _M_current; }
+
+  wrap_iterator &operator++() {
+    ++_M_current;
+    return *this;
+  }
+
+  wrap_iterator operator++(int) { return wrap_iterator(_M_current++); }
+
+  wrap_iterator &operator--() {
+    --_M_current;
+    return *this;
+  }
+
+  wrap_iterator operator--(int) { return wrap_iterator(_M_current--); }
+
+  reference operator[](const difference_type &n) const { return _M_current[n]; }
+
+  wrap_iterator &operator+=(const difference_type &n) {
+    _M_current += n;
+    return *this;
+  }
+
+  wrap_iterator operator+(const difference_type &n) const { return wrap_iterator(_M_current + n); }
+
+  wrap_iterator &operator-=(const difference_type &n) {
+    _M_current -= n;
+    return *this;
+  }
+
+  wrap_iterator operator-(const difference_type &n) const { return wrap_iterator(_M_current - n); }
+
+  difference_type operator-(const wrap_iterator &i) const { return _M_current - i._M_current; }
+
+  iterator_type base() const { return _M_current; }
+};
+
+template <typename IteratorL, typename IteratorR>
+bool operator==(const wrap_iterator<IteratorL> &lhs, const wrap_iterator<IteratorR> &rhs) {
+  return lhs.base() == rhs.base();
+}
+
+template <typename IteratorL, typename IteratorR>
+bool operator!=(const wrap_iterator<IteratorL> &lhs, const wrap_iterator<IteratorR> &rhs) {
+  return !(lhs == rhs);
+}
+
+template <typename IteratorL, typename IteratorR>
+bool operator<(const wrap_iterator<IteratorL> &lhs, const wrap_iterator<IteratorR> &rhs) {
+  return lhs.base() < rhs.base();
+}
+
+template <typename IteratorL, typename IteratorR>
+bool operator>(const wrap_iterator<IteratorL> &lhs, const wrap_iterator<IteratorR> &rhs) {
+  return rhs < lhs;
+}
+
+template <typename IteratorL, typename IteratorR>
+bool operator<=(const wrap_iterator<IteratorL> &lhs, const wrap_iterator<IteratorR> &rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename IteratorL, typename IteratorR>
+bool operator>=(const wrap_iterator<IteratorL> &lhs, const wrap_iterator<IteratorR> &rhs) {
+  return !(lhs < rhs);
+}
+
+template <typename Iterator>
+wrap_iterator<Iterator> operator+(typename wrap_iterator<Iterator>::difference_type n,
+                                  const wrap_iterator<Iterator> &i) {
+  return wrap_iterator<Iterator>(i.base() + n);
+}
+
+/*
 ** reverse_iterator
 ** iterator를 역순으로 순회하는 iterator이다.
 */
