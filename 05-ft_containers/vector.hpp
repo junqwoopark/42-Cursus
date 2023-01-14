@@ -50,7 +50,7 @@ class Vector_base {
 template <class T, class Alloc = std::allocator<T> >
 class vector : protected Vector_base<T, Alloc> {
  private:
-  typedef Vector_base<T, Alloc> Base;
+  typedef Vector_base<T, Alloc> _Base;
 
  public:
   typedef T value_type;
@@ -68,31 +68,31 @@ class vector : protected Vector_base<T, Alloc> {
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
  protected:
-  using Base::allocate;
-  using Base::allocator;
-  using Base::construct;
-  using Base::deallocate;
-  using Base::destroy;
-  using Base::end_of_storage;
-  using Base::finish;
-  using Base::start;
+  using _Base::allocate;
+  using _Base::allocator;
+  using _Base::construct;
+  using _Base::deallocate;
+  using _Base::destroy;
+  using _Base::end_of_storage;
+  using _Base::finish;
+  using _Base::start;
 
  public:
   /*
    * constructor
    */
-  explicit vector(const allocator_type &a = allocator_type()) : Base(a) {}
-  explicit vector(size_type n) : Base(n, allocator_type()) { finish = std::uninitialized_fill_n(start, n, T()); }
-  vector(size_type n, const T &value, const allocator_type &a = allocator_type()) : Base(n, a) {
+  explicit vector(const allocator_type &a = allocator_type()) : _Base(a) {}
+  explicit vector(size_type n) : _Base(n, allocator_type()) { finish = std::uninitialized_fill_n(start, n, T()); }
+  vector(size_type n, const T &value, const allocator_type &a = allocator_type()) : _Base(n, a) {
     finish = std::uninitialized_fill_n(start, n, value);
   }
-  vector(const vector<T, Alloc> &x) : Base(x.size(), x.get_allocator()) {
+  vector(const vector &x) : _Base(x.size(), x.get_allocator()) {
     finish = std::uninitialized_copy(x.begin(), x.end(), start);
   }
   template <class InputIterator>
   vector(InputIterator first, InputIterator last, const allocator_type &a = allocator_type(),
          typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0)
-      : Base(std::distance(first, last), a) {
+      : _Base(std::distance(first, last), a) {
     finish = std::uninitialized_copy(first, last, start);
   }
 
@@ -122,7 +122,7 @@ class vector : protected Vector_base<T, Alloc> {
    */
   void assign(size_type n, const T &val) {
     if (n > capacity()) {
-      vector<T, Alloc> tmp(n, val, get_allocator());
+      vector tmp(n, val, get_allocator());
       tmp.swap(*this);
     } else if (n > size()) {
       std::fill(begin(), end(), val);
@@ -158,10 +158,10 @@ class vector : protected Vector_base<T, Alloc> {
   /*
    * get_allocator
    */
-  allocator_type get_allocator() const { return Base::get_allocator(); }
+  allocator_type get_allocator() const { return _Base::get_allocator(); }
 
   /*
-   * iterator
+   * iterators
    */
   iterator begin() { return iterator(start); }
   const_iterator begin() const { return const_iterator(start); }
@@ -174,7 +174,7 @@ class vector : protected Vector_base<T, Alloc> {
   const_reverse_iterator rend() const { return const_reverse_iterator(begin()); }
 
   /*
-   * size
+   * capacity
    */
   size_type size() const { return size_type(end() - begin()); }
   size_type max_size() const { return size_type(-1) / sizeof(T); }
@@ -194,7 +194,7 @@ class vector : protected Vector_base<T, Alloc> {
   }
 
   /*
-   * accessor
+   * element accessor
    */
   reference operator[](size_type n) { return *(begin() + n); }
   const_reference operator[](size_type n) const { return *(begin() + n); }
@@ -214,7 +214,7 @@ class vector : protected Vector_base<T, Alloc> {
   const_reference back() const { return *(end() - 1); }
 
   /*
-   * push_back, pop_back
+   * modifiers
    */
   void push_back(const T &x) {
     if (finish != end_of_storage) {
@@ -229,9 +229,6 @@ class vector : protected Vector_base<T, Alloc> {
     destroy(finish);
   }
 
-  /*
-   * insert
-   */
   iterator insert(iterator position, const T &x) {
     size_type n = position - begin();
     if (finish != end_of_storage && position == end()) {
@@ -328,7 +325,6 @@ class vector : protected Vector_base<T, Alloc> {
     }
   }
 
-  // erase
   iterator erase(iterator position) {
     if (position + 1 != end()) std::copy(position + 1, end(), position);
     --finish;
@@ -347,14 +343,7 @@ class vector : protected Vector_base<T, Alloc> {
     return first;
   }
 
-  /*
-   * clear
-   */
   void clear() { erase(begin(), end()); }
-
-  /*
-   * resize
-   */
   void resize(size_type new_size) { resize(new_size, T()); }
   void resize(size_type new_size, const T &x) {
     if (new_size < size()) {
@@ -363,19 +352,15 @@ class vector : protected Vector_base<T, Alloc> {
       insert(end(), new_size - size(), x);
     }
   }
-
-  /*
-   * swap
-   */
-  void swap(vector<T, Alloc> &x) {
+  void swap(vector &x) {
     std::swap(start, x.start);
     std::swap(finish, x.finish);
     std::swap(end_of_storage, x.end_of_storage);
   }
 
  protected:
-  template <class ForwardIterator>
-  pointer allocate_and_copy(size_type n, ForwardIterator first, ForwardIterator last) {
+  template <class InputIterator>
+  pointer allocate_and_copy(size_type n, InputIterator first, InputIterator last) {
     pointer result = allocate(n);
     try {
       std::uninitialized_copy(first, last, result);
