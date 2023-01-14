@@ -15,7 +15,7 @@ struct pair {
   T2 second;
 
   pair() : first(), second() {}
-  pair(T1 const &t1, T2 const &t2) : first(t1), second(t2) {}
+  pair(const T1 &t1, const T2 &t2) : first(t1), second(t2) {}
 
   template <class U1, class U2>
   pair(const pair<U1, U2> &p) : first(p.first), second(p.second) {}
