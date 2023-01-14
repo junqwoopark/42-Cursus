@@ -506,17 +506,9 @@ class Rb_tree : protected Rb_tree_base<Value, Alloc> {
  public:
   // 삽입
   pair<iterator, bool> insert_unique(const value_type &x);
-  iterator insert_equal(const value_type &x);
-
   iterator insert_unique(iterator position, const value_type &x);
-  iterator insert_equal(iterator position, const value_type &x);
-
-  // #ifdef __STL_MEMBER_TEMPLATES
   template <class InputIterator>
   void insert_unique(InputIterator first, InputIterator last);
-  // template <class InputIterator>
-  // void insert_equal(InputIterator first, InputIterator last);
-  // #endif /* __STL_MEMBER_TEMPLATES */
 
   // 삭제
   void erase(iterator position);
@@ -640,20 +632,6 @@ Rb_tree<Key, Value, KeyOfValue, Compare, Alloc>::insert(base_ptr x_, base_ptr y_
 }
 
 template <class Key, class Value, class KeyOfValue, class Compare, class Alloc>
-typename Rb_tree<Key, Value, KeyOfValue, Compare, Alloc>::iterator
-Rb_tree<Key, Value, KeyOfValue, Compare, Alloc>::insert_equal(const Value &v) {
-  link_type y = header;
-  link_type x = root();
-  bool comp = true;
-  while (x != 0) {
-    y = x;
-    comp = key_compare(KeyOfValue()(v), key(x));
-    x = comp ? left(x) : right(x);
-  }
-  return insert(x, y, v);
-}
-
-template <class Key, class Value, class KeyOfValue, class Compare, class Alloc>
 pair<typename Rb_tree<Key, Value, KeyOfValue, Compare, Alloc>::iterator, bool>
 Rb_tree<Key, Value, KeyOfValue, Compare, Alloc>::insert_unique(const value_type &v) {
   link_type y = header;
@@ -701,40 +679,6 @@ Rb_tree<Key, Value, KeyOfValue, Compare, Alloc>::insert_unique(iterator position
   }
 }
 
-template <class Key, class Value, class KeyOfValue, class Compare, class Alloc>
-typename Rb_tree<Key, Value, KeyOfValue, Compare, Alloc>::iterator
-Rb_tree<Key, Value, KeyOfValue, Compare, Alloc>::insert_equal(iterator position, const value_type &v) {
-  if (position.node == header->left) {
-    if (size() > 0 && key_compare(KeyOfValue()(v), key(position.node)))
-      return insert(position.node, position.node, v);
-    else
-      return insert_equal(v);
-  } else if (position.node == header) {
-    if (!key_compare(KeyOfValue()(v), key(rightmost())))
-      return insert(0, rightmost(), v);
-    else
-      return insert_equal(v);
-  } else {
-    iterator before = position;
-    --before;
-    if (!key_compare(KeyOfValue()(v), key(before.node)) && !key_compare(key(position.node), KeyOfValue()(v))) {
-      if (right(before.node) == 0)
-        return insert(0, before.node, v);
-      else
-        return insert(position.node, position.node, v);
-    } else
-      return insert_equal(v);
-  }
-}
-
-// #ifdef __STL_MEMBER_TEMPLATES
-// template <class Key, class Value, class KeyOfValue, class Compare, class
-// Alloc> template <class InputIterator> void Rb_tree<Key, Value, KeyOfValue,
-// Compare, Alloc>::insert_equal(
-//     InputIterator first, InputIterator last) {
-//   for (; first != last; ++first) insert_equal(*first);
-// }
-//
 template <class Key, class Value, class KeyOfValue, class Compare, class Alloc>
 template <class InputIterator>
 void Rb_tree<Key, Value, KeyOfValue, Compare, Alloc>::insert_unique(InputIterator first, InputIterator last) {
