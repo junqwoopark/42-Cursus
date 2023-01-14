@@ -15,23 +15,23 @@ class stack {
   typedef typename Container::size_type size_type;
 
  protected:
-  container_type c;
+  container_type _c;
 
  public:
-  stack(const container_type &container = container_type()) : c(container) {}
+  stack(const container_type &container = container_type()) : _c(container) {}
 
-  bool empty() const { return c.empty(); }
-  size_type size() const { return c.size(); }
-  reference top() { return c.back(); }
-  const_reference top() const { return c.back(); }
+  bool empty() const { return _c.empty(); }
+  size_type size() const { return _c.size(); }
+  reference top() { return _c.back(); }
+  const_reference top() const { return _c.back(); }
 
-  void push(const value_type &val) { c.push_back(val); }
-  void pop() { c.pop_back(); }
+  void push(const value_type &val) { _c.push_back(val); }
+  void pop() { _c.pop_back(); }
 
-  void swap(stack &x) { c.swap(x.c); }
+  void swap(stack &x) { _c.swap(x._c); }
 
-  friend bool operator==(const stack &lhs, const stack &rhs) { return lhs.c == rhs.c; }
-  friend bool operator<(const stack &lhs, const stack &rhs) { return lhs.c < rhs.c; }
+  friend bool operator==(const stack &lhs, const stack &rhs) { return lhs._c == rhs._c; }
+  friend bool operator<(const stack &lhs, const stack &rhs) { return lhs._c < rhs._c; }
 };
 
 template <class T, class Container>
