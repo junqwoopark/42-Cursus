@@ -17,45 +17,46 @@ typedef bool Rb_tree_color_type;
 const Rb_tree_color_type Rb_tree_red = false;
 const Rb_tree_color_type Rb_tree_black = true;
 
-struct Rb_tree_node_base {
+template <class Value>
+struct Rb_tree_node {
   typedef Rb_tree_color_type color_type;
-  typedef Rb_tree_node_base *base_ptr;
+  typedef Rb_tree_node<Value> *link_type;
 
+  Value value_field;
   color_type color;
-  base_ptr parent;
-  base_ptr left;
-  base_ptr right;
+  link_type parent;
+  link_type left;
+  link_type right;
 
-  static base_ptr minimum(base_ptr x) {
+  static link_type minimum(link_type x) {
     while (x->left != 0) x = x->left;
     return x;
   }
 
-  static base_ptr maximum(base_ptr x) {
+  static link_type maximum(link_type x) {
     while (x->right != 0) x = x->right;
     return x;
   }
 };
 
-template <class Value>
-struct Rb_tree_node : public Rb_tree_node_base {
-  typedef Rb_tree_node<Value> *link_type;
-  Value value_field;
-};
-
-struct Rb_tree_base_iterator {
-  typedef Rb_tree_node_base::base_ptr base_ptr;
+template <class Value, class Ref, class Ptr>
+struct Rb_tree_iterator {
+  typedef Value value_type;
+  typedef Ref reference;
+  typedef Ptr pointer;
   typedef std::bidirectional_iterator_tag iterator_category;
   typedef ptrdiff_t difference_type;
 
-  base_ptr node;
+  typedef typename Rb_tree_node<Value>::link_type link_type;
+
+  link_type node;
 
   void increment() {
     if (node->right != 0) {
       node = node->right;
       while (node->left != 0) node = node->left;
     } else {
-      base_ptr y = node->parent;
+      link_type y = node->parent;
       while (node == y->right) {
         node = y;
         y = y->parent;
@@ -68,11 +69,11 @@ struct Rb_tree_base_iterator {
     if (node->color == Rb_tree_red && node->parent->parent == node)
       node = node->right;
     else if (node->left != 0) {
-      base_ptr y = node->left;
+      link_type y = node->left;
       while (y->right != 0) y = y->right;
       node = y;
     } else {
-      base_ptr y = node->parent;
+      link_type y = node->parent;
       while (node == y->left) {
         node = y;
         y = y->parent;
@@ -80,19 +81,10 @@ struct Rb_tree_base_iterator {
       node = y;
     }
   }
-};
-
-template <class Value, class Ref, class Ptr>
-struct Rb_tree_iterator : public Rb_tree_base_iterator {
-  typedef Value value_type;
-  typedef Ref reference;
-  typedef Ptr pointer;
-  typedef Rb_tree_iterator<Value, Value &, Value *> iterator;
-  typedef Rb_tree_node<Value> *link_type;
 
   Rb_tree_iterator() {}
   Rb_tree_iterator(link_type x) { node = x; }
-  Rb_tree_iterator(const iterator &it) { node = it.node; }
+  Rb_tree_iterator(const Rb_tree_iterator<Value, Value &, Value *> &it) { node = it.node; }
 
   reference operator*() const { return link_type(node)->value_field; }
   pointer operator->() const { return &operator*(); }
@@ -130,8 +122,9 @@ bool operator!=(const Rb_tree_iterator<Value, Ref1, Ptr1> &x, const Rb_tree_iter
   return x.node != y.node;
 }
 
-void Rb_tree_rotate_left(Rb_tree_node_base *x, Rb_tree_node_base *&root) {
-  Rb_tree_node_base *y = x->right;
+template <class Value>
+void Rb_tree_rotate_left(Rb_tree_node<Value> *x, Rb_tree_node<Value> *&root) {
+  Rb_tree_node<Value> *y = x->right;
   x->right = y->left;
   if (y->left != 0) y->left->parent = x;
   y->parent = x->parent;
@@ -146,8 +139,9 @@ void Rb_tree_rotate_left(Rb_tree_node_base *x, Rb_tree_node_base *&root) {
   x->parent = y;
 }
 
-void Rb_tree_rotate_right(Rb_tree_node_base *x, Rb_tree_node_base *&root) {
-  Rb_tree_node_base *y = x->left;
+template <class Value>
+void Rb_tree_rotate_right(Rb_tree_node<Value> *x, Rb_tree_node<Value> *&root) {
+  Rb_tree_node<Value> *y = x->left;
   x->left = y->right;
   if (y->right != 0) y->right->parent = x;
   y->parent = x->parent;
@@ -162,28 +156,28 @@ void Rb_tree_rotate_right(Rb_tree_node_base *x, Rb_tree_node_base *&root) {
   x->parent = y;
 }
 
-void Rb_tree_rebalance(Rb_tree_node_base *x, Rb_tree_node_base *&root) {
-  x->color = Rb_tree_red;  // 삽입되는 노드의 색은 red
+template <class Value>
+void Rb_tree_rebalance(Rb_tree_node<Value> *x, Rb_tree_node<Value> *&root) {
+  x->color = Rb_tree_red;
   while (x != root && x->parent->color == Rb_tree_red) {
-    if (x->parent == x->parent->parent->left) {  // P가 G의 왼쪽 자식일 때
-      Rb_tree_node_base *y = x->parent->parent->right;
-      if (y && y->color == Rb_tree_red) {  // P와 U가 모두 붉은색 노드일 때
+    if (x->parent == x->parent->parent->left) {
+      Rb_tree_node<Value> *y = x->parent->parent->right;
+      if (y && y->color == Rb_tree_red) {
         x->parent->color = Rb_tree_black;
         y->color = Rb_tree_black;
         x->parent->parent->color = Rb_tree_red;
-        x = x->parent->parent;  // 조부모의 색이 바뀌어 조부모에서 다시 확인해줘야 함.
+        x = x->parent->parent;
       } else {
-        if (x == x->parent->right) {  // 부모노드가 붉은 색이고, 삼촌 노드는 검은색일 때
+        if (x == x->parent->right) {
           x = x->parent;
           Rb_tree_rotate_left(x, root);
         }
-        // 부모 노드는 붉은색이고,삼촌 노드 U는 검은색일 때
         x->parent->color = Rb_tree_black;
         x->parent->parent->color = Rb_tree_red;
         Rb_tree_rotate_right(x->parent->parent, root);
       }
-    } else {  // P가 G의 오른쪽 자식일 때
-      Rb_tree_node_base *y = x->parent->parent->left;
+    } else {
+      Rb_tree_node<Value> *y = x->parent->parent->left;
       if (y && y->color == Rb_tree_red) {
         x->parent->color = Rb_tree_black;
         y->color = Rb_tree_black;
@@ -202,14 +196,13 @@ void Rb_tree_rebalance(Rb_tree_node_base *x, Rb_tree_node_base *&root) {
   }
   root->color = Rb_tree_black;
 }
+template <class Value>
+Rb_tree_node<Value> *Rb_tree_rebalance_for_erase(Rb_tree_node<Value> *z, Rb_tree_node<Value> *&root,
+                                                 Rb_tree_node<Value> *&leftmost, Rb_tree_node<Value> *&rightmost) {
+  Rb_tree_node<Value> *y = z;
+  Rb_tree_node<Value> *x = 0;
+  Rb_tree_node<Value> *x_parent = 0;
 
-Rb_tree_node_base *Rb_tree_rebalance_for_erase(Rb_tree_node_base *z, Rb_tree_node_base *&root,
-                                               Rb_tree_node_base *&leftmost, Rb_tree_node_base *&rightmost) {
-  Rb_tree_node_base *y = z;
-  Rb_tree_node_base *x = 0;
-  Rb_tree_node_base *x_parent = 0;
-
-  // 대체할 노드 찾기
   if (y->left == 0)        // z has at most one non-null child. y == z.
     x = y->right;          // x might be null.
   else if (y->right == 0)  // z has exactly one non-null child. y == z.
@@ -257,22 +250,21 @@ Rb_tree_node_base *Rb_tree_rebalance_for_erase(Rb_tree_node_base *z, Rb_tree_nod
         leftmost = z->parent;
       // makes leftmost == header if z == root
       else
-        leftmost = Rb_tree_node_base::minimum(x);
+        leftmost = Rb_tree_node<Value>::minimum(x);
     }
     if (rightmost == z) {
       if (z->left == 0)  // z->right must be null also
         rightmost = z->parent;
       // make s rightmost == header if z == root
       else  // x == z->left
-        rightmost = Rb_tree_node_base::maximum(x);
+        rightmost = Rb_tree_node<Value>::maximum(x);
     }
   }
 
-  // 대체할 노드가 검은색이라면 리밸런싱
   if (y->color != Rb_tree_red) {
     while (x != root && (x == 0 || x->color == Rb_tree_black))
       if (x == x_parent->left) {
-        Rb_tree_node_base *w = x_parent->right;
+        Rb_tree_node<Value> *w = x_parent->right;
         if (w->color == Rb_tree_red) {
           w->color = Rb_tree_black;
           x_parent->color = Rb_tree_red;
@@ -297,7 +289,7 @@ Rb_tree_node_base *Rb_tree_rebalance_for_erase(Rb_tree_node_base *z, Rb_tree_nod
           break;
         }
       } else {  // same as above, with right <-> left
-        Rb_tree_node_base *w = x_parent->left;
+        Rb_tree_node<Value> *w = x_parent->left;
         if (w->color == Rb_tree_red) {
           w->color = Rb_tree_black;
           x_parent->color = Rb_tree_red;
@@ -336,8 +328,8 @@ class Rb_tree_alloc_base {
   Rb_tree_alloc_base(const allocator_type &a) : node_allocator(a) {}
 
  protected:
-  Rb_tree_node<T> *header;
   typedef typename Alloc::template rebind<Rb_tree_node<T> >::other node_allocator_type;
+  Rb_tree_node<T> *header;
   allocator_type value_allocator;
   node_allocator_type node_allocator;
 
@@ -351,6 +343,7 @@ class Rb_tree_base : public Rb_tree_alloc_base<T, Alloc> {
   typedef Rb_tree_alloc_base<T, Alloc> Base;
   typedef typename Base::allocator_type allocator_type;
   typedef typename Base::node_allocator_type node_allocator_type;
+
   using Base::get_node;
   using Base::header;
   using Base::put_node;
@@ -366,8 +359,7 @@ class Rb_tree : protected Rb_tree_base<Value, Alloc> {
   typedef Rb_tree_base<Value, Alloc> Base;
 
  protected:
-  typedef Rb_tree_node_base *base_ptr;
-  typedef Rb_tree_node<Value> Rb_tree_node;
+  typedef Rb_tree_node<Value> *link_type;
   typedef Rb_tree_color_type color_type;
 
  public:
@@ -377,7 +369,6 @@ class Rb_tree : protected Rb_tree_base<Value, Alloc> {
   typedef const value_type *const_pointer;
   typedef value_type &reference;
   typedef const value_type &const_reference;
-  typedef Rb_tree_node *link_type;
   typedef size_t size_type;
   typedef ptrdiff_t difference_type;
 
@@ -429,15 +420,8 @@ class Rb_tree : protected Rb_tree_base<Value, Alloc> {
   static const Key &key(link_type x) { return KeyOfValue()(value(x)); }
   static color_type &color(link_type x) { return (color_type &)(x->color); }
 
-  static link_type &left(base_ptr x) { return (link_type &)(x->left); }
-  static link_type &right(base_ptr x) { return (link_type &)(x->right); }
-  static link_type &parent(base_ptr x) { return (link_type &)(x->parent); }
-  static reference value(base_ptr x) { return ((link_type)x)->value_field; }
-  static const Key &key(base_ptr x) { return KeyOfValue()(value(link_type(x))); }
-  static color_type &color(base_ptr x) { return (color_type &)(link_type(x)->color); }
-
-  static link_type minimum(link_type x) { return (link_type)Rb_tree_node_base::minimum(x); }
-  static link_type maximum(link_type x) { return (link_type)Rb_tree_node_base::maximum(x); }
+  static link_type minimum(link_type x) { return (link_type)Rb_tree_node<Value>::minimum(x); }
+  static link_type maximum(link_type x) { return (link_type)Rb_tree_node<Value>::maximum(x); }
 
  public:
   typedef Rb_tree_iterator<value_type, reference, pointer> iterator;
@@ -447,7 +431,7 @@ class Rb_tree : protected Rb_tree_base<Value, Alloc> {
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
  private:
-  iterator insert(base_ptr x_, base_ptr y_, const value_type &v);
+  iterator insert(link_type x_, link_type y_, const value_type &v);
   link_type copy(link_type x, link_type p);
   void erase(link_type x);
   void empty_initialize() {
@@ -573,14 +557,6 @@ bool operator>=(const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &x,
   return !(x < y);
 }
 
-// #ifdef __STL_FUNCTION_TMPL_PARTIAL_ORDER
-// template <class Key, class Value, class KeyOfValue, class Compare, class
-// Alloc>  void swap(Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &x,
-//                  Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &y) {
-//   x.swap(y);
-// }
-// #endif /* __STL_FUNCTION_TMPL_PARTIAL_ORDER */
-
 template <class Key, class Value, class KeyOfValue, class Compare, class Alloc>
 Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &Rb_tree<Key, Value, KeyOfValue, Compare, Alloc>::operator=(
     const Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &x) {
@@ -605,7 +581,7 @@ Rb_tree<Key, Value, KeyOfValue, Compare, Alloc> &Rb_tree<Key, Value, KeyOfValue,
 
 template <class Key, class Value, class KeyOfValue, class Compare, class Alloc>
 typename Rb_tree<Key, Value, KeyOfValue, Compare, Alloc>::iterator
-Rb_tree<Key, Value, KeyOfValue, Compare, Alloc>::insert(base_ptr x_, base_ptr y_, const Value &v) {
+Rb_tree<Key, Value, KeyOfValue, Compare, Alloc>::insert(link_type x_, link_type y_, const Value &v) {
   link_type x = (link_type)x_;
   link_type y = (link_type)y_;
   link_type z;
@@ -688,7 +664,7 @@ void Rb_tree<Key, Value, KeyOfValue, Compare, Alloc>::insert_unique(InputIterato
 template <class Key, class Value, class KeyOfValue, class Compare, class Alloc>
 void Rb_tree<Key, Value, KeyOfValue, Compare, Alloc>::erase(iterator position) {
   link_type y =
-      (link_type)Rb_tree_rebalance_for_erase((base_ptr)position.node, header->parent, header->left, header->right);
+      (link_type)Rb_tree_rebalance_for_erase((link_type)position.node, header->parent, header->left, header->right);
   destroy_node(y);
   --node_count;
 }
