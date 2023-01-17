@@ -42,7 +42,7 @@ struct iterator_traits<const T *> {
 template <typename Iterator>
 class wrap_iterator {
  protected:
-  Iterator _M_current;
+  Iterator current;
 
  public:
   typedef Iterator iterator_type;
@@ -52,50 +52,50 @@ class wrap_iterator {
   typedef typename ft::iterator_traits<Iterator>::pointer pointer;
   typedef typename ft::iterator_traits<Iterator>::reference reference;
 
-  wrap_iterator() : _M_current(Iterator()) {}
+  wrap_iterator() : current(Iterator()) {}
 
-  explicit wrap_iterator(const Iterator &i) : _M_current(i) {}
+  explicit wrap_iterator(const Iterator &i) : current(i) {}
 
   template <typename Iter>
-  wrap_iterator<Iter>(const wrap_iterator<Iter> &i) : _M_current(i.base()) {}
+  wrap_iterator<Iter>(const wrap_iterator<Iter> &i) : current(i.base()) {}
 
-  reference operator*() const { return *_M_current; }
+  reference operator*() const { return *current; }
 
-  pointer operator->() const { return _M_current; }
+  pointer operator->() const { return current; }
 
   wrap_iterator &operator++() {
-    ++_M_current;
+    ++current;
     return *this;
   }
 
-  wrap_iterator operator++(int) { return wrap_iterator(_M_current++); }
+  wrap_iterator operator++(int) { return wrap_iterator(current++); }
 
   wrap_iterator &operator--() {
-    --_M_current;
+    --current;
     return *this;
   }
 
-  wrap_iterator operator--(int) { return wrap_iterator(_M_current--); }
+  wrap_iterator operator--(int) { return wrap_iterator(current--); }
 
-  reference operator[](const difference_type &n) const { return _M_current[n]; }
+  reference operator[](const difference_type &n) const { return current[n]; }
 
   wrap_iterator &operator+=(const difference_type &n) {
-    _M_current += n;
+    current += n;
     return *this;
   }
 
-  wrap_iterator operator+(const difference_type &n) const { return wrap_iterator(_M_current + n); }
+  wrap_iterator operator+(const difference_type &n) const { return wrap_iterator(current + n); }
 
   wrap_iterator &operator-=(const difference_type &n) {
-    _M_current -= n;
+    current -= n;
     return *this;
   }
 
-  wrap_iterator operator-(const difference_type &n) const { return wrap_iterator(_M_current - n); }
+  wrap_iterator operator-(const difference_type &n) const { return wrap_iterator(current - n); }
 
-  difference_type operator-(const wrap_iterator &i) const { return _M_current - i._M_current; }
+  difference_type operator-(const wrap_iterator &i) const { return current - i.current; }
 
-  iterator_type base() const { return _M_current; }
+  iterator_type base() const { return current; }
 };
 
 template <typename IteratorL, typename IteratorR>
@@ -141,7 +141,7 @@ wrap_iterator<Iterator> operator+(typename wrap_iterator<Iterator>::difference_t
 template <typename Iterator>
 class reverse_iterator {
  protected:
-  Iterator _M_current;
+  Iterator current;
 
  public:
   typedef Iterator iterator_type;
@@ -151,53 +151,53 @@ class reverse_iterator {
   typedef typename ft::iterator_traits<Iterator>::pointer pointer;
   typedef typename ft::iterator_traits<Iterator>::reference reference;
 
-  reverse_iterator() : _M_current(Iterator()) {}
+  reverse_iterator() : current(Iterator()) {}
 
-  explicit reverse_iterator(const Iterator &i) : _M_current(i) {}
+  explicit reverse_iterator(const Iterator &i) : current(i) {}
 
   template <typename Iter>
-  reverse_iterator(const reverse_iterator<Iter> &i) : _M_current(i.base()) {}
+  reverse_iterator(const reverse_iterator<Iter> &i) : current(i.base()) {}
 
   reference operator*() const {
-    Iterator tmp = _M_current;
+    Iterator tmp = current;
     return *--tmp;
   }
 
   pointer operator->() const { return &(operator*()); }
 
   reverse_iterator &operator++() {
-    --_M_current;
+    --current;
     return *this;
   }
 
-  reverse_iterator operator++(int) { return reverse_iterator(_M_current--); }
+  reverse_iterator operator++(int) { return reverse_iterator(current--); }
 
   reverse_iterator &operator--() {
-    ++_M_current;
+    ++current;
     return *this;
   }
 
-  reverse_iterator operator--(int) { return reverse_iterator(_M_current++); }
+  reverse_iterator operator--(int) { return reverse_iterator(current++); }
 
   reference operator[](const difference_type &n) const { return *(*this + n); }
 
   reverse_iterator &operator+=(const difference_type &n) {
-    _M_current -= n;
+    current -= n;
     return *this;
   }
 
-  reverse_iterator operator+(const difference_type &n) const { return reverse_iterator(_M_current - n); }
+  reverse_iterator operator+(const difference_type &n) const { return reverse_iterator(current - n); }
 
   reverse_iterator &operator-=(const difference_type &n) {
-    _M_current += n;
+    current += n;
     return *this;
   }
 
-  reverse_iterator operator-(const difference_type &n) const { return reverse_iterator(_M_current + n); }
+  reverse_iterator operator-(const difference_type &n) const { return reverse_iterator(current + n); }
 
-  difference_type operator-(const reverse_iterator &i) const { return i._M_current - _M_current; }
+  difference_type operator-(const reverse_iterator &i) const { return i.current - current; }
 
-  iterator_type base() const { return _M_current; }
+  iterator_type base() const { return current; }
 };
 
 template <typename IteratorL, typename IteratorR>
