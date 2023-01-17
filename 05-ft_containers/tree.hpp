@@ -320,37 +320,23 @@ Rb_tree_node<Value> *Rb_tree_rebalance_for_erase(Rb_tree_node<Value> *z, Rb_tree
 }
 
 template <class T, class Alloc>
-class Rb_tree_alloc_base {
+class Rb_tree_base {
  public:
-  typedef typename Alloc::template rebind<T>::other allocator_type;
+  typedef Alloc allocator_type;
+  typedef typename Alloc::template rebind<Rb_tree_node<T> >::other node_allocator_type;
+
   allocator_type get_allocator() const { return node_allocator; }
 
-  Rb_tree_alloc_base(const allocator_type &a) : node_allocator(a) {}
-
  protected:
-  typedef typename Alloc::template rebind<Rb_tree_node<T> >::other node_allocator_type;
   Rb_tree_node<T> *header;
   allocator_type value_allocator;
   node_allocator_type node_allocator;
 
   Rb_tree_node<T> *get_node() { return node_allocator.allocate(1); }
   void put_node(Rb_tree_node<T> *p) { node_allocator.deallocate(p, 1); }
-};
-
-template <class T, class Alloc>
-class Rb_tree_base : public Rb_tree_alloc_base<T, Alloc> {
- protected:
-  typedef Rb_tree_alloc_base<T, Alloc> Base;
-  typedef typename Base::allocator_type allocator_type;
-  typedef typename Base::node_allocator_type node_allocator_type;
-
-  using Base::get_node;
-  using Base::header;
-  using Base::put_node;
-  using Base::value_allocator;
 
  public:
-  Rb_tree_base(const allocator_type &a) : Base(a) { header = get_node(); }
+  Rb_tree_base(const allocator_type &a) { header = get_node(); }
   ~Rb_tree_base() { put_node(header); }
 };
 
