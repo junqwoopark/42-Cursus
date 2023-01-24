@@ -39,17 +39,130 @@ struct Rb_tree_node {
   }
 };
 
-template <class Value, class Ref, class Ptr>
+template <class Value>
 struct Rb_tree_iterator {
   typedef Value value_type;
-  typedef Ref reference;
-  typedef Ptr pointer;
-  typedef std::bidirectional_iterator_tag iterator_category;
+  typedef Value &reference;
+  typedef Value *pointer;
   typedef ptrdiff_t difference_type;
+
+  typedef std::bidirectional_iterator_tag iterator_category;
 
   typedef Rb_tree_node<Value> *link_type;
 
   link_type node;
+
+ public:
+  Rb_tree_iterator() {}
+  Rb_tree_iterator(link_type x) { node = x; }
+  Rb_tree_iterator(const Rb_tree_iterator<Value> &it) { node = it.node; }
+
+  reference operator*() const { return link_type(node)->value_field; }
+  pointer operator->() const { return &operator*(); }
+
+  Rb_tree_iterator &operator++() {
+    increment();
+    return *this;
+  }
+
+  Rb_tree_iterator operator++(int) {
+    Rb_tree_iterator tmp = *this;
+    increment();
+    return tmp;
+  }
+
+  Rb_tree_iterator &operator--() {
+    decrement();
+    return *this;
+  }
+
+  Rb_tree_iterator operator--(int) {
+    Rb_tree_iterator tmp = *this;
+    decrement();
+    return tmp;
+  }
+
+  bool operator==(const Rb_tree_iterator<Value> &x) const { return node == x.node; }
+  bool operator!=(const Rb_tree_iterator<Value> &x) const { return node != x.node; }
+
+ protected:
+  void increment() {
+    if (node->right != 0) {
+      node = node->right;
+      while (node->left != 0) node = node->left;
+    } else {
+      link_type y = node->parent;
+      while (node == y->right) {
+        node = y;
+        y = y->parent;
+      }
+      if (node->right != y) node = y;
+    }
+  }
+
+  void decrement() {
+    if (node->color == Rb_tree_red && node->parent->parent == node)
+      node = node->right;
+    else if (node->left != 0) {
+      link_type y = node->left;
+      while (y->right != 0) y = y->right;
+      node = y;
+    } else {
+      link_type y = node->parent;
+      while (node == y->left) {
+        node = y;
+        y = y->parent;
+      }
+      node = y;
+    }
+  }
+};
+
+template <class Value>
+struct Rb_tree_const_iterator {
+  typedef Value value_type;
+  typedef const Value &reference;
+  typedef const Value *pointer;
+  typedef ptrdiff_t difference_type;
+
+  typedef std::bidirectional_iterator_tag iterator_category;
+
+  typedef Rb_tree_node<Value> *link_type;
+
+  link_type node;
+
+  Rb_tree_const_iterator() {}
+  Rb_tree_const_iterator(link_type x) { node = x; }
+  Rb_tree_const_iterator(const Rb_tree_iterator<Value> &it) { node = it.node; }
+  Rb_tree_const_iterator(const Rb_tree_const_iterator<Value> &it) { node = it.node; }
+
+  reference operator*() const { return link_type(node)->value_field; }
+  pointer operator->() const { return &operator*(); }
+
+  Rb_tree_const_iterator &operator++() {
+    increment();
+    return *this;
+  }
+
+  Rb_tree_const_iterator operator++(int) {
+    Rb_tree_const_iterator tmp = *this;
+    increment();
+    return tmp;
+  }
+
+  Rb_tree_const_iterator &operator--() {
+    decrement();
+    return *this;
+  }
+
+  Rb_tree_const_iterator operator--(int) {
+    Rb_tree_const_iterator tmp = *this;
+    decrement();
+    return tmp;
+  }
+
+  bool operator==(const Rb_tree_const_iterator<Value> &x) const { return node == x.node; }
+  bool operator!=(const Rb_tree_const_iterator<Value> &x) const { return node != x.node; }
 
  private:
   void increment() {
@@ -82,47 +195,7 @@ struct Rb_tree_iterator {
       node = y;
     }
   }
-
- public:
-  Rb_tree_iterator() {}
-  Rb_tree_iterator(link_type x) { node = x; }
-  Rb_tree_iterator(const Rb_tree_iterator<Value, Value &, Value *> &it) { node = it.node; }
-
-  reference operator*() const { return link_type(node)->value_field; }
-  pointer operator->() const { return &operator*(); }
-
-  Rb_tree_iterator &operator++() {
-    increment();
-    return *this;
-  }
-
-  Rb_tree_iterator operator++(int) {
-    Rb_tree_iterator tmp = *this;
-    increment();
-    return tmp;
-  }
-
-  Rb_tree_iterator &operator--() {
-    decrement();
-    return *this;
-  }
-
-  Rb_tree_iterator operator--(int) {
-    Rb_tree_iterator tmp = *this;
-    decrement();
-    return tmp;
-  }
 };
-
-template <class Value, class Ref1, class Ptr1, class Ref2, class Ptr2>
-bool operator==(const Rb_tree_iterator<Value, Ref1, Ptr1> &x, const Rb_tree_iterator<Value, Ref2, Ptr2> &y) {
-  return x.node == y.node;
-}
-
-template <class Value, class Ref1, class Ptr1, class Ref2, class Ptr2>
-bool operator!=(const Rb_tree_iterator<Value, Ref1, Ptr1> &x, const Rb_tree_iterator<Value, Ref2, Ptr2> &y) {
-  return x.node != y.node;
-}
 
 template <class T, class Alloc>
 class Rb_tree_base {
@@ -219,8 +292,8 @@ class Rb_tree : protected Rb_tree_base<Value, Alloc> {
   static link_type maximum(link_type x) { return (link_type)Rb_tree_node<Value>::maximum(x); }
 
  public:
-  typedef Rb_tree_iterator<value_type, reference, pointer> iterator;
-  typedef Rb_tree_iterator<value_type, const_reference, const_pointer> const_iterator;
+  typedef Rb_tree_iterator<Value> iterator;
+  typedef Rb_tree_const_iterator<Value> const_iterator;
 
   typedef ft::reverse_iterator<iterator> reverse_iterator;
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
