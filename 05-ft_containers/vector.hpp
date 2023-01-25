@@ -20,7 +20,6 @@ template <class T, class Alloc = std::allocator<T> >
 class Vector_base {
  public:
   typedef Alloc allocator_type;
-  allocator_type get_allocator() const { return allocator; }
 
   Vector_base(const Alloc &) : start(0), finish(0), end_of_storage(0) {}
   Vector_base(size_t n, const Alloc &) : start(0), finish(0), end_of_storage(0) {
@@ -30,6 +29,8 @@ class Vector_base {
   }
 
   ~Vector_base() { deallocate(start, end_of_storage - start); }
+
+  // allocator_type get_allocator() const { return allocator; }
 
  protected:
   T *start;
@@ -52,6 +53,15 @@ class vector : protected Vector_base<T, Alloc> {
  private:
   typedef Vector_base<T, Alloc> _Base;
 
+  using _Base::allocate;
+  using _Base::allocator;
+  using _Base::construct;
+  using _Base::deallocate;
+  using _Base::destroy;
+  using _Base::end_of_storage;
+  using _Base::finish;
+  using _Base::start;
+
  public:
   typedef T value_type;
   typedef Alloc allocator_type;
@@ -66,16 +76,6 @@ class vector : protected Vector_base<T, Alloc> {
 
   typedef ft::reverse_iterator<iterator> reverse_iterator;
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
-
- protected:
-  using _Base::allocate;
-  using _Base::allocator;
-  using _Base::construct;
-  using _Base::deallocate;
-  using _Base::destroy;
-  using _Base::end_of_storage;
-  using _Base::finish;
-  using _Base::start;
 
  public:
   /*
@@ -122,9 +122,9 @@ class vector : protected Vector_base<T, Alloc> {
    */
   void assign(size_type n, const T &val) {
     if (n > capacity()) {
-      vector tmp(n, val, get_allocator());
+      vector tmp(n, val);
       tmp.swap(*this);
-    } else if (n > size()) {
+    } else if (n >= size()) {
       std::fill(begin(), end(), val);
       finish = std::uninitialized_fill_n(finish, n - size(), val);
     } else {
@@ -138,11 +138,8 @@ class vector : protected Vector_base<T, Alloc> {
     size_type len = std::distance(first, last);
 
     if (len > capacity()) {
-      pointer tmp = allocate_and_copy(len, first, last);
-      destroy(start, finish);
-      deallocate(start, end_of_storage - start);
-      start = tmp;
-      end_of_storage = finish = start + len;
+      vector tmp(first, last);
+      tmp.swap(*this);
     } else if (size() >= len) {
       iterator new_finish(std::copy(first, last, start));
       destroy(new_finish, end());
@@ -158,7 +155,7 @@ class vector : protected Vector_base<T, Alloc> {
   /*
    * get_allocator
    */
-  allocator_type get_allocator() const { return _Base::get_allocator(); }
+  allocator_type get_allocator() const { return allocator; }
 
   /*
    * iterators
@@ -200,11 +197,11 @@ class vector : protected Vector_base<T, Alloc> {
   const_reference operator[](size_type n) const { return *(begin() + n); }
 
   reference at(size_type n) {
-    range_check(n);
+    if (n >= this->size()) throw std::out_of_range("vector");
     return (*this)[n];
   }
   const_reference at(size_type n) const {
-    range_check(n);
+    if (n >= this->size()) throw std::out_of_range("vector");
     return (*this)[n];
   }
 
@@ -217,7 +214,7 @@ class vector : protected Vector_base<T, Alloc> {
    * modifiers
    */
   void push_back(const T &x) {
-    if (finish != end_of_storage) {
+    if (size() != capacity()) {
       construct(finish, x);
       ++finish;
     } else
@@ -231,7 +228,7 @@ class vector : protected Vector_base<T, Alloc> {
 
   iterator insert(iterator position, const T &x) {
     size_type n = position - begin();
-    if (finish != end_of_storage && position == end()) {
+    if (size() != capacity() && position == end()) {
       construct(finish, x);
       ++finish;
     } else
@@ -241,7 +238,7 @@ class vector : protected Vector_base<T, Alloc> {
 
   void insert(iterator position, size_type n, const T &x) {
     if (n != 0) {
-      if (size_type(end_of_storage - finish) >= n) {
+      if (capacity() - size() >= n) {
         const size_type elems_after = end() - position;
         iterator old_finish = end();
         if (elems_after > n) {
@@ -283,8 +280,7 @@ class vector : protected Vector_base<T, Alloc> {
   void insert(iterator position, InputIterator first, InputIterator last,
               typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = 0) {
     if (first != last) {
-      size_type n = 0;
-      n = std::distance(first, last);
+      size_type n = std::distance(first, last);
       if (size_type(end_of_storage - finish) >= n) {
         const size_type elems_after = end() - position;
         iterator old_finish(finish);
@@ -329,15 +325,12 @@ class vector : protected Vector_base<T, Alloc> {
     if (position + 1 != end()) std::copy(position + 1, end(), position);
     --finish;
     allocator.destroy(finish);
-
     return position;
   }
   iterator erase(iterator first, iterator last) {
-    if (first != last) {
-      if (last != end()) {
-        iterator i = std::copy(last, end(), first);
-        destroy(i, end());
-      }
+    if (first != last && last != end()) {
+      iterator i = std::copy(last, end(), first);
+      destroy(i, end());
     }
     finish = finish - (last - first);
     return first;
@@ -399,10 +392,6 @@ class vector : protected Vector_base<T, Alloc> {
       end_of_storage = new_start.base() + len;
     }
   };
-
-  void range_check(size_type n) const {
-    if (n >= this->size()) throw std::out_of_range("vector");
-  }
 };
 
 template <class T, class Alloc>
@@ -411,7 +400,7 @@ bool operator==(const vector<T, Alloc> &x, const vector<T, Alloc> &y) {
 }
 template <class T, class Alloc>
 bool operator<(const vector<T, Alloc> &x, const vector<T, Alloc> &y) {
-  return std::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());
+  return ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());
 }
 template <class T, class Alloc>
 bool operator!=(const vector<T, Alloc> &x, const vector<T, Alloc> &y) {
