@@ -38,7 +38,6 @@ struct iterator_traits<const T *> {
 /*
  * wrap_iterator
  */
-
 template <typename Iterator>
 class wrap_iterator {
  protected:
