@@ -1,17 +1,43 @@
 FROM debian:buster
 
-# Dockerfile 작성자
 LABEL MAINTAINER="junkpark@student.42seoul.kr"
 
-# image가 올라갔을 때 수행되는 명령어들
-# -y 옵션을 넣어서 무조건 설치가 가능하도록 한다.
-RUN \
-    apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y mariadb-server
+RUN apt-get update && \
+    apt-get install -y mariadb-server && \
+    mkdir /var/run/mysqld && \
+    chown -R mysql:mysql /var/run/mysqld
 
-EXPOSE 3306
+ENV MYSQL_ROOT_PASSWORD=junkpark
+ENV MYSQL_DATABASE=junkpark
+ENV MYSQL_USER=junkpark
+ENV MYSQL_PASSWORD=junkpark
 
-# 컨테이너가 생성 된 이후에 내부의 아파치 서버는 항상 실행중인 상태로 만들어준다.
-# apachectl을 foreground(즉, deamon)상태로 돌아가도록 한다.
-CMD ["apachectl", "-D", "FOREGROUND"]
+RUN apt-get install -y procps
+
+COPY ./tools/docker-entrypoint.sh /usr/local/bin/
+
+# CMD ["mysqld"]
+# Start the MariaDB server
+ENTRYPOINT [ "sh",  "/usr/local/bin/docker-entrypoint.sh" ]
+
+# # Start the MariaDB server
+# CMD ["mysqld"]
+
+# # Set the root password
+# RUN service mysql start && \
+#     mysql -uroot -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';"
+
+# # Create a new user
+# RUN service mysql start && \
+#     mysql -uroot -p${MYSQL_ROOT_PASSWORD} -e "CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';" && \
+#     mysql -uroot -p${MYSQL_ROOT_PASSWORD} -e "GRANT ALL PRIVILEGES ON *.* TO '${MYSQL_USER}'@'%';"
+
+
+
+# RUN echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}';" | mysql -uroot && \
+#     echo "CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';" | mysql -uroot -p${MYSQL_ROOT_PASSWORD} && \
+#     echo "GRANT ALL PRIVILEGES ON *.* TO '${MYSQL_USER}'@'%';" | mysql -uroot -p${MYSQL_ROOT_PASSWORD} && \
+#     echo "CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};" | mysql -u root --password=${MYSQL_ROOT_PASSWORD} && \
+#     echo "GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';" | mysql -u root --password=${MYSQL_ROOT_PASSWORD}
+
+
