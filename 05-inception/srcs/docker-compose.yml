@@ -1,0 +1,36 @@
+services:
+  nginx:
+    # container_name: nginx
+    build: ./requirements/nginx
+    restart: always
+    ports:
+      - 443:443
+    volumes:
+    - wordpress:/var/www/html
+  wordpress:
+    # container_name: wordpress
+    build: ./requirements/wordpress
+    restart: always
+    expose:
+      - 9000
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: junkpark
+      WORDPRESS_DB_PASSWORD: junkpark
+      WORDPRESS_DB_NAME: junkpark
+    volumes:
+      - wordpress:/var/www/html
+  # db:
+  #   image: mariadb
+  #   restart: always
+  #   environment:
+  #     MARIADB_ROOT_PASSWORD: junkpark
+  #     MARIADB_DATABASE: junkpark
+  #     MARIADB_USER: junkpark
+  #     MARIADB_PASSWORD: junkpark
+  #   volumes:
+  #     - db:/var/lib/mysql
+
+volumes:
+  wordpress:
+  # db:
