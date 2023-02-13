@@ -4,11 +4,17 @@ FROM debian:buster
 LABEL MAINTAINER="junkpark@student.42seoul.kr"
 
 RUN apt-get update && \
-    # apt-get install -y wordpress && \
-    apt-get install -y php7.3-fpm
+    apt-get install -y php7.3-fpm && \
+    apt-get install -y php-mysql && \
+    apt-get install -y wget
+
+RUN wget https://wordpress.org/latest.tar.gz && \
+    tar xzvf latest.tar.gz && \
+    mkdir -p /var/www/html && \
+    cp -r wordpress /var/www/html/ && \
+    chown -R www-data:www-data /var/www/html/wordpress
 
 COPY ./conf /etc/php/7.3/fpm/
-COPY ./phpinfo.php /var/www/html/
 
 RUN mkdir /run/php
 
