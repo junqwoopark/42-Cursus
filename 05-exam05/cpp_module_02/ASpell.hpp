@@ -17,9 +17,9 @@ public:
   std::string getName() const { return _name; }
   std::string getEffects() const { return _effects; }
 
-  virtual ASpell *clone() = 0;
+  virtual ASpell *clone() const = 0;
 
-  void launch(const ATarget &target) { target.getHitBySpell(*this); }
+  void launch(const ATarget &target) const;
 };
 
 #include "ATarget.hpp"

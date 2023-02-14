@@ -6,5 +6,5 @@ class Fwoosh : public ASpell {
 public:
   Fwoosh() : ASpell("Fwoosh", "fwooshed") {}
 
-  ASpell *clone() { return new Fwoosh(); }
+  ASpell *clone() const { return new Fwoosh(); }
 };

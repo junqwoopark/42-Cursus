@@ -14,7 +14,7 @@ public:
 
   const std::string &getType() const { return _type; }
 
-  virtual ATarget *clone() = 0;
+  virtual ATarget *clone() const = 0;
   void getHitBySpell(const ASpell &spell) const;
 };
 

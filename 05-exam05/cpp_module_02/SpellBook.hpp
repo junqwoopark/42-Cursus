@@ -8,7 +8,7 @@ class SpellBook {
 
 public:
   SpellBook() {}
-  ~SpellBook();
+  ~SpellBook() {}
 
   void learnSpell(ASpell *spell) { _spells[spell->getName()] = spell; }
   void forgetSpell(const std::string &spellName) { _spells.erase(spellName); }

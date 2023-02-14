@@ -14,7 +14,7 @@ public:
   }
   ~Warlock() { std::cout << _name << ": My job here is done!" << std::endl; }
 
-  void introduce() {
+  void introduce() const {
     std::cout << _name << ": I am " << _name << ", " << _title << "!"
               << std::endl;
   }

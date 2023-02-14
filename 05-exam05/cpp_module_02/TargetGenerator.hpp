@@ -7,8 +7,8 @@ class TargetGenerator {
   std::map<std::string, ATarget *> _targets;
 
 public:
-  TargetGenerator();
-  ~TargetGenerator();
+  TargetGenerator() {}
+  ~TargetGenerator() {}
 
   void learnTargetType(ATarget *target) {
     _targets[target->getType()] = target;

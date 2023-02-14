@@ -3,7 +3,8 @@
 #include "ASpell.hpp"
 
 class Polymorph : public ASpell {
+public:
   Polymorph() : ASpell("Polymorph", "turned into a critter") {}
 
-  ASpell *clone() { return new Polymorph(); }
+  ASpell *clone() const { return new Polymorph(); }
 };
