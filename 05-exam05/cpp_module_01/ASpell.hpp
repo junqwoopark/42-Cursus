@@ -19,7 +19,7 @@ public:
 
   virtual ASpell *clone() = 0;
 
-  void launch(const ATarget &target) { target.getHitBySpell(*this); }
+  void launch(const ATarget &target);
 };
 
 #include "ATarget.hpp"
