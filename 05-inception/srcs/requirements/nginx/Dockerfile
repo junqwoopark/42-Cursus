@@ -5,13 +5,11 @@ RUN apt-get update && \
     apt-get install -y nginx && \
     apt-get install -y openssl
 
-RUN mkdir /root/ssl
+COPY ./conf/default /etc/nginx/sites-available/
 
-RUN openssl req -x509 -days 30 -nodes -newkey rsa:2048 -subj "/C=KR/ST=Seoul/L=Seoul/O=42seoul/OU=Cadet/CN=localhost"\
-   -keyout /root/ssl/nginx-ssl.key -out /root/ssl/nginx-ssl.crt
+COPY ./tools/ssl-keygen.sh /tmp/ssl-keygen.sh
+RUN sh /tmp/ssl-keygen.sh
 
 EXPOSE 443
-
-COPY ./conf /etc/nginx/
 
 CMD ["nginx", "-g", "daemon off;"]
