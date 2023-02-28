@@ -7,13 +7,13 @@ RUN apt-get update && \
     apt-get install -y wget && \
     apt-get install -y sudo
 
-COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
-
-WORKDIR /var/www/html
-COPY ./tools/wordpress-setup.sh /tmp/wordpress-setup.sh
-
 RUN mkdir /run/php
+
+COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
+COPY ./tools/docker-entrypoint.sh /usr/local/bin/
+
+WORKDIR /var/www/html/
 
 EXPOSE 9000
 
-ENTRYPOINT [ "sh", "/tmp/wordpress-setup.sh" ]
+ENTRYPOINT [ "docker-entrypoint.sh" ]
