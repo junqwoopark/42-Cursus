@@ -7,8 +7,8 @@ RUN apt-get update && \
 
 COPY ./conf/default /etc/nginx/sites-available/
 
-COPY ./tools/ssl-keygen.sh /tmp/ssl-keygen.sh
-RUN sh /tmp/ssl-keygen.sh
+COPY ./tools/ssl-keygen.sh /usr/local/bin/
+RUN ssl-keygen.sh
 
 EXPOSE 443
 
