@@ -1,0 +1,50 @@
+services:
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    restart: always
+    ports:
+      - 443:443
+    volumes:
+      - wordpress:/var/www/html
+    depends_on:
+      - wordpress
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    restart: always
+    expose:
+      - 9000
+    env_file:
+      - ./.env
+    volumes:
+      - wordpress:/var/www/html
+    depends_on:
+      - mariadb
+      - ftp
+  ftp:
+    container_name: ftp
+    build: ./requirements/ftp
+    restart: always
+    expose:
+      - "20:20"
+      - "21:21"
+      - "21100-21110:21100-21110"
+    env_file:
+      - ./.env
+    volumes:
+      - wordpress:/home/vsftpd/ftp
+  mariadb:
+    container_name: mariadbs
+    build: ./requirements/mariadb
+    restart: always
+    expose:
+      - 3306:3306
+    env_file:
+      - ./.env
+    volumes:
+      - mariadb:/var/lib/mysql
+
+volumes:
+  wordpress:
+  mariadb:
