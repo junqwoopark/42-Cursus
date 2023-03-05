@@ -11,6 +11,7 @@ RUN mkdir /run/php
 
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 COPY ./tools/docker-entrypoint.sh /usr/local/bin/
+COPY ./tools/adminer.php /var/www/html/
 
 WORKDIR /var/www/html/
 
