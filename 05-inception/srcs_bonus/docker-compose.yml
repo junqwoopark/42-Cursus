@@ -32,6 +32,13 @@ services:
       - wordpress:/home
     depends_on:
       - wordpress
+  redis:
+    build: ./requirements/redis
+    restart: always
+    expose:
+      - 6379:6379
+    volumes:
+      - redis:/data
   mariadb:
     build: ./requirements/mariadb
     restart: always
@@ -45,3 +52,4 @@ services:
 volumes:
   wordpress:
   mariadb:
+  redis:
