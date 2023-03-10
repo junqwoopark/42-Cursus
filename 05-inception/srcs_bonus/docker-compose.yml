@@ -1,6 +1,7 @@
 services:
   nginx:
     build: ./requirements/nginx
+    image: nginx
     restart: always
     ports:
       - 443:443
@@ -10,6 +11,7 @@ services:
       - wordpress
   wordpress:
     build: ./requirements/wordpress
+    image: wordpress
     restart: always
     expose:
       - 9000
@@ -21,6 +23,7 @@ services:
       - mariadb
   ftp:
     build: ./requirements/ftp
+    image: ftp
     restart: always
     ports:
       - 20:20
@@ -34,12 +37,14 @@ services:
       - wordpress
   redis:
     build: ./requirements/redis
+    image: redis
     restart: always
     expose:
       - 6379:6379
     volumes:
       - redis:/data
   mariadb:
+    image: mariadb
     build: ./requirements/mariadb
     restart: always
     expose:
