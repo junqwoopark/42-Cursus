@@ -1,7 +1,7 @@
 services:
   nginx:
-    container_name: nginx
     build: ./requirements/nginx
+    image: nginx
     restart: always
     ports:
       - 443:443
@@ -10,8 +10,8 @@ services:
     depends_on:
       - wordpress
   wordpress:
-    container_name: wordpress
     build: ./requirements/wordpress
+    image: wordpress
     restart: always
     expose:
       - 9000
@@ -20,18 +20,18 @@ services:
     volumes:
       - wordpress:/var/www/html
     depends_on:
-      - db
-  db:
-    container_name: db
+      - mariadb
+  mariadb:
     build: ./requirements/mariadb
+    image: mariadb
     restart: always
     expose:
       - 3306:3306
     env_file:
       - ./.env
     volumes:
-      - db:/var/lib/mysql
+      - mariadb:/var/lib/mysql
 
 volumes:
   wordpress:
-  db:
+  mariadb:

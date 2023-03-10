@@ -10,7 +10,7 @@ if [ ! -f /var/www/html/index.php ]; then
   chmod +x wp-cli.phar
   mv wp-cli.phar /usr/local/bin/wp
   wp core download --allow-root
-  wp config create --dbname=$MYSQL_DATABASE --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD --dbhost=db --allow-root
+  p config create --dbname=$MYSQL_DATABASE --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD --dbhost=mariadb --allow-root
   wp core install --url=https://junkpark.42.fr --title="JunkPark" --admin_user=$WP_USER --admin_password=$WP_PASSWORD --admin_email=$WP_EMAIL --skip-email --allow-root
 fi
 
