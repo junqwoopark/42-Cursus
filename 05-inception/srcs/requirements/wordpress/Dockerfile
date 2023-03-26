@@ -11,6 +11,8 @@ RUN mkdir /run/php
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 COPY ./tools/docker-entrypoint.sh /usr/local/bin/
 
+WORKDIR /var/www/html
+
 EXPOSE 9000
 
 ENTRYPOINT [ "docker-entrypoint.sh" ]
