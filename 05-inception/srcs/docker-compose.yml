@@ -8,9 +8,7 @@ services:
     ports:
       - 443:443
     volumes:
-      - type: bind
-        source: /home/junkpark/data/wordpress
-        target: /var/www/html
+      - wordpress_data:/var/www/html
     depends_on:
       - wordpress
   wordpress:
@@ -24,9 +22,7 @@ services:
     env_file:
       - ./.env
     volumes:
-      - type: bind
-        source: /home/junkpark/data/wordpress
-        target: /var/www/html
+      - wordpress_data:/var/www/html
     depends_on:
       - mariadb
   mariadb:
@@ -40,10 +36,22 @@ services:
     env_file:
       - ./.env
     volumes:
-      - type: bind
-        source: /home/junkpark/data/mariadb
-        target: /var/lib/mysql
+      - mariadb_data:/var/lib/mysql
 
 networks:
   inception:
     driver: bridge
+
+volumes:
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/junkpark/data/wordpress
+      o: bind
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/junkpark/data/mariadb
+      o: bind
