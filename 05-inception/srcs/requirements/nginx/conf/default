@@ -32,7 +32,7 @@ server {
 
         root /var/www/html;
 
-        index index.php index.html index.htm;
+        index index.php index.html;
 
         location / {
                 autoindex on;
