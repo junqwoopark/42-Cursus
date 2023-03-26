@@ -2,36 +2,42 @@ services:
   nginx:
     build: ./requirements/nginx
     image: nginx
+    networks:
+      - inception
     restart: always
     ports:
       - 443:443
     volumes:
-      - wordpress:/var/www/html
+      - /home/junkpark/data/wordpress:/var/www/html:rw
     depends_on:
       - wordpress
   wordpress:
     build: ./requirements/wordpress
     image: wordpress
+    networks:
+      - inception
     restart: always
     expose:
       - 9000
     env_file:
       - ./.env
     volumes:
-      - wordpress:/var/www/html
+      - /home/junkpark/data/wordpress:/var/www/html:rw
     depends_on:
       - mariadb
   mariadb:
     build: ./requirements/mariadb
     image: mariadb
+    networks:
+      - inception
     restart: always
     expose:
       - 3306:3306
     env_file:
       - ./.env
     volumes:
-      - mariadb:/var/lib/mysql
+      - /home/junkpark/data/mariadb:/var/lib/mysql:rw
 
-volumes:
-  wordpress:
-  mariadb:
+networks:
+  inception:
+    driver: bridge
