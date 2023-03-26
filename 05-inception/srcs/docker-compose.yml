@@ -8,7 +8,9 @@ services:
     ports:
       - 443:443
     volumes:
-      - /home/junkpark/data/wordpress:/var/www/html:rw
+      - type: bind
+        source: /home/junkpark/data/wordpress
+        target: /var/www/html
     depends_on:
       - wordpress
   wordpress:
@@ -22,7 +24,9 @@ services:
     env_file:
       - ./.env
     volumes:
-      - /home/junkpark/data/wordpress:/var/www/html:rw
+      - type: bind
+        source: /home/junkpark/data/wordpress
+        target: /var/www/html
     depends_on:
       - mariadb
   mariadb:
@@ -32,11 +36,13 @@ services:
       - inception
     restart: always
     expose:
-      - 3306:3306
+      - 3306
     env_file:
       - ./.env
     volumes:
-      - /home/junkpark/data/mariadb:/var/lib/mysql:rw
+      - type: bind
+        source: /home/junkpark/data/mariadb
+        target: /var/lib/mysql
 
 networks:
   inception:
