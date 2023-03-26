@@ -3,7 +3,6 @@
 set -e
 
 if [ ! -f /var/www/html/index.php ]; then
-  mkdir -p /var/www/html
   chown -R www-data:www-data /var/www/html
 
   wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
