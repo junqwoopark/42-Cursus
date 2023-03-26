@@ -1,7 +1,7 @@
 services:
   nginx:
     build: ./requirements/nginx
-    image: nginx
+    image: nginx:42
     networks:
       - inception
     restart: always
@@ -13,7 +13,7 @@ services:
       - wordpress
   wordpress:
     build: ./requirements/wordpress
-    image: wordpress
+    image: wordpress:42
     networks:
       - inception
     restart: always
@@ -27,7 +27,7 @@ services:
       - mariadb
   mariadb:
     build: ./requirements/mariadb
-    image: mariadb
+    image: mariadb:42
     networks:
       - inception
     restart: always
