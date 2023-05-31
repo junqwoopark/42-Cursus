@@ -20,7 +20,6 @@
 #
 server {
         # SSL configuration
-        #
         listen 443 ssl;
         listen [::]:443 ssl;
 

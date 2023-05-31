@@ -8,20 +8,20 @@ setup:
 
 up: setup
 	@docker-compose -f ./srcs/docker-compose.yml up -d --build
-	@echo "Waiting for containers to start..."
+	@echo "Containers started."
 
 down:
 	@docker-compose -f ./srcs/docker-compose.yml down
 	@echo "Containers stopped."
 
 clean:
-	@docker compose -f ./srcs/docker-compose.yml down --rmi all --volumes
+	@docker-compose -f ./srcs/docker-compose.yml down --rmi all --volumes
 	@echo "Containers stopped and images removed."
 
 fclean: clean
 	@sudo rm -rf /home/junkpark/data
 	@sudo sed -i '/junkpark.42.fr/d' /etc/hosts
-	@echo "Data removed."
+	@echo "Data directory removed."
 
 re:
 	make fclean
