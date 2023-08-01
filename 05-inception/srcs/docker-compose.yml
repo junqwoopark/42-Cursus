@@ -42,16 +42,16 @@ networks:
   inception:
     driver: bridge
 
-# volumes:
-#   wordpress_data:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       device: /home/junkpark/data/wordpress
-#       o: bind
-  # mariadb_data:
-  #   driver: local
-  #   driver_opts:
-  #     type: none
-  #     device: /home/junkpark/data/mariadb
-  #     o: bind
+volumes:
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/junkpark/data/wordpress
+      o: bind
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/junkpark/data/mariadb
+      o: bind
