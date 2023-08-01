@@ -2,7 +2,7 @@
 
 set -e
 
-service mysql start
+service mariadb start
 
 if [ ! -e /var/lib/mysql/$MYSQL_DATABASE ]; then
 	mysql -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE";

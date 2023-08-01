@@ -14,4 +14,4 @@ if [ ! -f /var/www/html/index.php ]; then
   wp user create $WP_USER $WP_USER_EMAIL --user_pass=$WP_USER_PASSWORD --role=author --allow-root
 fi
 
-exec "php-fpm7.3" "-F"
+exec "php-fpm7.4" "-F"

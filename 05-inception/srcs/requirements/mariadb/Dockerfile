@@ -10,4 +10,4 @@ COPY	./tools/docker-entrypoint.sh /usr/local/bin/
 
 EXPOSE 3306
 
-ENTRYPOINT [ "docker-entrypoint.sh" ]
+ENTRYPOINT ["docker-entrypoint.sh"]
