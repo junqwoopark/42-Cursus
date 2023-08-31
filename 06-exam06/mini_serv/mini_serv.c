@@ -100,8 +100,8 @@ int main(int argc, char **argv) {
     }
 
     for (int fd = 0; fd <= max_fd; fd++) {
-      if (FD_ISSET(fd, &read_fds)) {
-        if (fd == sockfd) {
+      if (FD_ISSET(fd, &read_fds)) { // read할 수 있는 fd
+        if (fd == sockfd) {          // server socket인 경우
 
           // accept_client();
           connfd = accept(sockfd, NULL, NULL);
@@ -117,10 +117,10 @@ int main(int argc, char **argv) {
           sprintf(write_buf, "server: client %d just arrived\n",
                   client_ids[connfd]);
           send_to_all(write_buf, connfd);
-        } else {
+        } else { // client socket인 경우
           read_buf = calloc(1, BUFFER_SIZE);
 
-          if (recv(fd, read_buf, BUFFER_SIZE, 0) <= 0) {
+          if (recv(fd, read_buf, BUFFER_SIZE, 0) <= 0) { // client가 나간 경우
             // disconnect_client();
             FD_CLR(fd, &all_fds);
             FD_CLR(fd, &read_fds);
@@ -129,7 +129,7 @@ int main(int argc, char **argv) {
 
             sprintf(write_buf, "server: client %d just left\n", client_ids[fd]);
             send_to_all(write_buf, fd);
-          } else {
+          } else { // client가 메시지를 보낸 경우
             // send_message(read_buf);
             char *msg = NULL;
             while (extract_message(&read_buf, &msg)) {
