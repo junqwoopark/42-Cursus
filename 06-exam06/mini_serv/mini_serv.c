@@ -32,8 +32,8 @@ int extract_message(char **buf, char **msg) {
   while ((*buf)[i]) {
     if ((*buf)[i] == '\n') {
       newbuf = calloc(1, sizeof(*newbuf) * (strlen(*buf + i + 1) + 1));
-      if (newbuf == 0)
-        return (-1);
+      // if (newbuf == 0)
+        // return (-1);
       strcpy(newbuf, *buf + i + 1);
       *msg = *buf;
       (*msg)[i + 1] = 0;
